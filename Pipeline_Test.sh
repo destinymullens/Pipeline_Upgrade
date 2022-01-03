@@ -90,7 +90,7 @@ until [[ "$verify" = "1" ]]; do
 ## Get file location
 	verify="0"
 	until [[ "$verify" = "1" ]]; do ./top_banner.sh
-		read -p "Where are your files located? " file_location
+		read -p "Where are your files located? (Note: Please use /home/username instead of ~/ if files are located in your home directory.) " file_location
 		echo " "
 		find $file_location -type f -printf '%f\n'
 		echo " "; echo "Are these the correct files?"; echo "1. Yes"; echo "2. No"
@@ -208,8 +208,8 @@ fi
 
 ## Run quality script on trimmed files as needed
 
-if [[ "$trim_num" = "1" ]]; then 
-else echo "Beginning QC Report for trimmed files."
+if [[ "$trim_num" = "1" ]]; then
+	echo "Beginning QC Report for trimmed files."
 	qc_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
 	qc_dir_out="$SAVE_LOC/$project_name/qc_reports/$trim_type"
 	./qc_run.sh

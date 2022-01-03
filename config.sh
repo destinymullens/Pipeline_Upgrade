@@ -1,4 +1,5 @@
 #!/bin/bash
+## Git Test
 
 ## These are the variables that are the same across all of the various scripts in the pipeline. 
 ## Change necessary locations for program installtions, reference locations & threads available
