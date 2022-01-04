@@ -11,13 +11,13 @@ FASTQC="/opt/programs/bin/FastQC/fastqc"
 STAR="/opt/programs/bin/STAR-2.6.0a/bin/Linux_x86_64/STAR"
 BOWTIE="/usr/bin/bowtie2" #When installed using apt-get install it is located here.
 HTSEQ_LOC="/usr/bin/htseq-count"
-UMI_TOOLS="$HOME/.local/bin/umi_tools"
+UMI_TOOLS="/usr/local/bin/umi_tools"
 CUTADAPT="$HOME/.local/bin/cutadapt"
 SAMTOOLS="/usr/bin/samtools"
 
 #The following variable is for the parent folder that the reference genomes are saved in.
 REF_LOC="/mnt/datab/refs"
 #The following variable is for the parent folder that projects are saved in.
-SAVE_LOC="/mnt/datab"
+SAVE_LOC="/mnt/datab/Pipeline_Test"
 #The following variable is for the number of threads available on the computer you are using.
 THREADS=30
