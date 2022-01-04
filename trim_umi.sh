@@ -12,14 +12,14 @@ mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/final_trim
 trim_dir_in="$SAVE_LOC/$project_name/concat"
 trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/barcodes_removed"
 trim_final_dir="$SAVE_LOC/$project_name/trimmed_files/$trim_type/final_trim"
-
+trim_log="$SAVE_LOC/$project_name/trimmed_files/$trim_type/barcodes_removed/logfiles"
 SAMPLES=$(find $trim_dir_in -type f -printf '%f\n')
 
 for s in $SAMPLES; do
 	logfile="$s.processed.log"
 	stoutfile="$s.processed.fastq.gz"
 	echo "Extracting UMI's from $s."
-	$UMI_TOOLS extract --bc-pattern=NNNNNN -I $trim_dir_in/$s --log $trim_dir_out/logfiles/$logfile -S $trim_dir_out/$stoutfile
+	$UMI_TOOLS extract --bc-pattern=NNNNNN -I $trim_dir_in/$s --log $trim_log/$logfile -S $trim_dir_out/$stoutfile
 	echo "Extracting UMI's from $s is now complete."
 done
 
