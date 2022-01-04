@@ -10,7 +10,7 @@ OUT="$SAVE_LOC/$project_name/concat"
 mkdir -p $OUT
 
 for s in $SAMPLES; do 
-	NEW=$OUT/$s.fastq.bz2
+	NEW=$OUT/$s.fastq.gz
     if [[ ! -s $NEW ]]; then
         FILES=$(find $file_location -iname "$s"*.gz)
         echo "For sample $s, concatenating input files:"
@@ -18,8 +18,9 @@ for s in $SAMPLES; do
             echo $f
         done
             echo "into new file: $NEW"; echo ""
-            zcat $FILES | lbzip2 > $NEW
-            echo "... Done."; echo ""; echo ""
+#           zcat $FILES | lbzip2 > $NEW
+    	   zcat $FILES | gzip > $NEW
+           echo "... Done."; echo ""; echo ""
     fi
 done
 
