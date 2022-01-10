@@ -50,7 +50,7 @@ verify="0"
 			if [[ "$exfoliome_map_option" == "1" ]]; then data_type="exfoliome with testing"
 				echo "You have chosen to test parameters for exfoliome data. Is this correct?"; echo "1. Yes"; echo "2. No" 
 				read -p "> " verify
-			elif [[ "$exfoliome_map_option" == "2" ]]; then data_type="exfoliome with default values"
+			elif [[ "$exfoliome_map_option" == "2" ]]; then data_type="exfoliome with default values" exfoliome_map_option="D0-F0"
 				echo "You have chosen to map exfoliome data with default parameters. 
 				Is this correct?"; echo "1. Yes"; echo "2. No" 
 				read -p "> "verify
@@ -233,20 +233,23 @@ fi
 
 echo "Beginning mapping of files."
 if [[ "$data_type_num" = "1" ]]; then 
-	if [[ "$strand_num" = "1" ]]; then ./map_SE_biopsy.sh
-		else ./map_PE_biopsy.sh
+	if [[ "$strand_num" = "1" ]]; then 
+		./map_SE_biopsy.sh
+	else ./map_PE_biopsy.sh
 	fi
 elif [[ "$data_type" = "exfliome with testing" ]]; then
-	if [[ "$strand_num" = "1" ]]; then ./map_SE_exfoliome_test.sh
+	if [[ "$strand_num" = "1" ]]; then 
+	./map_test_exfoliome.sh
+	./map_exfoliome.sh
 		else ./map_PE_exfoliome_test.sh
 	fi
 elif [[ "$data_type" = "exfoliome with default values" ]]; then
-	if [[ "$strand_num" = "1" ]]; then ./map_SE_exfoliome.sh
+	if [[ "$strand_num" = "1" ]]; then ./map_exfoliome.sh
 		else ./map_PE_exfoliome.sh
 	fi
 else 
-	if [[ "$strand_num" = "1" ]]; then ./map_SE_exfoliome.sh
-		else ./map_PE_exfoliome.sh
+	if [[ "$strand_num" = "1" ]]; then ./map_exfoliome.sh
+		else ./map_exfoliome.sh
 	fi
 
 fi
