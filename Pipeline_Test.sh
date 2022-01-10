@@ -236,11 +236,11 @@ if [[ "$data_type_num" = "1" ]]; then
 	if [[ "$strand_num" = "1" ]]; then ./map_SE_biopsy.sh
 		else ./map_PE_biopsy.sh
 	fi
-elif [[ "$data_type" = "exfliome with testing" ]]; 
+elif [[ "$data_type" = "exfliome with testing" ]]; then
 	if [[ "$strand_num" = "1" ]]; then ./map_SE_exfoliome_test.sh
 		else ./map_PE_exfoliome_test.sh
 	fi
-elif [[ "$data_type" = "exfoliome with default values" ]]; 
+elif [[ "$data_type" = "exfoliome with default values" ]]; then
 	if [[ "$strand_num" = "1" ]]; then ./map_SE_exfoliome.sh
 		else ./map_PE_exfoliome.sh
 	fi
