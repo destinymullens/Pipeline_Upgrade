@@ -56,11 +56,11 @@ for t in $test_mappings; do
 	done
 
 ## Cut info from each log file for comparision to see which is the best mapping option
-TOTAL_READS=$(cat test_map_logs/$FILE-$MAPPING-Results.log | head -5 | tail -1 | cut -c 1-9)
-SINGLE_MAPPED_READS=$(cat test_map_logs/$FILE-$MAPPING-Results.log | head -8 | tail -1 | cut -c 5-12)
-UNMAPPED_READS=$(cat test_map_logs/$FILE-$MAPPING-Results.log | head -7 | tail -1 | cut -c 5-12)
-MULTI_MAP_READS=$(cat test_map_logs/$FILE-$MAPPING-Results.log | head -9 | tail -1 | cut -c 5-12)
-ALIGNMENT_RATE=$(cat test_map_logs/$FILE-$MAPPING-Results.log | head -10 | tail -1 | cut -c 1-6)
+TOTAL_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -5 | tail -1 | cut -c 1-9)
+SINGLE_MAPPED_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -8 | tail -1 | cut -c 5-12)
+UNMAPPED_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -7 | tail -1 | cut -c 5-12)
+MULTI_MAP_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -9 | tail -1 | cut -c 5-12)
+ALIGNMENT_RATE=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -10 | tail -1 | cut -c 1-6)
 
 printf "%s\t" "$FILE" >> $SUMMARY ## Print sample name to summary
 printf "%s\t" "$MAPPING" >> $SUMMARY ## Print mapping to summary
