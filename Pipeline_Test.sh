@@ -40,6 +40,23 @@ until [[ "$verify" = "1" ]]; do
 		read -p "> " verify
 	done
 
+	if [[ "$data_type_num" = "2" ]]; then
+		verify="0"
+		until [[ "$verify" = "1" ]]; do 
+		echo "Would you like to test parameters for exfoliome data?"; echo "1. Yes, I would like to test parameters.";
+		echo "2. No, please map with default paramters.";
+		echo "3. No, I already know my testing paremters." read -p "> " exfoliome_map_option
+			
+			if [[ "$exfoliome_map_option" == "1" ]]; then data_type="exfoliome with testing"
+				echo "You have chosen to test parameters for exfoliome data. Is this correct?"; echo "1. Yes"; echo "2. No" read -p "> " verify
+			elif [[ "$exfoliome_map_option" == "2" ]]; then data_type="exfoliome with default values"
+				echo "You have chosen to map exfoliome data with default parameters. Is this correct?"; echo "1. Yes"; echo "2. No" read -p "> "verify
+			else data_type="exfoliome with preset values" echo "Please enter preset mapping options:  " read -p "> " exfoliome_mapping_paramter
+				echo "You have given $exfoliome_mapping_paramter for presets for mapping your exfoliome data. Is this correct?"; echo "1. Yes"; echo "2. No" read -p "> " verify
+			fi
+		done
+
+
 ## Input species and set htseq type (gene_id or gene_name)
 ## Updated pre-programmed genomes (human,mouse,pig,horse,rat) that have been updated and
 ## are now in a folder with a new name should be updated in the corresponding species_location line
@@ -49,38 +66,33 @@ until [[ "$verify" = "1" ]]; do
 		echo "1. Human"; echo "2. Mouse"; echo "3. Pig"; echo "4. Horse"; echo "5. Rat"; echo "6. Other"
 		read -p "> " species_type
 		if [[ "$species_type" = "1" ]]; then species_location="$REF_LOC/GRCh38.94-human"
-			htseq_type="gene_name"; species="human"; htseq_num="1"
+			species="human"; htseq_num="1"
 			echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
 		elif [[ "$species_type" = "2" ]]; then species_location="$REF_LOC/GRCm38.94-mouse"
-				htseq_type="gene_name"; species="mouse"; htseq_num="1"
-				echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
-				read -p "> " verify
+			species="mouse"; htseq_num="1"
+			echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
+			read -p "> " verify
 		elif [[ "$species_type" = "3" ]]; then species_location="$REF_LOC/pig"
-				htseq_type="gene_id"; species="pig"; htseq_num="2"
-				echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
-				read -p "> " verify
+			species="pig"; htseq_num="2"
+			echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
+			read -p "> " verify
 		elif [[ "$species_type" = "4" ]]; then species_location="$REF_LOC/Equus_caballus"
-				htseq_type="gene_id"; species="horse"; htseq_num="2"
-				echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
-				read -p "> " verify
+			species="horse"; htseq_num="2"
+			echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
+			read -p "> " verify
 		elif [[ "$species_type" = "5" ]]; then species_location="$REF_LOC/Rnor6.0"
-				htseq_type="gene_id"; species="rat"; htseq_num="2"
-				echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
-				read -p "> " verify
+			species="rat"; htseq_num="2"
+			echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
+			read -p "> " verify
 		elif [[ "$species_type" = "6" ]]; then
 				echo ""
 				read -p "Please enter the species you will be using: " species
 				read -p "Please enter the name of the genome folder located at $REF_LOC/ " species_new
 				species_location="$REF_LOC/$species_new"
-				echo ""; echo "Does the annotation file use gene_id or gene_name?"; echo "1. gene_id"; echo "2. gene_name"
-				read -p "> " htseq_num
-					if [[ "$htseq_num" = "1" ]]; then htseq_type="gene_id"
-					elif [[ "$htseq_num" = "2" ]]; then htseq_type="gene_name"
-					else echo "Your input is not one of the options, please try again."
-					fi
+				
 				echo ""
-				echo "The location for $species reference is $species_location and the annotation file uses $htseq_type."
+				echo "The location for $species reference is $species_location."
 				echo "Is this correct?"; echo "1. Yes"; echo "2. No"
 				read -p "> " verify
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
@@ -129,16 +141,21 @@ until [[ "$verify" = "1" ]]; do
 		read -p "> " trim_num
 		if [[ "$trim_num" = "1" ]]; then trim_type="untrimmed"
 			trim_disp="You do not need to trim your data."
+			mapfiles="$SAVE_LOC/$project_name/concat"
 		elif [[ "$trim_num" = "2" ]]; then trim_type="quality_trim"
-                read -p "Please enter the quality score you would like to use: " trim_quality_num
-                trim_disp="You need to trim your data using a quality score of $trim_quality_num."
-        elif [[ "$trim_num" = "3" ]]; then trim_type="base_trim"
-            	read -p "Please enter the number of bases you would like to trim: " trim_base_num
-            	trim_disp="You would like to trim $trim_base_num bases from your data."
-        elif [[ "$trim_num" = "4" ]]; then trim_type="umi_trim"
-                trim_disp="You need to trim your data using UMI's."
-        else  echo "Your input is not one of the options, please try again."; sleep 3; continue
-        fi
+                	read -p "Please enter the quality score you would like to use: " trim_quality_num
+                	trim_disp="You need to trim your data using a quality score of $trim_quality_num."
+			mapfiles="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
+        	elif [[ "$trim_num" = "3" ]]; then trim_type="base_trim"
+            		read -p "Please enter the number of bases you would like to trim: " trim_base_num
+            		trim_disp="You would like to trim $trim_base_num bases from your data."
+            		mapfiles="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
+            	elif [[ "$trim_num" = "4" ]]; then trim_type="umi_trim"
+                	trim_disp="You need to trim your data using UMI's."
+                	mapfiles="$SAVE_LOC/$project_name/trimmed_files/$trim_type/final_trim"
+                else  echo "Your input is not one of the options, please try again."; sleep 3; continue
+        	fi
+	  	
 	  	echo ""; echo "$trim_disp Is this correct?"; echo "1. Yes"; echo "2. No"
 		read -p "> " verify
 	done
@@ -159,12 +176,8 @@ until [[ "$verify" = "1" ]]; do
 done
 
 mkdir="SAVE_LOC/$project_name"
-
 outputfile="$project_name-stout.txt"
 outputerr="$project_name=err.txt"
-
-#command 2> | tee $SAVE_LOC/$project_name/$outputfile $SAVE_LOC/$project_num/$outputerr
-
 mkdir="$SAVE_LOC/$project_name/concat"
 mkdir="$SAVE_LOC/$project_name/mapping"
 mkdir="$SAVE_LOC/$project_name/summary"
@@ -195,45 +208,49 @@ echo ""
 
 if [[ "$trim_num" = "1" ]]; then
 	echo "No trimming needed, beginning mapping of files!"
+	mapfiles=$SAVE_LOC/$project_name/concat"
 elif [[ "$trim_num" = "2" ]]; then
 	echo "Beginning trimming of files!"
 	./trim_quality.sh
+	mapfiles="$SAVE_LOC/$project_name/$trim_type"
+	./secondary_scripts/qc_second_run.sh
 elif [[ "$trim_num" = "3" ]]; then
 	echo "Beginning trimming of files!"
 	./trim_base.sh
+	mapfiles="$SAVE_LOC/$project_name/$trim_type"
+	./secondary_scripts/qc_second_run
 else
 	echo "Beginning trimming of files!"
 	./trim_umi.sh
+	mapfiles="$SAVE_LOC/$project_name/$trim_type/final_trim"
 fi
 
-## Run quality script on trimmed files as needed
-
-#if [[ "$trim_num" = "1" ]]; then
-#	echo "Beginning QC Report for trimmed files."
-#	qc_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
-#	qc_dir_out="$SAVE_LOC/$project_name/qc_reports/$trim_type"
-#	./qc_run.sh
-#fi
-
-## Indicate where file are for mapping
-if [[ "$trim_num" = "1" ]]; then
-	mapfiles="$SAVE_LOC/$project_name/concat"
-	echo "Files for mapping are located at: $mapfiles"
-else mapfiles="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
-	echo "Files for mapping are located at: $mapfiles"
-fi
 
 if [[ "$data_type_num" = "1" ]]; then echo "Beginning mapping of files."
 		if [[ "$strand_num" = "1" ]]; then ./map_SE_biopsy.sh
 		else ./map_PE_biopsy.sh
 		fi
+	
 	else
 		echo "Beginning mapping of files."
-		if [[ "$strand_num" = "1" ]]; then ./map_SE_exfoliome.sh
-		else ./map_PE_exfoliome.sh
+		if [[ "$strand_num" = "1" ]]; 
+			if [[ "$data_type" = "exfliome with testing" ]]; then ./map_SE_exfoliome
+				elif [[ "$data_type" = "exfoliome with default values" ]] then ./map_SE_exfoliome
+				else [[ "$data_type" = "exfoliome with preset values" ]] then ./map_SE_exfoliome
+			fi
+		
+		else
+			if [[ "$data_type" = "exfliome with testing" ]]; then ./map_SE_exfoliome
+			elif [[ "$data_type" = "exfoliome with default values" ]]; then ./map_SE_exfoliome
+			else [[ "$data_type" = "exfoliome with preset values" ]]; then ./map_SE_exfoliome
+			fi
+
+
 		fi
 fi
 
 
+./htseq.sh
+./summary.sh 	
 
 echo "All mapping is completed for $project_name! Your files are located at $SAVE_LOC/$project_name."
