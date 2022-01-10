@@ -14,65 +14,63 @@ test_map_logs="$SAVE_LOC/$project_name/test_mapping/logs"
 
 
 test_mappings=$(ls $mapfiles | shuf -n 3)
+SUMMARY="$test_map_logs/Test_mapping_results.txt"
 
-echo -n "Test mappings are: $test_mappings"
-echo -n " "
-echo -n " "
+printf "%s\n" "Test mappings are: $test_mappings"
+
 ##### RUN BOWTIE2 #########
 
 
 for t in $test_mappings; do
 
-FILE=$(basename $t)
+	FILE=$(basename $t)
 
-A=0
-B=0
+	A=0
+	B=0
 
-mp_options=(6 8 4 2 10)
-ma_options=(2 1 4 6 8)
+	## Additional options can be added for the -mp and -ma mappings if preferred, but the number of loops needs to be changed if other options are added
+	mp_options=(6 4 2)
+	ma_options=(2 6 8)
 
-while [ $A -lt 5 ]
-do
-mp=$(echo ${mp_options[A]})
-
-	while [ $B -lt 5 ]
+	## The number of loops here (3) should be the same as the number of options being tested.
+	while [ $A -lt 3 ]
 	do
-	ma=$(echo ${ma_options[B]})
-	MAPPING="D$A-F$B"
+	mp=$(echo ${mp_options[A]})
+		
+		## The number of loops here (3) should be the same as the number of options being tested.
+		while [ $B -lt 3 ]
+		do
+		ma=$(echo ${ma_options[B]})
+	
+		## This designates mapping "D" for the first option (mp) and option "F" for the second option (ma)
+		## The options will be 0, 1 & 2 for the 3 options given above for each parameter
+		MAPPING="D$A-F$B"
 
-	echo -n "Test mapping of $FILE with $MAPPING mapping options beginning..."
-	echo -n "  "
-	$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -U $mapfiles/$t --mp $mp --ma $ma --local --time -S $test_map_out/$FILE-$MAPPING.sam 2> $test_map_logs/$FILE-$MAPPING-Results.log
+		printf "%s\n" "Test mapping of $FILE with $MAPPING mapping options beginning..."
 
-	echo -n "Test mapping of $FILE with $MAPPING mapping options finished."
-	echo -n "  "
-	B=$((B+1))
-        done
+		$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -U $mapfiles/$t --mp $mp --ma $ma --local --time -S $test_map_out/$FILE-$MAPPING.sam 2> $test_map_logs/$FILE-$MAPPING-Results.log
 
+		printf "%s\n" "Test mapping of $FILE with $MAPPING mapping options finished."
+
+		B=$((B+1))
+	done
+
+## Cut info from each log file for comparision to see which is the best mapping option
+TOTAL_READS=$(cat $i | head -5 | tail -1 | cut -c 1-9)
+SINGLE_MAPPED_READS=$(cat $i | head -8 | tail -1 | cut -c 5-12)
+UNMAPPED_READS=$(cat $i | head -7 | tail -1 | cut -c 5-12)
+MULTI_MAP_READS=$(cat $i | head -9 | tail -1 | cut -c 5-12)
+ALIGNMENT_RATE=$(cat $i | head -10 | tail -1 | cut -c 1-6)
+
+printf "%s\t" "$FILE" >> $SUMMARY ## Print sample name to summary
+printf "%s\t" "$MAPPING" >> $SUMMARY ## Print mapping to summary
+printf "%s\t" "$TOTAL_READS" >> $SUMMARY ## Print Total reads to summary
+printf "%s\t" "$SINGLE_MAPPED_READS" >> $SUMMARY ## Print single mapped reads to summary
+printf "%s\t" "$UNMAPPED_READS" >> $SUMMARY ## Print unmapped reads to summary 
+printf "%s\t" "$MULTI_MAP_READS" >> $SUMMARY ## Print multimapped reads to summary
+printf "%s\n" "$ALIGNMENT_RATE" >> $SUMMARY ## Print alignment rate to summary
 
 A=$((A+1))
 B=0
 done
-done
-
-TEST_RESULTS="$(ls $test_map_logs/*.log)"
-SUMMARY="$test_map_logs/Test_mapping_results.txt"
-
-for i in $TEST_RESULTS; do
-
-	SAMPLE=$(basename $i)
-	TOTAL_READS=$(cat $i | head -1 | cut -c 1-8)
-	SINGLE_MAPPED_READS=$(cat $i | head -4 | tail -1 | cut -c 5-12)
-	UNMAPPED_READS=$(cat $i | head -3 | tail -1 | cut -c 5-12)
-	MULTI_MAP_READS=$(cat $i | head -5 | tail -1 | cut -c 5-12)
-	ALIGNMENT_RATE=$(cat $i | head -6 | tail -1 | cut -c 1-6)
-
-	printf "%s\t" "$SAMPLE" >> $SUMMARY
-	printf "%s\t" "$MAPPING" >> $SUMMARY
-	printf "%s\t" "$TOTAL_READS" >> $SUMMARY
-	printf "%s\t" "$SINGLE_MAPPED_READS" >> $SUMMARY
-	printf "%s\t" "$UNMAPPED_READS" >> $SUMMARY
-	printf "%s\t" "$MULTI_MAP_READS" >> $SUMMARY
-	printf "%s\n" "$ALIGNMENT_RATE" >> $SUMMARY
-
 done
