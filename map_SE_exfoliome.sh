@@ -51,24 +51,25 @@ for t in $test_mappings; do
 		$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -U $mapfiles/$t --mp $mp --ma $ma --local --time -S $test_map_out/$FILE-$MAPPING.sam 2> $test_map_logs/$FILE-$MAPPING-Results.log
 
 		printf "%s\n" "Test mapping of $FILE with $MAPPING mapping options finished."
+		
+		## Cut info from each log file for comparision to see which is the best mapping option
+		TOTAL_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -5 | tail -1 | cut -c 1-9)
+		SINGLE_MAPPED_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -8 | tail -1 | cut -c 5-12)
+		UNMAPPED_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -7 | tail -1 | cut -c 5-12)
+		MULTI_MAP_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -9 | tail -1 | cut -c 5-12)
+		ALIGNMENT_RATE=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -10 | tail -1 | cut -c 1-6)
+
+		printf "%s\t" "$FILE" >> $SUMMARY ## Print sample name to summary	
+		printf "%s\t" "$MAPPING" >> $SUMMARY ## Print mapping to summary
+		printf "%s\t" "$TOTAL_READS" >> $SUMMARY ## Print Total reads to summary
+		printf "%s\t" "$SINGLE_MAPPED_READS" >> $SUMMARY ## Print single mapped reads to summary
+		printf "%s\t" "$UNMAPPED_READS" >> $SUMMARY ## Print unmapped reads to summary 
+		printf "%s\t" "$MULTI_MAP_READS" >> $SUMMARY ## Print multimapped reads to summary
+		printf "%s\n" "$ALIGNMENT_RATE" >> $SUMMARY ## Print alignment rate to summary
 
 		B=$((B+1))
 	done
 
-## Cut info from each log file for comparision to see which is the best mapping option
-TOTAL_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -5 | tail -1 | cut -c 1-9)
-SINGLE_MAPPED_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -8 | tail -1 | cut -c 5-12)
-UNMAPPED_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -7 | tail -1 | cut -c 5-12)
-MULTI_MAP_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -9 | tail -1 | cut -c 5-12)
-ALIGNMENT_RATE=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -10 | tail -1 | cut -c 1-6)
-
-printf "%s\t" "$FILE" >> $SUMMARY ## Print sample name to summary
-printf "%s\t" "$MAPPING" >> $SUMMARY ## Print mapping to summary
-printf "%s\t" "$TOTAL_READS" >> $SUMMARY ## Print Total reads to summary
-printf "%s\t" "$SINGLE_MAPPED_READS" >> $SUMMARY ## Print single mapped reads to summary
-printf "%s\t" "$UNMAPPED_READS" >> $SUMMARY ## Print unmapped reads to summary 
-printf "%s\t" "$MULTI_MAP_READS" >> $SUMMARY ## Print multimapped reads to summary
-printf "%s\n" "$ALIGNMENT_RATE" >> $SUMMARY ## Print alignment rate to summary
 
 A=$((A+1))
 B=0
