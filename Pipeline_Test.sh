@@ -231,24 +231,24 @@ else
 	mapfiles="$SAVE_LOC/$project_name/$trim_type/final_trim"
 fi
 
+echo "Beginning mapping of files."
+if [[ "$data_type_num" = "1" ]]; then 
+	if [[ "$strand_num" = "1" ]]; then ./map_SE_biopsy.sh
+		else ./map_PE_biopsy.sh
+	fi
+elif [[ "$data_type" = "exfliome with testing" ]]; 
+	if [[ "$strand_num" = "1" ]]; then ./map_SE_exfoliome_test.sh
+		else ./map_PE_exfoliome_test.sh
+	fi
+elif [[ "$data_type" = "exfoliome with default values" ]]; 
+	if [[ "$strand_num" = "1" ]]; then ./map_SE_exfoliome.sh
+		else ./map_PE_exfoliome.sh
+	fi
+else 
+	if [[ "$strand_num" = "1" ]]; then ./map_SE_exfoliome.sh
+		else ./map_PE_exfoliome.sh
+	fi
 
-if [[ "$data_type_num" = "1" ]]; then echo "Beginning mapping of files."
-		if [[ "$strand_num" = "1" ]]; then ./map_SE_biopsy.sh
-			else ./map_PE_biopsy.sh
-		fi
-else
-		echo "Beginning mapping of files."
-		if [[ "$strand_num" = "1" ]]; 
-			if [[ "$data_type" = "exfliome with testing" ]]; then ./map_SE_exfoliome.sh
-				elif [[ "$data_type" = "exfoliome with default values" ]]; then ./map_SE_exfoliome.sh
-				else ./map_SE_exfoliome.sh
-			fi
-		else
-			if [[ "$data_type" = "exfliome with testing" ]]; then ./map_SE_exfoliome.sh
-				elif [[ "$data_type" = "exfoliome with default values" ]]; then ./map_SE_exfoliome.sh
-				else ./map_SE_exfoliome.sh
-			fi
-		fi
 fi
 
 
