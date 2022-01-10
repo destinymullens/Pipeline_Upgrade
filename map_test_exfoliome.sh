@@ -20,7 +20,6 @@ printf "%s\n" "Test mappings are: $test_mappings"
 
 ##### RUN BOWTIE2 #########
 
-
 for t in $test_mappings; do
 
 	FILE=$(basename $t)
