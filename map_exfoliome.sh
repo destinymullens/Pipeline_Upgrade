@@ -17,8 +17,8 @@ mappings=$(ls $mapfiles)
 SUMMARY="$mapping_logs/Mapping_results.txt"
 
 
-mp_input=$(echo $exfoliome_mapping_parameter | cut 2)
-ma_input=$(echo $exfoliome_mapping_parameter | cut 5)
+mp_input=$(echo $exfoliome_mapping_parameter | cut -c 2-2)
+ma_input=$(echo $exfoliome_mapping_parameter | cut -c 5-5)
 
 
 ##### RUN BOWTIE2 #########
