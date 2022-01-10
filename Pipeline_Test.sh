@@ -55,6 +55,8 @@ until [[ "$verify" = "1" ]]; do
 				echo "You have given $exfoliome_mapping_paramter for presets for mapping your exfoliome data. Is this correct?"; echo "1. Yes"; echo "2. No" read -p "> " verify
 			fi
 		done
+		
+	fi	
 
 
 ## Input species and set htseq type (gene_id or gene_name)
