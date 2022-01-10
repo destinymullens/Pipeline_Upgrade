@@ -33,19 +33,12 @@ until [[ "$verify" = "1" ]]; do
 		echo "What type of data are you using?"; echo "1. Biopsy"; echo "2. Exfoliome"
 		read -p "> " data_type_num
 		if [[ "$data_type_num" = "1" ]]; then data_type="biopsy"
+			echo ""; echo "You have entered $data_type as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
+			read -p "> " verify
 		elif [[ "$data_type_num" = "2" ]]; then data_type="exfoliome"
-		else echo "Your input is not one of the options, please try again."; sleep 3; continue
-		fi
-		echo ""; echo "You have entered $data_type as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
-		read -p "> " verify
-	done
-
-	if [[ "$data_type_num" = "2" ]]; then
-		verify="0"
-		until [[ "$verify" = "1" ]]; do 
-		echo "Would you like to test parameters for exfoliome data?"; echo "1. Yes, I would like to test parameters.";
-		echo "2. No, please map with default paramters.";
-		echo "3. No, I already know my testing paremters." read -p "> " exfoliome_map_option
+			echo "Would you like to test parameters for exfoliome data?"; echo "1. Yes, I would like to test parameters.";
+			echo "2. No, please map with default paramters.";
+			echo "3. No, I already know my testing paremters." read -p "> " exfoliome_map_option
 			
 			if [[ "$exfoliome_map_option" == "1" ]]; then data_type="exfoliome with testing"
 				echo "You have chosen to test parameters for exfoliome data. Is this correct?"; echo "1. Yes"; echo "2. No" read -p "> " verify
@@ -54,6 +47,14 @@ until [[ "$verify" = "1" ]]; do
 			else data_type="exfoliome with preset values" echo "Please enter preset mapping options:  " read -p "> " exfoliome_mapping_paramter
 				echo "You have given $exfoliome_mapping_paramter for presets for mapping your exfoliome data. Is this correct?"; echo "1. Yes"; echo "2. No" read -p "> " verify
 			fi
+		done
+		
+		else echo "Your input is not one of the options, please try again."; sleep 3; continue
+		fi
+		
+	done
+
+
 		done
 		
 	fi	
