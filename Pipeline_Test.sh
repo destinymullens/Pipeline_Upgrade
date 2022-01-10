@@ -52,7 +52,7 @@ until [[ "$verify" = "1" ]]; do
 			htseq_type="gene_name"; species="human"; htseq_num="1"
 			echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
-		elif [[ "$species_type" = "2" ]]; then species_location="$REF_LOC/GRCm38.94.150-mouse"
+		elif [[ "$species_type" = "2" ]]; then species_location="$REF_LOC/GRCm38.94-mouse"
 				htseq_type="gene_name"; species="mouse"; htseq_num="1"
 				echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
 				read -p "> " verify
@@ -187,7 +187,7 @@ echo "Beginning QC Reports..."
 echo ""
 qc_dir_in="$SAVE_LOC/$project_name/concat"
 qc_dir_out="$SAVE_LOC/$project_name/qc_reports/untrimmed"
-./qc_run.sh
+#./qc_run.sh
 echo "QC Reports complete!"
 echo ""
 
@@ -208,12 +208,12 @@ fi
 
 ## Run quality script on trimmed files as needed
 
-if [[ "$trim_num" = "1" ]]; then
-	echo "Beginning QC Report for trimmed files."
-	qc_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
-	qc_dir_out="$SAVE_LOC/$project_name/qc_reports/$trim_type"
-	./qc_run.sh
-fi
+#if [[ "$trim_num" = "1" ]]; then
+#	echo "Beginning QC Report for trimmed files."
+#	qc_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
+#	qc_dir_out="$SAVE_LOC/$project_name/qc_reports/$trim_type"
+#	./qc_run.sh
+#fi
 
 ## Indicate where file are for mapping
 if [[ "$trim_num" = "1" ]]; then
