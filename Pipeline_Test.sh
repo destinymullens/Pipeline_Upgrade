@@ -46,12 +46,12 @@ verify="0"
 		if [[ "$data_type_num" = "2" ]]; then
 		echo "Would you like to test parameters for exfoliome data?"; echo "1. Yes, I would like to test parameters.";
 		echo "2. No, please map with default paramters.";
-		echo "3. No, I already know my testing paremters." read -p "> " exfoliome_map_option
+		echo "3. No, I already know my testing paremters."; read -p "> " exfoliome_map_option
 			if [[ "$exfoliome_map_option" == "1" ]]; then data_type="exfoliome with testing"
 				echo "You have chosen to test parameters for exfoliome data. Is this correct?"; echo "1. Yes"; echo "2. No" read -p "> " verify
 			elif [[ "$exfoliome_map_option" == "2" ]]; then data_type="exfoliome with default values"
 				echo "You have chosen to map exfoliome data with default parameters. Is this correct?"; echo "1. Yes"; echo "2. No" read -p "> "verify
-			else data_type="exfoliome with preset values" echo "Please enter preset mapping options:  " read -p "> " exfoliome_mapping_paramter
+			else echo "Please enter preset mapping options:  " read -p "> " exfoliome_mapping_paramter
 				echo "You have given $exfoliome_mapping_paramter for presets for mapping your exfoliome data. Is this correct?"; echo "1. Yes"; echo "2. No" read -p "> " verify
 			fi
 		fi
