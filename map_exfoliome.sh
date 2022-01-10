@@ -17,10 +17,6 @@ mappings=$(ls $mapfiles)
 SUMMARY="$mapping_logs/Mapping_results.txt"
 
 
-mp_input=$(echo $exfoliome_mapping_parameter | cut -c 2-2)
-ma_input=$(echo $exfoliome_mapping_parameter | cut -c 5-5)
-
-
 ##### RUN BOWTIE2 #########
 
 
@@ -28,8 +24,8 @@ for m in $mappings; do
 
 	FILE=$(basename $m)
 
-	A=mp_input
-	B=ma_input
+	A=$(echo $exfoliome_mapping_parameter | cut -c 2-2)
+	B=$(echo $exfoliome_mapping_parameter | cut -c 5-5)
 
 	## Additional options can be added for the -mp and -ma mappings if preferred, but the number of loops needs to be changed if other options are added
 	mp_options=(6 4 2)
