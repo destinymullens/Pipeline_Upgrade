@@ -54,7 +54,8 @@ verify="0"
 				echo "You have chosen to map exfoliome data with default parameters. 
 				Is this correct?"; echo "1. Yes"; echo "2. No" 
 				read -p "> "verify
-			else echo "Please enter preset mapping options:  " read -p "> " exfoliome_mapping_parameter
+			else echo "Please enter preset mapping options:  " 
+				read -p "> " exfoliome_mapping_parameter
 				echo "You have given $exfoliome_mapping_parameter for presets for mapping your exfoliome data. Is this correct?"; 
 				echo "1. Yes"; echo "2. No" 
 				read -p "> " verify
