@@ -214,7 +214,7 @@ echo ""
 
 if [[ "$trim_num" = "1" ]]; then
 	echo "No trimming needed, beginning mapping of files!"
-	mapfiles=$SAVE_LOC/$project_name/concat"
+	mapfiles="$SAVE_LOC/$project_name/concat"
 elif [[ "$trim_num" = "2" ]]; then
 	echo "Beginning trimming of files!"
 	./trim_quality.sh
