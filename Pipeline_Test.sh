@@ -242,13 +242,13 @@ if [[ "$data_type_num" = "1" ]]; then echo "Beginning mapping of files."
 		if [[ "$strand_num" = "1" ]]; 
 			if [[ "$data_type" = "exfliome with testing" ]]; then ./map_SE_exfoliome.sh
 				elif [[ "$data_type" = "exfoliome with default values" ]]; then ./map_SE_exfoliome.sh
-				else [[ "$data_type" = "exfoliome with preset values" ]]; then ./map_SE_exfoliome.sh
+				else ./map_SE_exfoliome.sh
 			fi
 		
 		else
 			if [[ "$data_type" = "exfliome with testing" ]]; then ./map_SE_exfoliome.sh
 			elif [[ "$data_type" = "exfoliome with default values" ]]; then ./map_SE_exfoliome.sh
-			else [[ "$data_type" = "exfoliome with preset values" ]]; then ./map_SE_exfoliome.sh
+			else ./map_SE_exfoliome.sh
 			fi
 
 
