@@ -33,11 +33,11 @@ until [[ "$verify" = "1" ]]; do
 		echo "What type of data are you using?"; echo "1. Biopsy"; echo "2. Exfoliome"
 		read -p "> " data_type_num
 		if [[ "$data_type_num" = "1" ]]; then data_type="biopsy"
-			echo ""; echo "You have entered $data_type as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
-			read -p "> " verify
 		elif [[ "$data_type_num" = "2" ]]; then data_type="exfoliome"
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
 		fi
+		echo ""; echo "You have entered $data_type as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
+		read -p "> " verify
 	done
 
 ## Check exfoliome options if data type is exfoliome
