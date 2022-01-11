@@ -230,6 +230,7 @@ else
 	echo "Beginning trimming of files!"
 	./trim_umi.sh
 	mapfiles="$SAVE_LOC/$project_name/$trim_type/final_trim"
+	./secondary_scripts/qc_second_run.sh
 fi
 
 echo "Beginning mapping of files."
