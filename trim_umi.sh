@@ -26,7 +26,7 @@ done
 SAMPLES2=$(find $trim_dir_out -type f -printf '%f\n')
 
 for s in $SAMPLES2; do
-	filename="basename $s"
+	filename=$(basename $s)
 	echo "Trimming bases from $s."
 	$CUTADAPT -u 4 -o $trim_final_dir/$filename.trimm.fastq.gz $trim_dir_out/$s
 	echo "Trimming complete for $s."
