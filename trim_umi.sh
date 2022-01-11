@@ -11,7 +11,7 @@ mkdir -p $SAVE_LOC/$project_name/logs/$trim_type
 
 trim_dir_in="$SAVE_LOC/$project_name/concat"
 trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
-trim_log="$SAVE_LOC/$project_name/logs/$trim_type/barcodes_removal"
+trim_log="$SAVE_LOC/$project_name/logs/$trim_type"
 
 SAMPLES=$(find $trim_dir_in -type f -printf '%f\n')
 
