@@ -17,18 +17,24 @@ trim_log="$SAVE_LOC/$project_name/logs/$trim_type/barcodes_removal"
 SAMPLES=$(find $trim_dir_in -type f -printf '%f\n')
 
 for s in $SAMPLES; do
-	logfile="$s.processed.log"
-	stoutfile="$s.processed.fastq.gz"
-	echo "Extracting UMI's from $s."
-	$UMI_TOOLS extract --bc-pattern=NNNNNN -I $trim_dir_in/$s --log $trim_log/$logfile -S $trim_dir_out/$stoutfile
-	echo "Extracting UMI's from $s is now complete."
+	samplename="${s%%.*}"
+	if [[ ! -d $trim_dir_out/$samplename ]]; then
+		logfile="$samplename.processed.log"
+		stoutfile="$samplename.processed.fastq.gz"
+		echo "Extracting UMI's from $s."
+		$UMI_TOOLS extract --bc-pattern=NNNNNN -I $trim_dir_in/$s --log $trim_log/$logfile -S $trim_dir_out/$stoutfile
+		echo "Extracting UMI's from $s is now complete."
+	fi
 done
 
 SAMPLES2=$(find $trim_dir_out -type f -printf '%f\n')
 
 for s in $SAMPLES2; do
-	filename=$(basename $s)
-	echo "Trimming bases from $s."
-	$CUTADAPT -u 4 -o $trim_final_dir/$filename.trimm.fastq.gz $trim_dir_out/$s
-	echo "Trimming complete for $s."
+	samplename="${s%%.*}"
+		if [[ ! -d $trim_final_dir/$samplename.trim.fastq.gz ]]; then
+			echo "Trimming $s beginning..."
+			$CUTADAPT -u 4 -o $trim_final_dir/$samplename.trimm.fastq.gz $trim_dir_out/$s
+			echo "Trimming complete for $s."
+		fi
+
 done
