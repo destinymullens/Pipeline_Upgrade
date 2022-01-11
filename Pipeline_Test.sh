@@ -207,7 +207,7 @@ echo "Beginning QC Reports..."
 echo ""
 qc_dir_in="$SAVE_LOC/$project_name/concat"
 qc_dir_out="$SAVE_LOC/$project_name/qc_reports/untrimmed"
-#./qc_run.sh
+./qc_run.sh
 echo "QC Reports complete!"
 echo ""
 
