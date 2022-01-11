@@ -214,23 +214,18 @@ echo ""
 ## Run scripts for trimming options 
 
 if [[ "$trim_num" = "1" ]]; then
-	echo "No trimming needed, beginning mapping of files!"
-	mapfiles="$SAVE_LOC/$project_name/concat"
-elif [[ "$trim_num" = "2" ]]; then
-	echo "Beginning trimming of files!"
-	./trim_quality.sh
-	mapfiles="$SAVE_LOC/$project_name/$trim_type"
-	./secondary_scripts/qc_second_run.sh
-elif [[ "$trim_num" = "3" ]]; then
-	echo "Beginning trimming of files!"
-	./trim_base.sh
-	mapfiles="$SAVE_LOC/$project_name/$trim_type"
-	./secondary_scripts/qc_second_run
-else
-	echo "Beginning trimming of files!"
-	./trim_umi.sh
-	mapfiles="$SAVE_LOC/$project_name/$trim_type/final_trim"
-	./secondary_scripts/qc_second_run.sh
+	elif [[ "$trim_num" = "2" ]]; then
+		echo "Beginning trimming of files!"
+		./trim_quality.sh
+		./secondary_scripts/qc_second_run.sh
+	elif [[ "$trim_num" = "3" ]]; then
+		echo "Beginning trimming of files!"
+		./trim_base.sh
+		./secondary_scripts/qc_second_run
+	else
+		echo "Beginning trimming of files!"
+		./trim_umi.sh
+		./secondary_scripts/qc_second_run.sh
 fi
 
 echo "Beginning mapping of files."
