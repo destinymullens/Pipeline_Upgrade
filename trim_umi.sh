@@ -21,7 +21,7 @@ for s in $SAMPLES; do
 		logfile="$samplename.processed.log"
 		stoutfile="$samplename.processed.fastq.gz"
 		echo "Begining trimming of $s...."
-		$UMI_TOOLS extract --bc-pattern=NNNNNN -I $trim_dir_in/$s --log $trim_log/$logfile | $CUTADAPT -u 4 -j 0 -o $trim_final_dir/$samplename.trimm.fastq.gz -
+		$UMI_TOOLS extract --bc-pattern=NNNNNN -I $trim_dir_in/$s --log $trim_log/$logfile | $CUTADAPT -u 4 -o $trim_final_dir/$samplename.trimm.fastq.gz -
 		echo "Trimming of $s is now complete."
 	fi
 done
