@@ -76,3 +76,4 @@ done
 done
 
 awk '$7>max[$1]{max[$1]=$7; row[$1]=$0} END{for (i in row) print row[i]}' $SUMMARY | cut -f 2 | grep -v "^\s*$" | sort | uniq -c | sort -bnr | head -1 | cut -c 9-13 > exfoliome_mapping_parameter
+echo "Test mapping complete and $exfoliome_mapping_parameter is the best mapping option.
