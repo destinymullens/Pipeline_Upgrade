@@ -242,7 +242,7 @@ if [[ "$data_type_num" = "1" ]]; then
 elif [[ "$data_type" = "exfliome with testing" ]]; then
 	if [[ "$strand_num" = "1" ]]; then 
 	./map_test_exfoliome.sh
-	./map_exfoliome.sh
+	./map_exfoliome_with_parameters.sh
 		else ./map_PE_exfoliome_test.sh
 	fi
 elif [[ "$data_type" = "exfoliome with default values" ]]; then
@@ -250,7 +250,7 @@ elif [[ "$data_type" = "exfoliome with default values" ]]; then
 		else ./map_PE_exfoliome.sh
 	fi
 else 
-	if [[ "$strand_num" = "1" ]]; then ./map_exfoliome.sh
+	if [[ "$strand_num" = "1" ]]; then ./map_exfoliome_with_parameters.sh
 		else ./map_exfoliome.sh
 	fi
 
