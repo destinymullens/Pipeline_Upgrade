@@ -11,14 +11,14 @@ if [[ "$strand_num" = "1" ]]; then
 	for i in $htseq_dir_in; do
 		FILE=$(basename $i)
 		printf "%s\n" "Counting of $FILE beginning..."
-		$HTSEQ_LOC --stranded=no -f sam -i gene_id --additional-attr=gene_name $REF > $htseq_dir_out/$FILE-htseq.txt
+		$HTSEQ_LOC --stranded=no -f sam -i gene_id --additional-attr=gene_name $REF/genes.gtf > $htseq_dir_out/$FILE-htseq.txt
 		printf "%s\n" "Counting of $FILE complete."
 	done
 else
 	for i in $htseq_dir_in; do
 		FILE=$(basename $i)
 		printf "%s\n" "Counting of $FILE beginning..."
-		$HTSEQ_LOC --stranded=yes -f sam -i gene_id --additional-attr=gene_name $REF > $htseq_dir_out/$FILE-htseq.txt
+		$HTSEQ_LOC --stranded=yes -f sam -i gene_id --additional-attr=gene_name $REF/genes.gtf > $htseq_dir_out/$FILE-htseq.txt
 		printf "%s\n" "Counting of $FILE complete."
 	done
 fi
