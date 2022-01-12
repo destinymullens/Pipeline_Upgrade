@@ -191,25 +191,19 @@ mkdir="$SAVE_LOC/$project_name/summary"
 
 ./top_banner.sh
 ## Runs concat script to concatenate script
-
 echo "Beginning concatenation of files..."
-echo ""
-
 ./concat_run.sh
 
-echo ""
 echo "Concatenation of files is finished! Moving on to QC Reports now!"
-echo ""
 
 ## Runs script for QC Reports
 
 echo "Beginning QC Reports..."
-echo ""
 qc_dir_in="$SAVE_LOC/$project_name/concat"
 qc_dir_out="$SAVE_LOC/$project_name/qc_reports/untrimmed"
 ./qc_run.sh
 echo "QC Reports complete!"
-echo ""
+
 
 ## Run scripts for trimming options 
 
@@ -230,16 +224,17 @@ if [[ "$trim_num" = "1" ]]; then
 fi
 
 echo "Beginning mapping of files."
+
 if [[ "$data_type_num" = "1" ]]; then 
 	if [[ "$strand_num" = "1" ]]; then 
 		./map_SE_biopsy.sh
-	else ./map_PE_biopsy.sh
+		else ./map_PE_biopsy.sh
 	fi
 elif [[ "$data_type" = "exfoliome with testing" ]]; then
 	if [[ "$strand_num" = "1" ]]; then 
-	./map_test_exfoliome.sh
-	./map_exfoliome_with_parameters.sh
-		else ./map_PE_exfoliome_test.sh
+		./map_test_exfoliome.sh
+		./map_exfoliome_with_parameters.sh
+	else ./map_PE_exfoliome_test.sh
 	fi
 elif [[ "$data_type" = "exfoliome with default values" ]]; then
 	if [[ "$strand_num" = "1" ]]; then ./map_exfoliome.sh
