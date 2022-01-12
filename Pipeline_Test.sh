@@ -235,7 +235,7 @@ if [[ "$data_type_num" = "1" ]]; then
 		./map_SE_biopsy.sh
 	else ./map_PE_biopsy.sh
 	fi
-elif [[ "$data_type" = "exfliome with testing" ]]; then
+elif [[ "$data_type" = "exfoliome with testing" ]]; then
 	if [[ "$strand_num" = "1" ]]; then 
 	./map_test_exfoliome.sh
 	./map_exfoliome_with_parameters.sh
