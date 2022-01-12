@@ -185,7 +185,6 @@ done
 mkdir="SAVE_LOC/$project_name"
 outputfile="$project_name-stout.txt"
 outputerr="$project_name=err.txt"
-mkdir="$SAVE_LOC/$project_name/concat"
 mkdir="$SAVE_LOC/$project_name/mapping"
 mkdir="$SAVE_LOC/$project_name/summary"
 
