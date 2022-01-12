@@ -17,7 +17,7 @@ SAMPLES=$(find $trim_dir_in -type f -printf '%f\n')
 
 for s in $SAMPLES; do
 	samplename="${s%%.*}"
-	if [[ ! -d $trim_dir_out/$samplename-trimmed.fastq.gz ]]; then
+	if [[ ! -d $trim_dir_out/$samplename-* ]]; then
 		logfile="$samplename.processed.log"
 		stoutfile="$samplename.processed.fastq.gz"
 		echo "Begining trimming of $s...."
