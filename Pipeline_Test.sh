@@ -57,30 +57,6 @@ until [[ "$verify" = "1" ]]; do
 		fi
 	done
 
-## Check exfoliome options if data type is exfoliome
-verify="0"
-	until [[ "$verify" = "1" ]]; do ./top_banner.sh	
-		if [[ "$data_type_num" = "2" ]]; then
-		echo "Would you like to test parameters for exfoliome data?"; echo "1. Yes, I would like to test parameters.";
-		echo "2. No, please map with default paramters.";
-		echo "3. No, I already know my testing paremters."; read -p "> " exfoliome_map_option
-			if [[ "$exfoliome_map_option" == "1" ]]; then data_type="exfoliome with testing"
-				echo "You have chosen to test parameters for exfoliome data. Is this correct?"; echo "1. Yes"; echo "2. No" 
-				read -p "> " verify
-			elif [[ "$exfoliome_map_option" == "2" ]]; then data_type="exfoliome with default values" exfoliome_map_option="D0-F0"
-				echo "You have chosen to map exfoliome data with default parameters. 
-				Is this correct?"; echo "1. Yes"; echo "2. No" 
-				read -p "> "verify
-			else echo "Please enter preset mapping options:  " 
-				read -p "> " exfoliome_mapping_parameter
-				echo "You have given $exfoliome_mapping_parameter for presets for mapping your exfoliome data. Is this correct?"; 
-				echo "1. Yes"; echo "2. No" 
-				read -p "> " verify
-			fi
-		fi
-	done
-
-
 ## Input species and set htseq type (gene_id or gene_name)
 ## Updated pre-programmed genomes (human,mouse,pig,horse,rat) that have been updated and
 ## are now in a folder with a new name should be updated in the corresponding species_location line
