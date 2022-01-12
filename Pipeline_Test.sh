@@ -224,23 +224,25 @@ echo "Beginning mapping of files."
 if [[ "$data_type_num" = "1" ]]; then 
 	if [[ "$strand_num" = "1" ]]; then 
 		./map_SE_biopsy.sh
-		else ./map_PE_biopsy.sh
+	else ./map_PE_biopsy.sh
 	fi
 elif [[ "$data_type" = "exfoliome with testing" ]]; then
 	./map_test_exfoliome.sh
 	./map_exfoliome_with_parameters.sh
+	fi
 elif [[ "$data_type" = "exfoliome with default values" ]]; then 
 	./map_exfoliome.sh
-else 
+	else 
 	./map_exfoliome_with_parameters.sh
 fi
 
-if [[ "$trim_num" = "1" ]]; then
+if [[ "$trim_num" = "4" ]]; then
 	./umi_after_map.sh
+	./htseq.sh
 	else
-fi
+	./htseq.sh
+	fi
 
-./htseq.sh
 ./summary.sh 	
 
 echo "All mapping is completed for $project_name! Your files are located at $SAVE_LOC/$project_name."
