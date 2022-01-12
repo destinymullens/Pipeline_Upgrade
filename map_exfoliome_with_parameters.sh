@@ -37,9 +37,13 @@ for m in $mappings; do
 	MAPPING="D$A-F$B"
 
 	printf "%s\n" "Mapping $FILE with $MAPPING mapping options beginning..."
-
-	$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -U $mapfiles/$m --mp $mp --ma $ma --local --time -S $mapping_out/$FILE-$MAPPING.sam 2> $mapping_logs/$FILE-$MAPPING-Results.log
 	
+	if [[ "$strand_num" = "1" ]]; then
+		$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -U $mapfiles/$m --mp $mp --ma $ma --local --time -S $mapping_out/$FILE-$MAPPING.sam 2> $mapping_logs/$FILE-$MAPPING-Results.log
+	else
+		$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -1 $mapfiles/$m -2 $mapfiles/$m --mp $mp --ma $ma --local --time -S $mapping_out/$FILE-$MAPPING.sam 2> $mapping_logs/$FILE-$MAPPING-Results.log
+	fi
+		
 	printf "%s\n" "Mapping $FILE with $MAPPING mapping options finished."
 		
 	## Cut info from each log file for comparision to see which is the best mapping option
