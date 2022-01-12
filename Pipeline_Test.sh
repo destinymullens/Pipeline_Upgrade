@@ -33,7 +33,24 @@ until [[ "$verify" = "1" ]]; do
 		echo "What type of data are you using?"; echo "1. Biopsy"; echo "2. Exfoliome"
 		read -p "> " data_type_num
 		if [[ "$data_type_num" = "1" ]]; then data_type="biopsy"
-		elif [[ "$data_type_num" = "2" ]]; then data_type="exfoliome"
+		elif [[ "$data_type_num" = "2" ]];
+			echo "Would you like to test parameters for exfoliome data?"; echo "1. Yes, I would like to test parameters.";
+			echo "2. No, please map with default paramters.";
+			echo "3. No, I already know my testing paremters."; read -p "> " exfoliome_map_option
+			if [[ "$exfoliome_map_option" == "1" ]]; then data_type="exfoliome with testing"
+				echo "You have chosen to test parameters for exfoliome data. Is this correct?"; echo "1. Yes"; echo "2. No" 
+				read -p "> " verify
+			elif [[ "$exfoliome_map_option" == "2" ]]; then data_type="exfoliome with default values"
+				echo "You have chosen to map exfoliome data with default parameters. 
+				Is this correct?"; echo "1. Yes"; echo "2. No" 
+				read -p "> "verify
+			else echo "Please enter preset mapping options:  " 
+				read -p "> " exfoliome_mapping_parameter
+				echo "You have given $exfoliome_mapping_parameter for presets for mapping your exfoliome data. Is this correct?"; 
+				echo "1. Yes"; echo "2. No" 
+				read -p "> " verify
+			fi
+		
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
 		fi
 		echo ""; echo "You have entered $data_type as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
@@ -205,23 +222,23 @@ echo "QC Reports complete!"
 
 if [[ "$trim_num" = "1" ]]; then
 	echo "No trimming needed!"
-		elif [[ "$trim_num" = "2" ]]; then
-			echo "Beginning trimming of files!"
-			./trim_quality.sh
-			./secondary_scripts/qc_second_run.sh
-		elif [[ "$trim_num" = "3" ]]; then
-			echo "Beginning trimming of files!"
-			./trim_base.sh
-			./secondary_scripts/qc_second_run
-		else
-			echo "Beginning trimming of files!"
-			./trim_umi.sh
-			./secondary_scripts/qc_second_run.sh
+	elif [[ "$trim_num" = "2" ]]; then
+		echo "Beginning trimming of files!"
+		./trim_quality.sh
+		./secondary_scripts/qc_second_run.sh
+	elif [[ "$trim_num" = "3" ]]; then
+		echo "Beginning trimming of files!"
+		./trim_base.sh
+		./secondary_scripts/qc_second_run
+	else
+		echo "Beginning trimming of files!"
+		./trim_umi.sh
+		./secondary_scripts/qc_second_run.sh
 fi
 
 echo "Beginning mapping of files."
 
-if [[ "$data_type_num" = "1" ]]; then 
+if [[ "$data_type" = "biopsy" ]]; then 
 	if [[ "$strand_num" = "1" ]]; then 
 		./map_SE_biopsy.sh
 	else ./map_PE_biopsy.sh
