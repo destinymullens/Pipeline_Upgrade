@@ -126,6 +126,7 @@ until [[ "$verify" = "1" ]]; do
 		read -p "> " strand_num
 		if [[ "$strand_num" = "1" ]]; then strand_type="single end"
 		elif [[ "$strand_num" = "2" ]]; then strand_type="paired end"
+		echo "Important note: When using paired end samples, the files must end with 1.fastq.gz and 2.fastq.gz."
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
 		fi
 		echo " "; echo "You entered $strand_type. Is this correct?"; echo "1. Yes"; echo "2. No"
