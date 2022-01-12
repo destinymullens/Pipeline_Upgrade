@@ -17,11 +17,11 @@ SAMPLES=$(find $trim_dir_in -type f -printf '%f\n')
 
 for s in $SAMPLES; do
 	samplename="${s%%.*}"
-	if [[ ! -d $trim_dir_out/$samplename.trimm.fastq.gz ]]; then
+	if [[ ! -d $trim_dir_out/$samplename-trimmed.fastq.gz ]]; then
 		logfile="$samplename.processed.log"
 		stoutfile="$samplename.processed.fastq.gz"
 		echo "Begining trimming of $s...."
-		$UMI_TOOLS extract --bc-pattern=NNNNNN -I $trim_dir_in/$s --log $trim_log/$logfile | $CUTADAPT -u 4 -j 0 -o $trim_dir_out/$samplename.trimm.fastq.gz -
+		$UMI_TOOLS extract --bc-pattern=NNNNNN -I $trim_dir_in/$s --log $trim_log/$logfile | $CUTADAPT -u 4 -j 0 -o $trim_dir_out/$samplename-trimmmed.fastq.gz -
 		echo "Trimming of $s is now complete."
 	fi
 done
