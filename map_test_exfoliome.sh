@@ -8,9 +8,10 @@
 ## Select random files for test mapping
 
 mkdir -p $SAVE_LOC/$project_name/test_mapping
-mkdir -p $SAVE_LOC/$project_name/test_mapping/logs
+mkdir -p $SAVE_LOC/$project_name/logs/test_mapping
+
 test_map_out="$SAVE_LOC/$project_name/test_mapping"
-test_map_logs="$SAVE_LOC/$project_name/test_mapping/logs"
+test_map_logs="$SAVE_LOC/$project_name/logs/test_mapping"
 
 
 test_mappings=$(ls $mapfiles | shuf -n 3)
