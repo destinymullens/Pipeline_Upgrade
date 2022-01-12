@@ -24,8 +24,8 @@ for m in $mappings; do
 
 	FILE=$(basename $m)
 
-	A=$(echo $exfoliome_mapping_parameter | cut -c 2-2)
-	B=$(echo $exfoliome_mapping_parameter | cut -c 5-5)
+	A=$(echo $exfoliome_mapping_parameter | cut -d "-" -f1 | cut -c 2-2)
+	B=$(echo $exfoliome_mapping_parameter | cut -d "-" -f2 | cut -c 2-2)
 
 	## Additional options can be added for the -mp and -ma mappings if preferred, but the number of loops needs to be changed if other options are added
 	mp_options=(6 4 2)
