@@ -245,7 +245,6 @@ if [[ "$data_type" = "biopsy" ]]; then
 	fi
 elif [[ "$data_type" = "exfoliome with testing" ]]; then
 	./map_test_exfoliome.sh
-	./map_exfoliome_with_parameters.sh
 	fi
 elif [[ "$data_type" = "exfoliome with default values" ]]; then 
 	./map_exfoliome.sh
