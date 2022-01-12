@@ -6,8 +6,8 @@
 
 SAMPLES=$(find $mapfiles -type f -printf '%f\n')
 echo "$SAMPLES"
-mkdir -p "$SAVE_LOC/$project_name/qc_reports_after_trim"
-results="$SAVE_LOC/$project_name/qc_reports_after_trim"
+mkdir -p "$SAVE_LOC/$project_name/qc_reports/reports_after_trim"
+results="$SAVE_LOC/$project_name/qc_reports/reports_after_trim"
 for s in $SAMPLES; do
 samplename="${s%%.*}"
 	if [[ ! -d $results/$samplename ]]; then
