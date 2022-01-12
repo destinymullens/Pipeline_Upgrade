@@ -201,7 +201,6 @@ qc_dir_out="$SAVE_LOC/$project_name/qc_reports/untrimmed"
 ./qc_run.sh
 echo "QC Reports complete!"
 
-
 ## Run scripts for trimming options 
 
 if [[ "$trim_num" = "1" ]]; then
@@ -228,19 +227,12 @@ if [[ "$data_type_num" = "1" ]]; then
 		else ./map_PE_biopsy.sh
 	fi
 elif [[ "$data_type" = "exfoliome with testing" ]]; then
-	if [[ "$strand_num" = "1" ]]; then 
-		./map_test_exfoliome.sh
-		./map_exfoliome_with_parameters.sh
-	else ./map_PE_exfoliome_test.sh
-	fi
-elif [[ "$data_type" = "exfoliome with default values" ]]; then
-	if [[ "$strand_num" = "1" ]]; then ./map_exfoliome.sh
-		else ./map_PE_exfoliome.sh
-	fi
+	./map_test_exfoliome.sh
+	./map_exfoliome_with_parameters.sh
+elif [[ "$data_type" = "exfoliome with default values" ]]; then 
+	./map_exfoliome.sh
 else 
-	if [[ "$strand_num" = "1" ]]; then ./map_exfoliome_with_parameters.sh
-		else ./map_exfoliome.sh
-	fi
+	./map_exfoliome_with_parameters.sh
 fi
 
 if [[ "$trim_num" = "1" ]]; then
