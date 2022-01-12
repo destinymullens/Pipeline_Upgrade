@@ -249,9 +249,12 @@ else
 	if [[ "$strand_num" = "1" ]]; then ./map_exfoliome_with_parameters.sh
 		else ./map_exfoliome.sh
 	fi
-
 fi
 
+if [[ "$trim_num" = "1" ]]; then
+	./umi_after_map.sh
+	else
+fi
 
 ./htseq.sh
 ./summary.sh 	
