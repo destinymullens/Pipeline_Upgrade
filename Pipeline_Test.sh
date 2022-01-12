@@ -1,5 +1,5 @@
 #!/bin/bash
-script .pipeline_output.txt
+
 # Read config.sh
 . $(dirname $0)/config.sh
 
@@ -260,5 +260,3 @@ fi
 ./summary.sh 	
 
 echo "All mapping is completed for $project_name! Your files are located at $SAVE_LOC/$project_name."
-exit
-mv pipeline_output.txt $SAVE_LOC/$project_name/$project_name-transcript.txt
