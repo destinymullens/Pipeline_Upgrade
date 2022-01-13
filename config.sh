@@ -12,7 +12,7 @@ STAR="/opt/programs/bin/STAR-2.6.0a/bin/Linux_x86_64/STAR"
 BOWTIE="/usr/bin/bowtie2" #When installed using apt-get install it is located here.
 HTSEQ_LOC="/usr/bin/htseq-count"
 UMI_TOOLS="/usr/local/bin/umi_tools"
-CUTADAPT="/usr/lib/python3/dist-packages/cutadapt"
+CUTADAPT="/usr/local/bin/cutadapt"
 SAMTOOLS="/usr/bin/samtools"
 
 #The following variable is for the parent folder that the reference genomes are saved in.
