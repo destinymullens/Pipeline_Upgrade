@@ -18,7 +18,7 @@ SUMMARY="$mapping_logs/Mapping_results.txt"
 
 
 ##### RUN BOWTIE2 #########
-
+exfoliome_mapping_parameter=$(cat $SAVE_LOC/$project_name/mapping_parameter.txt)
 
 for m in $mappings; do
 
