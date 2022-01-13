@@ -224,6 +224,7 @@ if [[ "$data_type" = "biopsy" ]]; then
 elif [[ "$data_type" = "exfoliome with testing" ]]; then
 #	./map_test_exfoliome.sh
 #	./map_exfoliome_with_parameters.sh
+	echo "Moving on to dedup"
 elif [[ "$data_type" = "exfoliome with default values" ]]; then 
 	./map_exfoliome.sh
 else 
