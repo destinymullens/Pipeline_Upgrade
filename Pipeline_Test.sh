@@ -52,6 +52,7 @@ until [[ "$verify" = "1" ]]; do
 				echo "You have given $exfoliome_mapping_parameter for presets for mapping your exfoliome data. Is this correct?"; 
 				echo "1. Yes"; echo "2. No" 
 				read -p "> " verify
+				echo "$exfoliome_mapping_parameter" > $SAVE_LOC/$project_name/mapping_parameter.txt
 			fi
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
 		fi
@@ -222,6 +223,7 @@ if [[ "$data_type" = "biopsy" ]]; then
 	fi
 elif [[ "$data_type" = "exfoliome with testing" ]]; then
 	./map_test_exfoliome.sh
+	./map_exfoliome_with_parameters.sh
 	fi
 elif [[ "$data_type" = "exfoliome with default values" ]]; then 
 	./map_exfoliome.sh
