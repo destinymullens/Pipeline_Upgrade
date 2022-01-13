@@ -198,21 +198,21 @@ echo "QC Reports complete!"
 
 ## Run scripts for trimming options 
 
-if [[ "$trim_num" = "1" ]]; then
-	echo "No trimming needed!"
-	elif [[ "$trim_num" = "2" ]]; then
-		echo "Beginning trimming of files!"
-		./trim_quality.sh
-		./secondary_scripts/qc_second_run.sh
-	elif [[ "$trim_num" = "3" ]]; then
-		echo "Beginning trimming of files!"
-		./trim_base.sh
-		./secondary_scripts/qc_second_run
-	else
-		echo "Beginning trimming of files!"
-		./trim_umi.sh
-		./secondary_scripts/qc_second_run.sh
-fi
+#if [[ "$trim_num" = "1" ]]; then
+#	echo "No trimming needed!"
+#	elif [[ "$trim_num" = "2" ]]; then
+#		echo "Beginning trimming of files!"
+#		./trim_quality.sh
+#		./secondary_scripts/qc_second_run.sh
+#	elif [[ "$trim_num" = "3" ]]; then
+#		echo "Beginning trimming of files!"
+#		./trim_base.sh
+#		./secondary_scripts/qc_second_run
+#	else
+#		echo "Beginning trimming of files!"
+#		./trim_umi.sh
+#		./secondary_scripts/qc_second_run.sh
+#fi
 
 echo "Beginning mapping of files."
 
@@ -222,7 +222,7 @@ if [[ "$data_type" = "biopsy" ]]; then
 	else ./map_PE_biopsy.sh
 	fi
 elif [[ "$data_type" = "exfoliome with testing" ]]; then
-	./map_test_exfoliome.sh
+#	./map_test_exfoliome.sh
 	./map_exfoliome_with_parameters.sh
 elif [[ "$data_type" = "exfoliome with default values" ]]; then 
 	./map_exfoliome.sh
