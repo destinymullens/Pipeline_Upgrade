@@ -79,3 +79,16 @@ done
 exfoliome_mapping_parameter=$(awk '$7>max[$1]{max[$1]=$7; row[$1]=$0} END{for (i in row) print row[i]}' $SUMMARY | cut -f 2 | grep -v "^\s*$" | sort | uniq -c | sort -bnr | head -1 | cut -c 9-13)
 echo "$exfoliome_mapping_parameter" > $SAVE_LOC/$project_name/mapping_parameter.txt
 echo "Test mapping complete and $exfoliome_mapping_parameter is the best mapping option."
+echo "Cleaning up files..."
+
+mkdir -p $SAVE_LOC/$project_name/mapping
+mkdir -p $SAVE_LOC/$project_name/logs/mapping
+
+for t in $test_mappings; do
+	FILE=$(basename $t)
+	mv $test_map_out/$FILE-$exfoliome_mapping_parameter.sam $SAVE_LOC/$project_name/mapping/
+	mv $test_map_logs/$FILE-$exfoliome_mapping_parameter-Results.log $SAVE_LOC/$project_name/logs/mapping
+done
+
+#rm $SAVE_LOC/$project_name/test_mapping/*.sam 
+
