@@ -28,7 +28,6 @@ for s in $SAMPLES; do
 			echo "Beginning deduplication of $s..."
 			$UMI_TOOLS dedup -I $index_dir_out/$samplename-sort.bam --output-stats=$deduplog/$samplename-dedup -S $dedup_dir_out/$samplename-dedup.bam -L $deduplog/$samplename-dedup.log
 			echo "Deduplication of $s is now complete."
+			else
 	fi
 done
-
-
