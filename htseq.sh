@@ -11,7 +11,7 @@ if [[ "$strand_num" = "1" ]]; then
 		FILE=$(basename $i)
 		mkdir "$htseq_dir_out/$FILE"
 		printf "%s\n" "Counting of $FILE beginning..."
-		$HTSEQ_LOC --stranded=no -f sam -i gene_id --additional-attr=gene_name $i $REF/genes.gtf > $htseq_dir_out/$FILE-htseq.txt
+		$HTSEQ_LOC --stranded=no -f sam -i gene_id --additional-attr=gene_name $i $REF/genes.gtf > $htseq_dir_out/$FILE/$FILE-htseq.txt
 		printf "%s\n" "Counting of $FILE complete."
 	done
 else
