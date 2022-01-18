@@ -234,12 +234,10 @@ fi
 if [[ "$trim_num" = "4" ]]; then
 	./umi_after_map.sh
 	htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
-	htseq_dir_out="$SAVE_LOC/$project_name/summary/htseq_counts"
 	./htseq.sh
 	else
 	./htseq.sh
 	htseq_dir_in="$SAVE_LOC/$project_name/mapping"
-	htseq_dir_out="$SAVE_LOC/$project_name/summary/htseq_counts"
 	fi
 
 ./summary.sh 	
