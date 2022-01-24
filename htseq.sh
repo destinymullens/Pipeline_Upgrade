@@ -11,9 +11,9 @@ for i in $htseq_dir_in; do
 	mkdir "$htseq_dir_out/$FILE"
 	printf "%s\n" "Counting of $FILE beginning..."
 		if [[ "$strand_num" = "1" ]]; then	
-			$HTSEQ_LOC --stranded=no -f sam -i gene_id --additional-attr=gene_name $i $REF/genes.gtf > $htseq_dir_out/$FILE/$FILE-htseq.txt
+			$HTSEQ_LOC --stranded=no -f sam -i gene_id $i $REF/genes.gtf --additional-attr=gene_name > $htseq_dir_out/$FILE/$FILE-htseq.txt
 			else
-			$HTSEQ_LOC --stranded=yes -f sam -i gene_id --additional-attr=gene_name $i $REF/genes.gtf > $htseq_dir_out/$FILE/$FILE-htseq_output.txt
+			$HTSEQ_LOC --stranded=yes -f sam -i gene_id $i $REF/genes.gtf --additional-attr=gene_name > $htseq_dir_out/$FILE/$FILE-htseq_output.txt
 		fi
 	printf "%s\n" "Counting of $FILE complete."
 
