@@ -12,12 +12,12 @@ for i in $samples; do
 	mkdir "$htseq_dir_out/$FILE"
 	printf "%s\n" "Counting of $FILE beginning..."
 		if [[ "$strand_num" = "1" ]]; then	
-			$HTSEQ_LOC \
-			--stranded=no \
-			-f sam \	
-			-i gene_id \
-			--additional-attr=gene_name \
-			$i \
+			$HTSEQ_LOC \$
+			--stranded=no \$
+			-f sam \$	
+			-i gene_id \$
+			--additional-attr=gene_name \$
+			$i \$
 			$REF/genes.gtf  > $htseq_dir_out/$FILE/$FILE-htseq.txt
 			else
 			$HTSEQ_LOC --stranded=yes \
