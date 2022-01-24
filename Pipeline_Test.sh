@@ -44,13 +44,13 @@ until [[ "$verify" = "1" ]]; do
 				echo "You have chosen to test parameters for exfoliome data. Is this correct?"; echo "1. Yes"; echo "2. No" 
 				read -p "> " verify
 			elif [[ "$exfoliome_map_option" == "2" ]]; then data_type="exfoliome with default values"
-				echo "You have chosen to map exfoliome data with default parameters. 
-				Is this correct?"; echo "1. Yes"; echo "2. No" 
+				echo "You have chosen to map exfoliome data with default parameters."; 
+				echo" Is this correct?"; echo "1. Yes"; echo "2. No"; 
 				read -p "> "verify
 			else echo "Please enter preset mapping options:  " 
 				read -p "> " exfoliome_mapping_parameter
 				echo "You have given $exfoliome_mapping_parameter for presets for mapping your exfoliome data. Is this correct?"; 
-				echo "1. Yes"; echo "2. No" 
+				echo "1. Yes"; echo "2. No"; 
 				read -p "> " verify
 				echo "$exfoliome_mapping_parameter" > $SAVE_LOC/$project_name/mapping_parameter.txt
 			fi
