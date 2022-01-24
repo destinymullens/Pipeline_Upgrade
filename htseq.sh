@@ -5,8 +5,9 @@
 
 mkdir -p "$SAVE_LOC/$project_name/summary/htseq_counts"
 htseq_dir_out="$SAVE_LOC/$project_name/summary/htseq_counts"
+samples=(ls $htseq_dir_in/*.bam)
 
-for i in $htseq_dir_in; do
+for i in $samples; do
 	FILE=$(basename $i)
 	mkdir "$htseq_dir_out/$FILE"
 	printf "%s\n" "Counting of $FILE beginning..."
