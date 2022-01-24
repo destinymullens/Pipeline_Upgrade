@@ -232,7 +232,7 @@ else
 fi
 
 if [[ "$trim_num" = "4" ]]; then
-	./umi_after_map.sh
+#	./umi_after_map.sh
 	htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
 	./htseq.sh
 	else

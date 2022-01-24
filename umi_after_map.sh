@@ -5,13 +5,13 @@
 # Read config.sh
 . $(dirname $0)/config.sh
 
-mkdir -p $SAVE_LOC/$project_name/$trim_type/deduplicated_files
-mkdir -p $SAVE_LOC/$project_name/$trim_type/indexed_files
+mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_files
+mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files
 mkdir -p $SAVE_LOC/$project_name/logs/$trim_type/deduplication 
 
 map_dir_in="$SAVE_LOC/$project_name/mapping"
-index_dir_out="$SAVE_LOC/$project_name/$trim_type/indexed_files"
-dedup_dir_out="$SAVE_LOC/$project_name/$trim_type/deduplicated_files"
+index_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
+dedup_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_files"
 deduplog="$SAVE_LOC/$project_name/logs/$trim_type/deduplication"
 
 SAMPLES=$(find $map_dir_in -type f -printf '%f\n')
