@@ -229,26 +229,65 @@ echo "Beginning mapping of files."
 if [[ "$data_type" = "biopsy" ]]; then 
 	if [[ "$strand_num" = "1" ]]; then 
 		./map_SE_biopsy.sh
-	else ./map_PE_biopsy.sh
+		if [[ "$trim_num" = "4" ]]; then
+			echo "Moving on to dedup"
+			./umi_after_map.sh
+			htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
+			./htseq.sh
+		else
+			./htseq.sh
+			htseq_dir_in="$SAVE_LOC/$project_name/mapping"
+		fi
+	else 
+		./map_PE_biopsy.sh
+		if [[ "$trim_num" = "4" ]]; then
+			echo "Moving on to dedup"
+			./umi_after_map.sh
+			htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
+			./htseq.sh
+		else
+			htseq_dir_in="$SAVE_LOC/$project_name/mapping"
+			./htseq.sh
+		fi
 	fi
 elif [[ "$data_type" = "exfoliome with testing" ]]; then
 	./map_test_exfoliome.sh
 	./map_exfoliome_with_parameters.sh
-	echo "Moving on to dedup"
+		if [[ "$trim_num" = "4" ]]; then
+			echo "Moving on to dedup"
+			./umi_after_map.sh
+			htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
+			./htseq.sh
+		else
+			htseq_dir_in="$SAVE_LOC/$project_name/mapping"
+			./htseq.sh
+		fi
+	
 elif [[ "$data_type" = "exfoliome with default values" ]]; then 
 	./map_exfoliome_default.sh
+	if [[ "$trim_num" = "4" ]]; then
+		echo "Moving on to dedup"
+		./umi_after_map.sh
+		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"		
+		./htseq.sh
+	else
+		./htseq.sh
+		htseq_dir_in="$SAVE_LOC/$project_name/mapping"
+	fi
 else 
 	./map_exfoliome_with_parameters.sh
+		if [[ "$trim_num" = "4" ]]; then
+		echo "Moving on to dedup"
+		./umi_after_map.sh
+		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"		
+		./htseq.sh
+	else
+		./htseq.sh
+		htseq_dir_in="$SAVE_LOC/$project_name/mapping"
+	fi
 fi
 
-if [[ "$trim_num" = "4" ]]; then
-	./umi_after_map.sh
-	htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
-	./htseq.sh
-	else
-	./htseq.sh
-	htseq_dir_in="$SAVE_LOC/$project_name/mapping"
-	fi
+
 
 ./summary.sh 	
 
