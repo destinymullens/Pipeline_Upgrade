@@ -213,7 +213,7 @@ if [[ "$trim_num" = "1" ]]; then
 	elif [[ "$trim_num" = "2" ]]; then
 		echo "Beginning trimming of files!"
 		./trim_quality.sh
-		./secondary_scripts/qc_second_run.sh
+		./secondary_scripts/qc_second_run.sh		
 	elif [[ "$trim_num" = "3" ]]; then
 		echo "Beginning trimming of files!"
 		./trim_base.sh
@@ -225,6 +225,7 @@ if [[ "$trim_num" = "1" ]]; then
 fi
 
 echo "Beginning mapping of files."
+map_files_in="$qc_dir_in"
 
 if [[ "$data_type" = "biopsy" ]]; then 
 	if [[ "$strand_num" = "1" ]]; then 
