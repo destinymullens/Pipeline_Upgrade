@@ -121,6 +121,7 @@ until [[ "$verify" = "1" ]]; do
 			read -p "> " verify
 		else
 			echo " "
+		fi
 	done
 
 ## Determine strands
