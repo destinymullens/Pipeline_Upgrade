@@ -111,15 +111,15 @@ until [[ "$verify" = "1" ]]; do
 	done
 
 ## Get concat number & check
-	verify="0"
-	
-	
-	
-	until [[ "$verify" = "1" ]]; do ./top_banner.sh
+	verify="0"	
+	until [[ "$verify" = "1" ]]; do ./top_ba nner.sh
+		read -p "Do you need to concatenate your files? 1. Yes 2. No " concat_response
+		if [[ concat_response == "1" ]]; then
 		read -p "How long is your filename? " concat_length
 		./concat_preview.sh
 		echo "Is this correct?"; echo "1. Yes"; echo "2. No"
 		read -p "> " verify
+		else
 	done
 
 ## Determine strands
@@ -187,20 +187,25 @@ outputerr="$project_name=err.txt"
 ./top_banner.sh
 ## Runs concat script to concatenate script
 echo "Beginning concatenation of files..."
-./concat_run.sh
+
+if [[ concat_response == "1" ]] then
+	./concat_run.sh
+	qc_dir_in="$SAVE_LOC/$project_name/concat"
+	else
+	qc_dir_in="$file_location"
+fi
 
 echo "Concatenation of files is finished! Moving on to QC Reports now!"
-
+echo " "
 ## Runs script for QC Reports
 
 echo "Beginning QC Reports..."
-qc_dir_in="$SAVE_LOC/$project_name/concat"
 qc_dir_out="$SAVE_LOC/$project_name/qc_reports/untrimmed"
 ./qc_run.sh
 echo "QC Reports complete!"
 
 ## Run scripts for trimming options 
-
+echo " "
 if [[ "$trim_num" = "1" ]]; then
 	echo "No trimming needed!"
 	elif [[ "$trim_num" = "2" ]]; then
