@@ -5,7 +5,7 @@
 . $(dirname $0)/config.sh
 
 SAMPLES=$(find $qc_dir_in -type f -printf '%f\n')
-echo "$SAMPLES"
+#echo "$SAMPLES"
 for s in $SAMPLES; do
 samplename="${s%%.*}"
 	if [[ ! -d $qc_dir_out/$samplename ]]; then
