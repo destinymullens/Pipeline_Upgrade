@@ -114,6 +114,7 @@ until [[ "$verify" = "1" ]]; do
 	verify="0"	
 	until [[ "$verify" = "1" ]]; do ./top_banner.sh
 		read -p "Do you need to concatenate your files? 1. Yes 2. No " concat_response
+		verify ="1"
 		if [[ concat_response == "1" ]]; then
 			read -p "How long is your filename? " concat_length
 			./concat_preview.sh
