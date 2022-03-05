@@ -213,17 +213,14 @@ if [[ "$trim_num" = "1" ]]; then
 	elif [[ "$trim_num" = "2" ]]; then
 		echo "Beginning trimming of files!"
 		./trim_quality.sh
-		map_files_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
 		./secondary_scripts/qc_second_run.sh		
 	elif [[ "$trim_num" = "3" ]]; then
 		echo "Beginning trimming of files!"
 		./trim_base.sh
-		map_files_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
 		./secondary_scripts/qc_second_run
 	else
 		echo "Beginning trimming of files!"
 		./trim_umi.sh
-		map_files_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
 		./secondary_scripts/qc_second_run.sh
 fi
 
