@@ -112,6 +112,9 @@ until [[ "$verify" = "1" ]]; do
 
 ## Get concat number & check
 	verify="0"
+	
+	
+	
 	until [[ "$verify" = "1" ]]; do ./top_banner.sh
 		read -p "How long is your filename? " concat_length
 		./concat_preview.sh
@@ -226,7 +229,7 @@ elif [[ "$data_type" = "exfoliome with testing" ]]; then
 	./map_exfoliome_with_parameters.sh
 	echo "Moving on to dedup"
 elif [[ "$data_type" = "exfoliome with default values" ]]; then 
-	./map_exfoliome.sh
+	./map_exfoliome_default.sh
 else 
 	./map_exfoliome_with_parameters.sh
 fi
