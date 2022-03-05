@@ -13,7 +13,7 @@ mkdir -p $SAVE_LOC/$project_name/mapping
 mkdir -p $SAVE_LOC/$project_name/logs/mapping
 mapping_out="$SAVE_LOC/$project_name/mapping"
 mapping_logs="$SAVE_LOC/$project_name/logs/mapping"
-mappings=$(ls "$map_files_in")
+mappings=$(ls "$mapfiles")
 SUMMARY="$mapping_logs/Mapping_results.txt"
 
 
