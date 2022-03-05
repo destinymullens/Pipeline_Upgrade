@@ -4,7 +4,7 @@
 # Read config.sh
 . $(dirname $0)/../config.sh
 
-SAMPLES=$(find $mapfiles -type f -printf '%f\n')
+SAMPLES=$(find $map_files_in -type f -printf '%f\n')
 echo "$SAMPLES"
 mkdir -p "$SAVE_LOC/$project_name/qc_reports/trimmed"
 results="$SAVE_LOC/$project_name/qc_reports/trimmed"
