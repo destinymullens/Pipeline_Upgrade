@@ -45,7 +45,7 @@ until [[ "$verify" = "1" ]]; do
 				read -p "> " verify
 			elif [[ "$exfoliome_map_option" == "2" ]]; then data_type="exfoliome with default values"
 				echo "You have chosen to map exfoliome data with default parameters."; 
-				echo" Is this correct?"; echo "1. Yes"; echo "2. No"; 
+				echo "Is this correct?"; echo "1. Yes"; echo "2. No"; 
 				read -p "> " verify
 			else echo "Please enter preset mapping options:  " 
 				read -p "> " exfoliome_mapping_parameter
