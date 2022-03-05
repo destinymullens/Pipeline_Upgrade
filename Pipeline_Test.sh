@@ -190,7 +190,7 @@ outputerr="$project_name=err.txt"
 ## Runs concat script to concatenate script
 echo "Beginning concatenation of files..."
 
-if [[ "$concat_response" == "1" ]] then
+if [[ "$concat_response" == "1" ]]; then
 	./concat_run.sh
 	qc_dir_in="$SAVE_LOC/$project_name/concat"
 	else
