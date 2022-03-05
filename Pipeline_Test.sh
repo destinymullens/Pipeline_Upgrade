@@ -46,7 +46,7 @@ until [[ "$verify" = "1" ]]; do
 			elif [[ "$exfoliome_map_option" == "2" ]]; then data_type="exfoliome with default values"
 				echo "You have chosen to map exfoliome data with default parameters."; 
 				echo" Is this correct?"; echo "1. Yes"; echo "2. No"; 
-				read -p "> "verify
+				read -p "> " verify
 			else echo "Please enter preset mapping options:  " 
 				read -p "> " exfoliome_mapping_parameter
 				echo "You have given $exfoliome_mapping_parameter for presets for mapping your exfoliome data. Is this correct?"; 
@@ -198,21 +198,21 @@ echo "QC Reports complete!"
 
 ## Run scripts for trimming options 
 
-#if [[ "$trim_num" = "1" ]]; then
-#	echo "No trimming needed!"
-#	elif [[ "$trim_num" = "2" ]]; then
-#		echo "Beginning trimming of files!"
-#		./trim_quality.sh
-#		./secondary_scripts/qc_second_run.sh
-#	elif [[ "$trim_num" = "3" ]]; then
-#		echo "Beginning trimming of files!"
-#		./trim_base.sh
-#		./secondary_scripts/qc_second_run
-#	else
-#		echo "Beginning trimming of files!"
-#		./trim_umi.sh
-#		./secondary_scripts/qc_second_run.sh
-#fi
+if [[ "$trim_num" = "1" ]]; then
+	echo "No trimming needed!"
+	elif [[ "$trim_num" = "2" ]]; then
+		echo "Beginning trimming of files!"
+		./trim_quality.sh
+		./secondary_scripts/qc_second_run.sh
+	elif [[ "$trim_num" = "3" ]]; then
+		echo "Beginning trimming of files!"
+		./trim_base.sh
+		./secondary_scripts/qc_second_run
+	else
+		echo "Beginning trimming of files!"
+		./trim_umi.sh
+		./secondary_scripts/qc_second_run.sh
+fi
 
 echo "Beginning mapping of files."
 
@@ -222,8 +222,8 @@ if [[ "$data_type" = "biopsy" ]]; then
 	else ./map_PE_biopsy.sh
 	fi
 elif [[ "$data_type" = "exfoliome with testing" ]]; then
-#	./map_test_exfoliome.sh
-#	./map_exfoliome_with_parameters.sh
+	./map_test_exfoliome.sh
+	./map_exfoliome_with_parameters.sh
 	echo "Moving on to dedup"
 elif [[ "$data_type" = "exfoliome with default values" ]]; then 
 	./map_exfoliome.sh
@@ -232,7 +232,7 @@ else
 fi
 
 if [[ "$trim_num" = "4" ]]; then
-#	./umi_after_map.sh
+	./umi_after_map.sh
 	htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
 	./htseq.sh
 	else
