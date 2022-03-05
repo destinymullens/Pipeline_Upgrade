@@ -114,12 +114,13 @@ until [[ "$verify" = "1" ]]; do
 	verify="0"	
 	until [[ "$verify" = "1" ]]; do ./top_banner.sh
 		read -p "Do you need to concatenate your files? 1. Yes 2. No " concat_response
-			if [[ concat_response == "1" ]]; then
-				read -p "How long is your filename? " concat_length
-				./concat_preview.sh
-				echo "Is this correct?"; echo "1. Yes"; echo "2. No"
-				read -p "> " verify
-			else
+		if [[ concat_response == "1" ]]; then
+			read -p "How long is your filename? " concat_length
+			./concat_preview.sh
+			echo "Is this correct?"; echo "1. Yes"; echo "2. No"
+			read -p "> " verify
+		else
+			echo " "
 	done
 
 ## Determine strands
