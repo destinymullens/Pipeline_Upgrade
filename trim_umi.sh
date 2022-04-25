@@ -9,7 +9,6 @@ mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type
 mkdir -p $SAVE_LOC/$project_name/logs
 mkdir -p $SAVE_LOC/$project_name/logs/$trim_type
 
-trim_dir_in="$SAVE_LOC/$project_name/concat"
 trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
 trim_log="$SAVE_LOC/$project_name/logs/$trim_type"
 
