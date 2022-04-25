@@ -148,7 +148,11 @@ until [[ "$verify" = "1" ]]; do
 		read -p "> " trim_num
 		if [[ "$trim_num" = "1" ]]; then trim_type="untrimmed"
 			trim_disp="You do not need to trim your data."
-			mapfiles="$SAVE_LOC/$project_name/concat"
+			if [[ "$concat_num" = "1" ]]
+				mapfiles="$SAVE_LOC/$project_name/concat"
+			else
+				mapfiles="$file_location"
+			fi
 		elif [[ "$trim_num" = "2" ]]; then trim_type="quality_trim"
                 	read -p "Please enter the quality score you would like to use: " trim_quality_num
                 	trim_disp="You need to trim your data using a quality score of $trim_quality_num."
