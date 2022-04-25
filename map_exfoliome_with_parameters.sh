@@ -14,7 +14,7 @@ mkdir -p $SAVE_LOC/$project_name/logs/mapping
 mapping_out="$SAVE_LOC/$project_name/mapping"
 mapping_logs="$SAVE_LOC/$project_name/logs/mapping"
 mappings=$(ls $mapfiles)
-SUMMARY="$mapping_logs/Mapping_results.txt"
+SUMMARY="$SAVE_LOC/$project_name/summary/Mapping_summary.csv"
 
 
 ##### RUN BOWTIE2 #########
