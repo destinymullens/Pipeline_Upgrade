@@ -20,7 +20,7 @@ SUMMARY="$SAVE_LOC/$project_name/summary/Mapping_summary.csv"
 ##### RUN BOWTIE2 #########
 exfoliome_mapping_parameter=$(cat $SAVE_LOC/$project_name/mapping_parameter.txt)
 
-for m in $mappings; do
+for m in $mappings/*.gz; do
 
 	FILE=$(basename $m)
 
