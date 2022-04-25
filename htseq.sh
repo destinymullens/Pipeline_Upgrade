@@ -17,3 +17,4 @@ for i in $samples; do
 			$HTSEQ_LOC --stranded=yes -f sam -i gene_id --additional-attr=gene_name $i $REF/genes.gtf  > $htseq_dir_out/$FILE-htseq.txt
 		fi
 	printf "%s\n" "Counting of $FILE complete."
+done
