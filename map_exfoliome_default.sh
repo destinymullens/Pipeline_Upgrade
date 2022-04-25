@@ -21,7 +21,6 @@ SUMMARY="$mapping_logs/Mapping_results.txt"
 
 
 for m in $mappings; do
-
 	FILE=$(basename $m)
 	if [[ ! -f $mapping_out/$FILE-$MAPPING.sam ]]; then
 		printf "%s\n" "Mapping of $FILE beginning..."
