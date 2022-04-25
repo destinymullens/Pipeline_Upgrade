@@ -31,8 +31,6 @@ for m in $mappings; do
 		else
 			$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -1 $mapfiles/$m*1.fastq.gz -2 $mapfiles/$m*2.fastq.gz --time -S $mapping_out/$FILE-$MAPPING.sam 2> $mapping_logs/$FILE-Results.log
 		fi
-	else
-		fi
 		
 	printf "%s\n" "Mapping of $FILE complete."
 
