@@ -9,7 +9,7 @@ samples=$(ls $htseq_dir_in/*)
 
 for i in $samples; do
 	FILE=$(basename $i)
-	mkdir "$htseq_dir_out/$FILE"
+	mkdir -p "$htseq_dir_out/$FILE"
 	printf "%s\n" "Counting of $FILE beginning..."
 		if [[ "$strand_num" = "1" ]]; then	
 			$HTSEQ_LOC $i $species_location/genes.gtf --stranded=no -f sam -i gene_name --additional-attr=gene_id > $htseq_dir_out/$FILE-htseq.txt
