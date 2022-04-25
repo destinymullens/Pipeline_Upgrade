@@ -193,10 +193,12 @@ if [[ "$concat_response" == "1" ]]; then
 	echo "Beginning concatenation of files..."
 	./concat_run.sh
 	qc_dir_in="$SAVE_LOC/$project_name/concat"
+	trim_dir_in="$SAVE_LOC/$project_name/concat"
 	echo "Concatenation of files is finished! Moving on to QC Reports."
 	else
 	echo "File concatentation not needed. Moving on to QC Reports."
 	qc_dir_in="$file_location"
+	trim_dir_in="$file_location"
 fi
 
 echo " "
