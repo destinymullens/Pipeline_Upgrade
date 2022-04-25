@@ -26,9 +26,9 @@ for m in $mappings; do
 		printf "%s\n" "Mapping of $FILE beginning..."
 	
 		if [[ "$strand_num" = "1" ]]; then
-			$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -U $mapfiles/$m --time -S $mapping_out/$FILE-$MAPPING.sam 2> $mapping_logs/$FILE-Results.log
+			$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -U $mapfiles/$m --time -S $mapping_out/$FILE.sam 2> $mapping_logs/$FILE-Results.log
 		else
-			$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -1 $mapfiles/$m*1.fastq.gz -2 $mapfiles/$m*2.fastq.gz --time -S $mapping_out/$FILE-$MAPPING.sam 2> $mapping_logs/$FILE-Results.log
+			$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -1 $mapfiles/$m*1.fastq.gz -2 $mapfiles/$m*2.fastq.gz --time -S $mapping_out/$FILE.sam 2> $mapping_logs/$FILE-Results.log
 		fi
 		
 	printf "%s\n" "Mapping of $FILE complete."
