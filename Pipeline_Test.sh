@@ -241,8 +241,8 @@ if [[ "$data_type" = "biopsy" ]]; then
 			htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
 			./htseq.sh
 		else
-			./htseq.sh
 			htseq_dir_in="$SAVE_LOC/$project_name/mapping"
+			./htseq.sh
 		fi
 	else 
 		./map_PE_biopsy.sh
@@ -277,19 +277,19 @@ elif [[ "$data_type" = "exfoliome with default values" ]]; then
 		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"		
 		./htseq.sh
 	else
-		./htseq.sh
 		htseq_dir_in="$SAVE_LOC/$project_name/mapping"
+		./htseq.sh
 	fi
 else 
 	./map_exfoliome_with_parameters.sh
 		if [[ "$trim_num" = "4" ]]; then
 		echo "Moving on to dedup"
 		./umi_after_map.sh
-		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"		
 		./htseq.sh
 	else
-		./htseq.sh
 		htseq_dir_in="$SAVE_LOC/$project_name/mapping"
+		./htseq.sh
+
 	fi
 fi
 
