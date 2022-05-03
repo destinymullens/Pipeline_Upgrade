@@ -19,8 +19,8 @@ for i in $samples; do
 	((n++))
 done
 
-paste *-tmp.txt > tmpOK
-rm -f *-tmp.txt
+paste $htseq_dir_out/*-tmp.txt > $htseq_dir_out/tmpOK
+rm -f $htseq_dir_out/*-tmp.txt
 
 c="-f1"
 	for j in $(seq $n)
@@ -30,5 +30,5 @@ c="-f1"
 done
 
 #echo $c
-cut $c tmpOK > $final_counts_file
-rm tmpOK
+cut $c $htseq_dir_out/tmpOK > $final_counts_file
+rm $htseq_dir_out/tmpOK
