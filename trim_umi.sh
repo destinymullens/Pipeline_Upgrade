@@ -5,9 +5,9 @@
 # Read config.sh
 . $(dirname $0)/config.sh
 
-mkdir -p $SAVE_LOC/$project_name/logs
-mkdir -p $SAVE_LOC/$project_name/logs/$trim_type/umi_extracted
-mkdir -p $SAVE_LOC/$project_name/logs/$trim_type/trimmed
+mkdir -p $SAVE_LOC/$project_name/logs/$trim_type
+mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed
+mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/umi_extracted
 
 processed_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/umi_extracted"
 trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed"
