@@ -15,15 +15,14 @@ n=0
 for i in $samples; do
 	FILE=$(basename $i)
 	echo -e "ID\t $FILE" > ${i}-tmp.txt
-	head -n-1 $i | cut -f 1,2 | sort -k1 >> ${i}-tmp.txt
+	head -n-1 $i | cut -f 1,2 | sort -k1 >> $htseq_dir_out/{i}-tmp.txt
 	((n++))
+	paste $htseq_dir_out/i-tmp.txt > $htseq_dir_out/tmpOK
+	rm -f $htseq_dir_out/i-tmp.txt
+	c="-f1"
 done
 
-paste $htseq_dir_out/*-tmp.txt > $htseq_dir_out/tmpOK
-rm -f $htseq_dir_out/*-tmp.txt
-
-c="-f1"
-	for j in $(seq $n)
+for j in $(seq $n)
  	do
  	d=`expr 2 \* $j`
  	c=$c,$d
