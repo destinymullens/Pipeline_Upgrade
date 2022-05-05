@@ -7,7 +7,7 @@
 
 mkdir -p $SAVE_LOC/$project_name/logs
 mkdir -p $SAVE_LOC/$project_name/logs/$trim_type/umi_extracted
-mkdir -p $SAVE_LOC/$project_name/logs/$trim_type/umi_trimmed
+mkdir -p $SAVE_LOC/$project_name/logs/$trim_type/trimmed
 
 processed_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/umi_extracted"
 trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/umi_trimmed"
@@ -22,6 +22,7 @@ for s in $SAMPLES; do
 		stoutfile="$samplename.processed.fastq.gz"
 		echo "Extracting of UMI's from $s...."
 		$UMI_TOOLS extract --bc-pattern=NNNNNN -I $trim_dir_in/$s --log $trim_log/$logfile -S $processed_dir_out/$stoutfile
+		wait
 		echo "Extraction of UMI's from $s is now complete."
 		echo "Begining trimming of $s...."
 		cutadapt -u 4 -j 0 -o $trim_dir_out/$samplename-processed.trim.fastq.gz $processed_dir_out/$s
