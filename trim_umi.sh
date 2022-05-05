@@ -10,7 +10,7 @@ mkdir -p $SAVE_LOC/$project_name/logs/$trim_type/umi_extracted
 mkdir -p $SAVE_LOC/$project_name/logs/$trim_type/trimmed
 
 processed_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/umi_extracted"
-trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/umi_trimmed"
+trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed"
 trim_log="$SAVE_LOC/$project_name/logs/$trim_type"
 
 #### Extract UMI's ####
