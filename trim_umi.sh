@@ -23,17 +23,8 @@ for s in $SAMPLES; do
 		echo "Extracting of UMI's from $s...."
 		$UMI_TOOLS extract --bc-pattern=NNNNNN -I $trim_dir_in/$s --log $trim_log/$logfile -S $processed_dir_out/$stoutfile
 		echo "Extraction of UMI's from $s is now complete."
-	fi
-done
-	
-#### Trimming off 3 connector bases ####
-UMISAMPLES=$(find $processed_dir_out/*.gz -type f -printf '%f\n')
-for t in $UMISAMPLES; do
-	samplename="${t%%.*}"
-	if [[ ! -f $trim_dir_out/$samplename-processed.trim.fastq.gz ]]; then
-		echo "Begining trimming of $t...."
-		cutadapt -u 4 -j 0 -o $trim_dir_out/$samplename-processed.trim.fastq.gz $processed_dir_out/$t
+		echo "Begining trimming of $s...."
+		cutadapt -u 4 -j 0 -o $trim_dir_out/$samplename-processed.trim.fastq.gz $processed_dir_out/$s
 		echo "Trimming of $t is now complete."
-	fi
-		
+		fi
 done
