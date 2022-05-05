@@ -24,7 +24,7 @@ for s in $SAMPLES; do
 		$UMI_TOOLS extract --bc-pattern=NNNNNN -I $trim_dir_in/$s --log $trim_log/$logfile -S $processed_dir_out/$stoutfile
 		echo "Extraction of UMI's from $s is now complete."
 		echo "Begining trimming of $s...."
-		cutadapt -u 4 -j 0 -o $trim_dir_out/$samplename-processed.trim.fastq.gz $processed_dir_out/$stoutfile
+		cutadapt -u 4 -o $trim_dir_out/$samplename-processed.trim.fastq.gz $processed_dir_out/$stoutfile
 		echo "Trimming of $t is now complete."
 		fi
 done
