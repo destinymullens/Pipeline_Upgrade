@@ -17,7 +17,7 @@ trim_log="$SAVE_LOC/$project_name/logs/$trim_type"
 SAMPLES=$(find $trim_dir_in -type f -printf '%f\n')
 for s in $SAMPLES; do
 	samplename="${s%%.*}"
-	if [[ ! -f $trim_dir_out/$samplename-trimmmed.fastq.gz ]]; then
+	if [[ ! -f $processed_dir_out/$samplename-trimmmed.fastq.gz ]]; then
 		logfile="$samplename.processed.log"
 		stoutfile="$samplename.processed.fastq.gz"
 		echo "Extracting of UMI's from $s...."
