@@ -18,7 +18,7 @@ SAMPLES=$(find $map_dir_in -type f -printf '%f\n')
 
 for s in $SAMPLES; do
 	samplename="${s%%.*}"
-	if [[ ! -d $dedup_dir_out/$samplename-dedup.bam ]]; then
+	if [[ ! -f $dedup_dir_out/$samplename-dedup.bam ]]; then
 			echo "Begining sorting of $s...."
 			$SAMTOOLS sort $map_dir_in/$s -o $index_dir_out/$samplename-sort.bam
 			echo "Sorting of $s is complete."
