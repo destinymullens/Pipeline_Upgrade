@@ -8,7 +8,7 @@ samples=$(ls $htseq_dir_out/*.txt)
 summary_dir="$SAVE_LOC/$project_name/summary"
 final_counts_file="$project_name-counts.csv"
 mapping_logs="$SAVE_LOC/$project_name/logs/mapping"
-overall_summary_file="$project_name-summary.csv"
+overall_summary_file="$SAVE_LOC/$project_name/summary/$project_name-summary.csv"
 
 ### Merge htseq count files into one counts csv file
 n=0
