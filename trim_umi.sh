@@ -29,4 +29,5 @@ for s in $SAMPLES; do
 		cutadapt -u 4 -o $trim_dir_out/$stoutfile_trimmed $processed_dir_out/$stoutfile
 		echo "Trimming of $s is now complete."
 		fi
+	fi
 done
