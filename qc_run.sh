@@ -15,6 +15,5 @@ samplename="${s%%.*}"
 		echo ""
 	fi
 done
-
-echo "QC Reports completed with:" >> Mapping_Information.txt
-$FASTQC --version >> Mapping_Information.txt
+fastqc_version=$FASTQC --version 
+echo "QC Reports completed with: fastqc_version." >> Mapping_Information.txt
