@@ -180,6 +180,10 @@ until [[ "$verify" = "1" ]]; do
 	echo "$trim_disp"; echo ""; echo ""
 	echo "Would you like to proceed?"; echo "1. Yes"; echo "2. No"; echo "3. Please exit"
 	read -p "> " verify
+	echo "Project Name: $project_name"; echo "File Location: $file_location" >> Mapping_Information.txt
+	echo "Final filename length: $concat_length"; echo "Type of samples: $data_type" >> Mapping_Information.txt
+	echo "Species: $species"; echo "Your data is $strand_type." >> Mapping_Information.txt
+	echo "$trim_disp"; echo ""; echo " " >> Mapping_Information.txt
 	if [[ "$verify" = "3" ]]; then
 		exit
 	fi
