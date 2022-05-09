@@ -67,3 +67,5 @@ for m in $mappings; do
 	printf "%s\t" "$MULTI_MAP_READS" >> $SUMMARY ## Print multimapped reads to summary
 	printf "%s\n" "$ALIGNMENT_RATE" >> $SUMMARY ## Print alignment rate to summary
 done
+echo "Mapping performed using Bowtie2 version: " >> Mapping_Information.txt
+$BOWTIE --version | cut -d " " -f3 >> Mapping_Information.txt
