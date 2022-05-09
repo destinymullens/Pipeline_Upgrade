@@ -184,7 +184,7 @@ until [[ "$verify" = "1" ]]; do
 	echo "Final filename length: $concat_length"; echo "Type of samples: $data_type" >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
 	echo "Species: $species"; echo "Your data is $strand_type." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
 	echo "$trim_disp"; echo ""; echo " " >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
-	start_time=$(timedatectl | head -1)
+	start_time=$(timedatectl | head -1 | cut -d " " -f23-28)
 	echo "Mapping begining at $start_time." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
 	
 	if [[ "$verify" = "3" ]]; then
@@ -303,5 +303,5 @@ fi
 
 echo "All mapping is completed for $project_name! Your files are located at $SAVE_LOC/$project_name."
 echo "All mapping is completed for $project_name and files are located at $SAVE_LOC/$project_name." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
-completed_time=$(timedatectl | head -1)
+completed_time=$(timedatectl | head -1 | cut -d " " -f23-28)
 echo "Mapping completed at: $completed_time." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt

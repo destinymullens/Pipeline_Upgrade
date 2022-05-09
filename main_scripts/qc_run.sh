@@ -16,4 +16,4 @@ samplename="${s%%.*}"
 	fi
 done
 fastqc_version=$($FASTQC --version)
-echo "QC Reports completed with: fastqc_version." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
+echo "QC Reports completed with: $fastqc_version." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
