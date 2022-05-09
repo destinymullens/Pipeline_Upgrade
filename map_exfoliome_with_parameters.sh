@@ -16,12 +16,10 @@ mapping_logs="$SAVE_LOC/$project_name/logs/mapping"
 mappings=$(ls $mapfiles)
 SUMMARY="$SAVE_LOC/$project_name/summary/Mapping_summary.csv"
 
-
 ##### RUN BOWTIE2 #########
 exfoliome_mapping_parameter=$(cat $SAVE_LOC/$project_name/mapping_parameter.txt)
 
 for m in $mappings; do
-
 	FILE=$(basename $m)
 
 	A=$(echo $exfoliome_mapping_parameter | cut -d "-" -f1 | cut -c 2-2)
@@ -67,5 +65,5 @@ for m in $mappings; do
 	printf "%s\t" "$MULTI_MAP_READS" >> $SUMMARY ## Print multimapped reads to summary
 	printf "%s\n" "$ALIGNMENT_RATE" >> $SUMMARY ## Print alignment rate to summary
 done
-echo "Mapping performed using Bowtie2 version: " >> Mapping_Information.txt
-$BOWTIE --version | cut -d " " -f3 >> Mapping_Information.txt
+bowtie_version=$BOWTIE --version | cut -d " " -f3
+echo "Mapping performed using Bowtie2 version $bowtie_version." >> Mapping_Information.txt
