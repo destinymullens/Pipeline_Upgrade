@@ -30,8 +30,8 @@ for s in $SAMPLES; do
 		$CUTADAPT -u 4 -o $trim_dir_out/$stoutfile_trimmed $processed_dir_out/$stoutfile
 		echo "Trimming of $s is now complete."
 	fi
-	echo "Extraction of UMI's and trimming complete!"
 done
+echo "Extraction of UMI's and trimming complete!"
 umi_tools_version=$($UMI_TOOLS --version)
 echo "UMI extraction and deduplication performed with $umi_tools_version." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
 cutadapt_version=$($CUTADAPT --version)

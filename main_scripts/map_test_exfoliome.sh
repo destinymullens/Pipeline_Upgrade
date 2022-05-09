@@ -17,7 +17,7 @@ test_map_logs="$SAVE_LOC/$project_name/logs/test_mapping"
 test_mappings=$(ls $mapfiles | shuf -n 3)
 SUMMARY="$test_map_logs/Test_mapping_results.txt"
 
-printf "%s\n" "Test mappings are: $test_mappings"
+#printf "%s\n" "Test mappings are: $test_mappings"
 
 ##### RUN BOWTIE2 #########
 

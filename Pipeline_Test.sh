@@ -237,7 +237,7 @@ if [[ "$trim_num" = "1" ]]; then
 		./secondary_scripts/qc_second_run.sh
 fi
 
-echo "Beginning mapping of files."
+###echo "Beginning mapping of files."
 
 if [[ "$data_type" = "biopsy" ]]; then 
 	if [[ "$strand_num" = "1" ]]; then 
