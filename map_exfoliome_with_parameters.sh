@@ -20,7 +20,7 @@ SUMMARY="$SAVE_LOC/$project_name/summary/Mapping_summary.csv"
 ##### RUN BOWTIE2 #########
 exfoliome_mapping_parameter=$(cat $SAVE_LOC/$project_name/mapping_parameter.txt)
 
-for m in $mappings/*.gz; do
+for m in $mappings; do
 
 	FILE=$(basename $m)
 
@@ -33,6 +33,9 @@ for m in $mappings/*.gz; do
 
 	mp=$(echo ${mp_options[A]})
 	ma=$(echo ${ma_options[B]})
+	
+	echo "mp value is $mp"
+	echo "ma value is $ma"
 	
 	MAPPING="D$A-F$B"
 
