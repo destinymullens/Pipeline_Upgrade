@@ -27,8 +27,12 @@ for s in $SAMPLES; do
 	fi
 	if [[ ! -f $trim_dir_out/$stoutfile_trimmed ]]; then
 		echo "Begining trimming of $s...."
-		cutadapt -u 4 -o $trim_dir_out/$stoutfile_trimmed $processed_dir_out/$stoutfile
+		$CUTADAPT -u 4 -o $trim_dir_out/$stoutfile_trimmed $processed_dir_out/$stoutfile
 		echo "Trimming of $s is now complete."
 	fi
 	echo "Extraction of UMI's and trimming complete!"
 done
+echo "UMI extraction and deduplication performed with: " >> Mapping_Information.txt
+$UMI_TOOLS --version >> Mapping_Information.txt
+echo "Trimming performed using Cutadapt version: " >> Mapping_Information.txt
+$CUTADAPT --version >> Mapping_Information.txt
