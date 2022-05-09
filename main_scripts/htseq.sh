@@ -30,7 +30,7 @@ for i in $samples; do
 	tail -5 $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-htseq_summary.log
 
 	## Outputs only the gene counts without overall metrics at end of file (for easier merging with other gene counts later)
-	head -n -5  $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/FILE-gene_counts_all.list
+	head -n -5  $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-gene_counts_all.list
 
 	## Creates list of only ERCC genes
 	grep "^ERCC-" $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-ERCC.list
