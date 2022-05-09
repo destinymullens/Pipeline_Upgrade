@@ -7,7 +7,7 @@ echo "Mapping single-end biopsy now.."
 ## This script is to map biopsy samples using STAR
 
 # Read config.sh
-. $(dirname $0)/config.sh
+. $(dirname $0)/../config.sh
 
 if [[ "$trim_type" = "untrimmed" ]]; then
 	map_dir_in="$SAVE_LOC/$project_name/concat"

@@ -3,7 +3,7 @@
 ## This script is to perform test mappings for exfoliome samples
 
 # Read config.sh
-. $(dirname $0)/config.sh
+. $(dirname $0)/../config.sh
 
 ## Select random files for test mapping
 

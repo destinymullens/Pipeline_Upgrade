@@ -2,7 +2,7 @@
 
 ## This script is to run QC Reports
 # Read config.sh
-. $(dirname $0)/config.sh
+. $(dirname $0)/../config.sh
 
 SAMPLES=$(find $qc_dir_in -type f -printf '%f\n')
 #echo "$SAMPLES"

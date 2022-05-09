@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Read config.sh
-. $(dirname $0)/config.sh
+. $(dirname $0)/../config.sh
 
 htseq_dir_out="$SAVE_LOC/$project_name/summary/htseq_counts"
 samples=$(ls $htseq_dir_out/*.txt)

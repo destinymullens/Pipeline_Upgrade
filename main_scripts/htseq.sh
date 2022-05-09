@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Read config.sh
-. $(dirname $0)/config.sh
+. $(dirname $0)/../config.sh
 
 mkdir -p "$SAVE_LOC/$project_name/htseq_counts"
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"

@@ -3,7 +3,7 @@
 ## This script is to trim a specfic number of bases
 
 # Read config.sh
-. $(dirname $0)/config.sh
+. $(dirname $0)/../config.sh
 
 mkdir -p $SAVE_LOC/$project_name/logs/$trim_type
 mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed
