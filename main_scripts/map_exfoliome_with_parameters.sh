@@ -66,4 +66,4 @@ for m in $mappings; do
 	printf "%s\n" "$ALIGNMENT_RATE" >> $SUMMARY ## Print alignment rate to summary
 done
 bowtie_version=$BOWTIE --version | cut -d " " -f3
-echo "Mapping performed using Bowtie2 version $bowtie_version with parameters ma $ma and mp $mp." >> Mapping_Information.txt
+echo "Mapping performed using Bowtie2 version $bowtie_version with parameters ma $ma and mp $mp." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt

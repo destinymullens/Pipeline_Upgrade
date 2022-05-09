@@ -29,7 +29,7 @@ until [[ "$verify" = "1" ]]; do
 
 ## Input data type: Biopsy or Exfoliome
 	verify="0"
-	until [[ "$verify" = "1" ]]; do ./top_banner.sh
+	until [[ "$verify" = "1" ]]; do ./misc_scripts/top_banner.sh
 		echo "What type of data are you using?"; echo "1. Biopsy"; echo "2. Exfoliome"
 		read -p "> " data_type_num
 		if [[ "$data_type_num" = "1" ]]; then data_type="biopsy"
@@ -62,7 +62,7 @@ until [[ "$verify" = "1" ]]; do
 ## Updated pre-programmed genomes (human,mouse,pig,horse,rat) that have been updated and
 ## are now in a folder with a new name should be updated in the corresponding species_location line
 	verify="0"
-	until [[ "$verify" = "1" ]]; do ./top_banner.sh
+	until [[ "$verify" = "1" ]]; do ./misc_scripts/top_banner.sh
 		echo "Please enter the species type:"
 		echo "1. Human"; echo "2. Mouse"; echo "3. Pig"; echo "4. Horse"; echo "5. Rat"; echo "6. Other"
 		read -p "> " species_type
@@ -102,7 +102,7 @@ until [[ "$verify" = "1" ]]; do
 
 ## Get file location
 	verify="0"
-	until [[ "$verify" = "1" ]]; do ./top_banner.sh
+	until [[ "$verify" = "1" ]]; do ./misc_scripts/top_banner.sh
 		read -p "Where are your files located? (Note: Please use /home/username instead of ~/ if files are located in your home directory.) " file_location
 		echo " "
 		find $file_location -type f -printf '%f\n'
@@ -112,11 +112,11 @@ until [[ "$verify" = "1" ]]; do
 
 ## Get concat number & check
 	verify="0"	
-	until [[ "$verify" = "1" ]]; do ./top_banner.sh
+	until [[ "$verify" = "1" ]]; do ./misc_scripts/top_banner.sh
 		read -p "Do you need to concatenate your files? 1. Yes 2. No " concat_response
 		if [[ "$concat_response" == "1" ]]; then
 			read -p "How long is your filename? " concat_length
-			./concat_preview.sh
+			./misc_scripts/concat_preview.sh
 			echo "Is this correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
 		else
@@ -126,7 +126,7 @@ until [[ "$verify" = "1" ]]; do
 
 ## Determine strands
 	verify="0"
-	until [[ "$verify" = "1" ]]; do ./top_banner.sh
+	until [[ "$verify" = "1" ]]; do ./misc_scripts/top_banner.sh
 		echo "Is your data single end or paired end? "
 		echo "1. Single end"; echo "2. Paired end"
 		read -p "> " strand_num
@@ -141,7 +141,7 @@ until [[ "$verify" = "1" ]]; do
 
 ## Determine type of trimming and trimming options.
 	verify="0"
-	until [[ "$verify" = "1" ]]; do ./top_banner.sh
+	until [[ "$verify" = "1" ]]; do ./misc_scripts/top_banner.sh
 		echo "Do you need to trim your data?"
 		echo "1. No, I do not need to trim my data."; echo "2. Yes, I need to trim by quality."
 		echo "3. Yes, I need to trim by bases."; echo "4. Yes, I need to trim using UMI's."
@@ -172,7 +172,7 @@ until [[ "$verify" = "1" ]]; do
 
 	verify="0"
 ## Final verification of information before beginning pipeline
-	./top_banner.sh
+	./misc_scripts/top_banner.sh
 	echo "Thank you for all of your input! Let's verify things one last time before beginning."; echo ""
 	echo "Project Name: $project_name"; echo "File Location: $file_location"
 	echo "Final filename length: $concat_length"; echo "Type of samples: $data_type"
@@ -180,12 +180,12 @@ until [[ "$verify" = "1" ]]; do
 	echo "$trim_disp"; echo ""; echo ""
 	echo "Would you like to proceed?"; echo "1. Yes"; echo "2. No"; echo "3. Please exit"
 	read -p "> " verify
-	echo "Project Name: $project_name"; echo "File Location: $file_location" >> Mapping_Information.txt
-	echo "Final filename length: $concat_length"; echo "Type of samples: $data_type" >> Mapping_Information.txt
-	echo "Species: $species"; echo "Your data is $strand_type." >> Mapping_Information.txt
-	echo "$trim_disp"; echo ""; echo " " >> Mapping_Information.txt
+	echo "Project Name: $project_name"; echo "File Location: $file_location" >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
+	echo "Final filename length: $concat_length"; echo "Type of samples: $data_type" >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
+	echo "Species: $species"; echo "Your data is $strand_type." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
+	echo "$trim_disp"; echo ""; echo " " >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
 	start_time=timedatectl | head -1
-	echo "Mapping begining at $start_time." >> Mapping_Information.txt
+	echo "Mapping begining at $start_time." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
 	
 	if [[ "$verify" = "3" ]]; then
 		exit
@@ -196,12 +196,12 @@ mkdir="SAVE_LOC/$project_name"
 outputfile="$project_name-stout.txt"
 outputerr="$project_name=err.txt"
 
-./top_banner.sh
+./misc_scripts/top_banner.sh
 ## Runs concat script to concatenate script
 
 if [[ "$concat_response" == "1" ]]; then
 	echo "Beginning concatenation of files..."
-	./concat_run.sh
+	./main_scripts/concat_run.sh
 	qc_dir_in="$SAVE_LOC/$project_name/concat"
 	trim_dir_in="$SAVE_LOC/$project_name/concat"
 	echo "Concatenation of files is finished! Moving on to QC Reports."
@@ -216,7 +216,7 @@ echo " "
 
 echo "Beginning QC Reports..."
 qc_dir_out="$SAVE_LOC/$project_name/qc_reports/untrimmed"
-./qc_run.sh
+./main_scripts/qc_run.sh
 echo "QC Reports complete!"
 
 ## Run scripts for trimming options 
@@ -225,15 +225,15 @@ if [[ "$trim_num" = "1" ]]; then
 	echo "No trimming needed!"
 	elif [[ "$trim_num" = "2" ]]; then
 		echo "Beginning trimming of files!"
-		./trim_quality.sh
+		./main_scripts/trim_quality.sh
 		./secondary_scripts/qc_second_run.sh		
 	elif [[ "$trim_num" = "3" ]]; then
 		echo "Beginning trimming of files!"
-		./trim_base.sh
+		./main_scripts/trim_base.sh
 		./secondary_scripts/qc_second_run
 	else
 		echo "Beginning trimming of files!"
-		./trim_umi.sh
+		./main_scripts/trim_umi.sh
 		./secondary_scripts/qc_second_run.sh
 fi
 
@@ -241,70 +241,67 @@ echo "Beginning mapping of files."
 
 if [[ "$data_type" = "biopsy" ]]; then 
 	if [[ "$strand_num" = "1" ]]; then 
-		./map_SE_biopsy.sh
+		./main_scripts/map_SE_biopsy.sh
 		if [[ "$trim_num" = "4" ]]; then
 			echo "Moving on to dedup"
-			./umi_after_map.sh
+			./main_scripts/umi_after_map.sh
 			htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
-			./htseq.sh
+			./main_scripts/htseq.sh
 		else
 			htseq_dir_in="$SAVE_LOC/$project_name/mapping"
-			./htseq.sh
+			./main_scripts/htseq.sh
 		fi
 	else 
-		./map_PE_biopsy.sh
+		./main_scripts/map_PE_biopsy.sh
 		if [[ "$trim_num" = "4" ]]; then
 			echo "Moving on to dedup"
-			./umi_after_map.sh
+			./main_scripts/umi_after_map.sh
 			htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
-			./htseq.sh
+			./main_scripts/htseq.sh
 		else
 			htseq_dir_in="$SAVE_LOC/$project_name/mapping"
-			./htseq.sh
+			./main_scripts/htseq.sh
 		fi
 	fi
 elif [[ "$data_type" = "exfoliome with testing" ]]; then
-	./map_test_exfoliome.sh
-	./map_exfoliome_with_parameters.sh
+	./main_scripts/map_test_exfoliome.sh
+	./main_scripts/map_exfoliome_with_parameters.sh
 		if [[ "$trim_num" = "4" ]]; then
 			echo "Moving on to dedup"
-			./umi_after_map.sh
+			./main_scripts/umi_after_map.sh
 			htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
-			./htseq.sh
+			./main_scripts/htseq.sh
 		else
 			htseq_dir_in="$SAVE_LOC/$project_name/mapping"
-			./htseq.sh
+			./main_scripts/htseq.sh
 		fi
 	
 elif [[ "$data_type" = "exfoliome with default values" ]]; then 
-	./map_exfoliome_default.sh
+	./main_scripts/map_exfoliome_default.sh
 	if [[ "$trim_num" = "4" ]]; then
 		echo "Moving on to dedup"
-		./umi_after_map.sh
+		./main_scripts/umi_after_map.sh
 		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"		
-		./htseq.sh
+		./main_scripts/htseq.sh
 	else
 		htseq_dir_in="$SAVE_LOC/$project_name/mapping"
-		./htseq.sh
+		./main_scripts/htseq.sh
 	fi
 else 
-	./map_exfoliome_with_parameters.sh
+	./main_scripts/map_exfoliome_with_parameters.sh
 		if [[ "$trim_num" = "4" ]]; then
 		echo "Moving on to dedup"
-		./umi_after_map.sh
-		./htseq.sh
+		./main_scripts/umi_after_map.sh
+		./main_scripts/htseq.sh
 	else
 		htseq_dir_in="$SAVE_LOC/$project_name/mapping"
-		./htseq.sh
-
+		./main_scripts/htseq.sh
 	fi
 fi
 
-
-
-./summary.sh 	
+./main_scripts/summary.sh 	
 
 echo "All mapping is completed for $project_name! Your files are located at $SAVE_LOC/$project_name."
-echo "All mapping is completed for $project_name and files are located at $SAVE_LOC/$project_name." >> Mapping_Information.txt
+echo "All mapping is completed for $project_name and files are located at $SAVE_LOC/$project_name." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
 completed_time=timedatectl | head -1
-echo "Mapping completed at: $completed_time." >> Mapping_Information.txt
+echo "Mapping completed at: $completed_time." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt

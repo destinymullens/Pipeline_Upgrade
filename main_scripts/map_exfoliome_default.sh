@@ -31,4 +31,4 @@ for m in $mappings; do
 	fi
 done
 bowtie_version=$BOWTIE --version | cut -d " " -f3
-echo "Mapping performed using Bowtie2 version $bowtie_version with defaul settings." >> Mapping_Information.txt
+echo "Mapping performed using Bowtie2 version $bowtie_version with defaul settings." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
