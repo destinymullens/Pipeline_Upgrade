@@ -47,5 +47,5 @@ for i in $samples; do
 	awk '{if ($3>5) print }' $htseq_dir_out/$FILE/htseq.list | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.5.count
 	awk '{if ($3>10) print }' $htseq_dir_out/$FILE/htseq.list | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.10.count
 done
-echo "Counting performed using htseq-count version: " >> Mapping_Information.txt
-$HTSEQ_LOC --version >> Mapping_Information.txt
+htseq_version=$HTSEQ_LOC --version
+echo "Counting performed using htseq-count version $htseq_version." >> Mapping_Information.txt
