@@ -5,7 +5,7 @@
 
 mkdir -p "$SAVE_LOC/$project_name/htseq_counts"
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
-samples=$(ls $htseq_dir_in/*)
+samples=$(ls $htseq_dir_in/*.bam)
 
 
 
