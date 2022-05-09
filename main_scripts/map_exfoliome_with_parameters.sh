@@ -92,5 +92,5 @@ if [[ ! -f $SUMMARY ]];then
 fi
 
 done
-bowtie_version=$($BOWTIE --version | cut -d " " -f3 _ head -1)
+bowtie_version=$($BOWTIE --version | cut -d " " -f3 | head -1)
 echo "Mapping performed using Bowtie2 version $bowtie_version with parameters ma $ma and mp $mp." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
