@@ -7,16 +7,22 @@ mkdir -p "$SAVE_LOC/$project_name/htseq_counts"
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
 samples=$(ls $htseq_dir_in/*)
 
+
+
 for i in $samples; do
 	FILE=$(basename $i)
-	mkdir -p "$htseq_dir_out/$FILE"
-	printf "%s\n" "Counting of $FILE beginning..."
-		if [[ "$strand_num" = "1" ]]; then	
-			$HTSEQ_LOC $i $species_location/genes.gtf --stranded=no -f sam -i gene_name --additional-attr=gene_id > $htseq_dir_out/$FILE/$FILE-htseq.txt
+	if [[ ! -d $htseq_dir_out/$FILE ]]; then
+		mkdir -p "$htseq_dir_out/$FILE"
+		printf "%s\n" "Counting of $FILE beginning..."
+			if [[ "$strand_num" = "1" ]]; then	
+				$HTSEQ_LOC $i $species_location/genes.gtf --stranded=no -f sam -i gene_name --additional-attr=gene_id > $htseq_dir_out/$FILE/$FILE-htseq.txt
 			else
-			$HTSEQ_LOC --stranded=yes -f sam -i gene_id --additional-attr=gene_name $i $species_location/genes.gtf  > $htseq_dir_out/$FILE/$FILE-htseq.txt
-		fi
-	printf "%s\n" "Counting of $FILE complete."
+				$HTSEQ_LOC --stranded=yes -f sam -i gene_id --additional-attr=gene_name $i $species_location/genes.gtf  > $htseq_dir_out/$FILE/$FILE-htseq.txt
+			fi
+		printf "%s\n" "Counting of $FILE complete."
+	else
+		echo "Counting of $FILE complete."
+	fi
 
 #### This section is saving the htseq counts file & individual metrics for overall summary output later
 
