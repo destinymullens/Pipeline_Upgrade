@@ -22,7 +22,7 @@ printf "%s\n" "Test mappings are: $test_mappings"
 ##### RUN BOWTIE2 #########
 
 if [[ ! -f $SAVE_LOC/$project_name/mapping_parameter.txt ]]; then
-	for t in $test_mappings/*.gz; do
+	for t in $test_mappings; do
 		FILE=$(basename $t)
 
 		A=0
