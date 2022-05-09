@@ -22,6 +22,7 @@ exfoliome_mapping_parameter=$(cat $SAVE_LOC/$project_name/mapping_parameter.txt)
 for m in $mappings; do
 	FILE=$(basename $m)
 
+
 	A=$(echo $exfoliome_mapping_parameter | cut -d "-" -f1 | cut -c 2-2)
 	B=$(echo $exfoliome_mapping_parameter | cut -d "-" -f2 | cut -c 2-2)
 #	echo "The mapping parameter is $exfoliome_mapping_parameter"
@@ -40,6 +41,8 @@ for m in $mappings; do
 	
 	MAPPING="D$A-F$B"
 
+	if [[ ! -f $mapping_out/$FILE-$MAPPING.sam ]]; then
+
 	printf "%s\n" "Mapping $FILE with $MAPPING mapping options beginning..."
 	
 	if [[ "$strand_num" = "1" ]]; then
@@ -56,6 +59,9 @@ for m in $mappings; do
 	UNMAPPED_READS=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -7 | tail -1 | cut -d " " -f5)
 	MULTI_MAP_READS=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -9 | tail -1 | cut -d " " -f5)
 	ALIGNMENT_RATE=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -10 | tail -1 | cut -d " " -f1)
+else
+	echo "Mapping of $FILE with $MAPPING is already complete."
+fi
 
 if [[ ! -f $SUMMARY ]];then
 	touch $SUMMARY
