@@ -15,3 +15,6 @@ samplename="${s%%.*}"
 		echo ""
 	fi
 done
+
+echo "QC Reports completed with:" >> Mapping_Information.txt
+$FASTQC --version >> Mapping_Information.txt
