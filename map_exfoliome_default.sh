@@ -1,5 +1,3 @@
-##!/bin/bash
-
 #!/bin/bash
 
 ## This script is to perform test mappings for exfoliome samples
@@ -35,3 +33,5 @@ for m in $mappings; do
 	
 	fi
 done
+echo "Mapping performed using Bowtie2 version: " >> Mapping_Information.txt
+$BOWTIE --version | cut -d " " -f3 >> Mapping_Information.txt
