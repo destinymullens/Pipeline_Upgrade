@@ -14,10 +14,7 @@ mapping_logs="$SAVE_LOC/$project_name/logs/mapping"
 mappings=$(ls "$mapfiles")
 SUMMARY="$mapping_logs/Mapping_results.txt"
 
-
 ##### RUN BOWTIE2 #########
-
-
 for m in $mappings; do
 	FILE=$(basename $m)
 	if [[ ! -f $mapping_out/$FILE-$MAPPING.sam ]]; then
@@ -33,5 +30,5 @@ for m in $mappings; do
 	
 	fi
 done
-echo "Mapping performed using Bowtie2 version: " >> Mapping_Information.txt
-$BOWTIE --version | cut -d " " -f3 >> Mapping_Information.txt
+bowtie_version=$BOWTIE --version | cut -d " " -f3
+echo "Mapping performed using Bowtie2 version $bowtie_version with defaul settings." >> Mapping_Information.txt
