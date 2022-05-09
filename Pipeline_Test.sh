@@ -184,6 +184,9 @@ until [[ "$verify" = "1" ]]; do
 	echo "Final filename length: $concat_length"; echo "Type of samples: $data_type" >> Mapping_Information.txt
 	echo "Species: $species"; echo "Your data is $strand_type." >> Mapping_Information.txt
 	echo "$trim_disp"; echo ""; echo " " >> Mapping_Information.txt
+	start_time=timedatectl | head -1
+	echo "Mapping begining at $start_time." >> Mapping_Information.txt
+	
 	if [[ "$verify" = "3" ]]; then
 		exit
 	fi
@@ -302,3 +305,6 @@ fi
 ./summary.sh 	
 
 echo "All mapping is completed for $project_name! Your files are located at $SAVE_LOC/$project_name."
+echo "All mapping is completed for $project_name and files are located at $SAVE_LOC/$project_name." >> Mapping_Information.txt
+completed_time=timedatectl | head -1
+echo "Mapping completed at: $completed_time." >> Mapping_Information.txt
