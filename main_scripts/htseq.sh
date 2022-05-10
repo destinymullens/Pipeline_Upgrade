@@ -34,20 +34,20 @@ for i in $samples; do
 
 	## Creates list of only ERCC genes
 	grep "^ERCC-" $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-ERCC.list
-	ercc_num=(wc -l ERCC.count)
+	ercc_num=$(wc -l ERCC.count)
 	## Gets count of ERCC reads
-	awk '{ sum+=$3 } END { print sum }' $htseq_dir_out/$FILE/$FILE-ERCC.list >! $htseq_dir_out/$FILE/$FILE-ERCC.count
+	awk '{ sum+=$3 } END { print sum }' $htseq_dir_out/$FILE/$FILE-ERCC.list > $htseq_dir_out/$FILE/$FILE-ERCC.count
 
 	## Creates list of only mitochondrial genes
 	grep -i "MT-" $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-MITO.list
 	## Gets count of mitocondrial reads
-	awk '{ sum+=$3 } END { print sum }' $htseq_dir_out/$FILE/$FILE-MITO.list >! $htseq_dir_out/$FILE/$FILE-MITO.count
+	awk '{ sum+=$3 } END { print sum }' $htseq_dir_out/$FILE/$FILE-MITO.list > $htseq_dir_out/$FILE/$FILE-MITO.count
 
 	## Create list without ERCC genes to get gene counts
 	head -n -$ercc_num $htseq_dir_out/$FILE/$FILE-htseq_gene_counts.log >! $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.log
 	## Outputs number of genes with > X number of genes
 	awk '{if ($3>0) print }' $htseq_dir_out/$FILE/$FILE-htseq.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.0.count
-	awk '{if ($3>1) print }' $htseq_dir_out/$FILE/$FILE-htseq.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.1count
+	awk '{if ($3>1) print }' $htseq_dir_out/$FILE/$FILE-htseq.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.1.count
 	awk '{if ($3>2) print }' $htseq_dir_out/$FILE/$FILE-htseq.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.2.count
 	awk '{if ($3>3) print }' $htseq_dir_out/$FILE/$FILE-htseq.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.3.count
 	awk '{if ($3>5) print }' $htseq_dir_out/$FILE/$FILE-htseq.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.5.count
