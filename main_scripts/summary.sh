@@ -5,6 +5,7 @@
 
 SAVE_LOC="/mnt/zion/Destiny_Pipeline_Test"
 project_name="Zion_Write_Test"
+mkdir -p $$SAVE_LOC/$project_name/htseq_counts/temp
 
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
 samples=$(ls $htseq_dir_out/*/*.txt)
@@ -15,8 +16,6 @@ summary_file="$SAVE_LOC/$project_name/summary/$project_name-summary.csv"
 tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
 
 ### Merge htseq count files into one counts csv file
-
-mkdir -p $$SAVE_LOC/$project_name/htseq_counts/temp
 
 for i in $samples; do
 	ID=$(echo "$i" | cut -d "-" -f1)
