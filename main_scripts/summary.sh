@@ -3,6 +3,9 @@
 # Read config.sh
 . $(dirname $0)/../config.sh
 
+SAVE_LOC="/mnt/zion/Destiny_Pipeline_Test"
+project_name="Zion_Write_Test"
+
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
 samples=$(ls $htseq_dir_out/*/*.txt)
 summary_dir="$SAVE_LOC/$project_name/summary"

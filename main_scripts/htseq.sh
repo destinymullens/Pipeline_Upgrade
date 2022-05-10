@@ -8,7 +8,6 @@ htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
 samples=$(ls $htseq_dir_in/*.bam)
 
 
-
 for i in $samples; do
 	FILE=$(basename $i)
 	if [[ ! -d $htseq_dir_out/$FILE ]]; then
