@@ -30,11 +30,11 @@ for i in $samples; do
 	tail -5 $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-htseq_summary.log
 
 	## Outputs only the gene counts without overall metrics at end of file (for easier merging with other gene counts later)
-	head -n -5 $htseq_dir_out/$FILE/$FILE-htseq.txt >! $htseq_dir_out/$FILE/$FILE-gene_counts_all.list
+	head -n -5 $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-gene_counts_all.list
 
 	## Creates list of only ERCC genes
-	grep "^ERCC-" $htseq_dir_out/$FILE/$FILE-htseq.txt >! $htseq_dir_out/$FILE/$FILE-ERCC.list
-	ercc_num=$(wc -l Donovan_618_lib1-sort.bam-ERCC.list | cut -d " " -f1)
+	grep "^ERCC-" $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-ERCC.list
+	
 	## Gets count of ERCC reads
 	awk '{ sum+=$3 } END { print sum }' $htseq_dir_out/$FILE/$FILE-ERCC.list > $htseq_dir_out/$FILE/$FILE-ERCC.count
 
