@@ -12,25 +12,25 @@ summary_dir="$SAVE_LOC/$project_name/summary"
 counts_file="$project_name-counts.csv"
 mapping_logs="$SAVE_LOC/$project_name/logs/mapping"
 summary_file="$SAVE_LOC/$project_name/summary/$project_name-summary.csv"
-
+tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
 
 ### Merge htseq count files into one counts csv file
 for i in $samples; do
 	ID=$(echo "$i" | cut -d "-" -f1)
 	if [[ ! -f $counts_file ]]; then
-		printf "%s\t" "Gene Name" > GeneName-tmp.txt
-		awk '{print $1}' $i >> GeneName-tmp.txt
-		printf "%s\t" "Gene ID" > GeneID.txt
-		awk '{print $2}' $i >> GeneID.txt
-		printf "%s\t" "$ID" > $i-tmp.txt
-		awk '{print $3}' $i >> $i-tmp.txt
-		paste GeneID.txt GeneName-tmp.txt $i-tmp >> $counts_file
+		printf "%s\t" "Gene Name" > $tmp_dir/GeneName-tmp.txt
+		awk '{print $1}' $i >> $tmp_dir/GeneName-tmp.txt
+		printf "%s\t" "Gene ID" > $tmp_dir/GeneID.txt
+		awk '{print $2}' $i >> $tmp_dir/GeneID.txt
+		printf "%s\t" "$ID" > $tmp_dir/$i-tmp.txt
+		awk '{print $3}' $i >> $tmp_dir/$i-tmp.txt
+		paste GeneID.txt GeneName-tmp.txt $tmp_dir/$i-tmp >> $counts_file
 	else
-		printf "%s\t" "$ID" > $i-tmp.txt
-		awk '{print $3}' $i >> $i-tmp.txt
+		printf "%s\t" "$ID" > $tmp_dir/$i-tmp.txt
+		awk '{print $3}' $i >> $tmp_dir/$i-tmp.txt
 		paste $counts_file $i-tmp >> $counts_file		
 	fi
-rm -f *.tmp.txt
+#rm -r $tmp_dir/
 done
 
 #for j in $(seq $n)
