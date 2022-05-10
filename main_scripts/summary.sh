@@ -20,8 +20,8 @@ for i in $samples; do
 	echo -e "ID\t $i" > $i-tmp.txt
 	head -n-1 $i | cut -f 1,2 | sort -k1 >> $i-tmp.txt
 	((n++))
-	paste $htseq_dir_out/$i-tmp.txt > $htseq_dir_out/tmpOK
-	rm -f $htseq_dir_out/$i-tmp.txt
+	paste $i-tmp.txt > $htseq_dir_out/tmpOK
+	rm -f $i-tmp.txt
 	c="-f1"
 done
 
