@@ -18,9 +18,9 @@ n=0
 for i in $samples; do
 	FILE=$(basename $i)
 	echo -e "ID\t $i" > $i-tmp.txt
-	head -n-1 $i | cut -f 1,2 | sort -k1 >> $i-tmp.txt
+	head -n-1 $i | cut -f 1,2 | sort -k1 >> $i-temp.txt
 	((n++))
-	paste $i-tmp.txt > $htseq_dir_out/tmpOK
+	paste $FILE > $htseq_dir_out/tmpOK
 	rm -f $i-tmp.txt
 	c="-f1"
 done
