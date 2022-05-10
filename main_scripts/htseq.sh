@@ -44,16 +44,15 @@ for i in $samples; do
 	awk '{ sum+=$3 } END { print sum }' $htseq_dir_out/$FILE/$FILE-MITO.list > $htseq_dir_out/$FILE/$FILE-MITO.count
 
 	## Create list without ERCC genes to get gene counts
-	##head -n -$ercc_num $htseq_dir_out/$FILE/$FILE-htseq_gene_counts.log >! $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.log
-	grep -Fvxf $htseq_dir_out/$FILE/$FILE-ERCC.list $htseq_dir_out/$FILE/$FILE-gene_counts_all.list >! $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.log
+	grep -Fvxf $htseq_dir_out/$FILE/$FILE-ERCC.list $htseq_dir_out/$FILE/$FILE-gene_counts_all.list >$htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt
 
 	## Outputs number of genes with > X number of genes
-	awk '{if ($3>0) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.log | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.0.count
-	awk '{if ($3>1) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.log | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.1.count
-	awk '{if ($3>2) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.log | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.2.count
-	awk '{if ($3>3) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.log | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.3.count
-	awk '{if ($3>5) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.log | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.5.count
-	awk '{if ($3>10) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.log | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.10.count
+	awk '{if ($3>0) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.0.count
+	awk '{if ($3>1) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.1.count
+	awk '{if ($3>2) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.2.count
+	awk '{if ($3>3) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.3.count
+	awk '{if ($3>5) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.5.count
+	awk '{if ($3>10) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.10.count
 done
 htseq_version=$($HTSEQ_LOC --version)
 echo "Counting performed using htseq-count version $htseq_version." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
