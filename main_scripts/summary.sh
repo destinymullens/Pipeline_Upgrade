@@ -4,7 +4,7 @@
 . $(dirname $0)/../config.sh
 
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
-samples=$(ls $htseq_dir_out/*.txt)
+samples=$(ls $htseq_dir_out/*/*.txt)
 summary_dir="$SAVE_LOC/$project_name/summary"
 final_counts_file="$project_name-counts.csv"
 mapping_logs="$SAVE_LOC/$project_name/logs/mapping"

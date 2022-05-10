@@ -34,7 +34,7 @@ for i in $samples; do
 
 	## Creates list of only ERCC genes
 	grep "^ERCC-" $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-ERCC.list
-	ercc_num=$(wc -l ERCC.count)
+	ercc_num=$(wc -l $htseq_dir_out/$FILE/$FILE-ERCC.list)
 	## Gets count of ERCC reads
 	awk '{ sum+=$3 } END { print sum }' $htseq_dir_out/$FILE/$FILE-ERCC.list > $htseq_dir_out/$FILE/$FILE-ERCC.count
 
