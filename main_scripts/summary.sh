@@ -28,7 +28,7 @@ for i in $samples; do
 	else
 		printf "%s\t" "$ID" > $tmp_dir/$ID-tmp.txt
 		awk '{print $3}' $i >> $tmp_dir/$ID-tmp.txt
-		paste $counts_file $i-tmp >> $counts_file		
+		paste $counts_file $ID-tmp >> $counts_file		
 	fi
 #rm -r $tmp_dir/
 done
@@ -40,5 +40,5 @@ done
 #done
 
 #echo $c
-cut $c $htseq_dir_out/tmpOK > $SAVE_LOC/$project_name/summary/$final_counts_file
-rm $htseq_dir_out/tmpOK
+#cut $c $htseq_dir_out/tmpOK > $SAVE_LOC/$project_name/summary/$final_counts_file
+#rm $htseq_dir_out/tmpOK
