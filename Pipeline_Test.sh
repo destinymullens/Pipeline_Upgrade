@@ -198,6 +198,12 @@ until [[ "$verify" = "1" ]]; do
 	fi
 done
 
+(
+    trap '' 1  # Ignore SIGHUP
+    # Series of long running commands
+    # using $low, $high and $input
+) </dev/null >$SAVE_LOC/$project_name/Progress.log 2>&1 &
+
 mkdir="SAVE_LOC/$project_name"
 outputfile="$project_name-stout.txt"
 outputerr="$project_name=err.txt"
