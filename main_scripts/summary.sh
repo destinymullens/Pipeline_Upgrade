@@ -36,11 +36,11 @@ head -n -5 $counts_file > $tmp_dir/counts_file-tmp.txt
 mv $tmp_dir/counts_file-tmp.txt $counts_file
 rm -r $tmp_dir/
 
-
 ## Compile overall mapping metrics into one file
 logs=$(ls $mapping_logs/*.log)
+htseq_logs$($htseq_dir_out/)
 ## Print headers for overall for overall metrics
-printf "%s\n" "Sample Name Total Reads  Single Mapped Reads     Multi-Mapped Reads  Alignment Rate" >> $summary_file ## Print sample name to summary  
+printf "%s\n" "Sample Name  Total Reads  Single Mapped Reads Multi-Mapped Reads  Alignment Rate  Genes >1 Read   Genes >3 Reads    Genes >5 Reads  Genes >10 Reads" >> $summary_file ## Print sample name to summary  
 
 ## Collect and paste information from each sample into overall summary file
 for j in $logs; do

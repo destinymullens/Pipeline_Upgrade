@@ -142,26 +142,26 @@ until [[ "$verify" = "1" ]]; do
 ## Determine type of trimming and trimming options.
 	verify="0"
 	until [[ "$verify" = "1" ]]; do ./misc_scripts/top_banner.sh
-		echo "Do you need to trim your data?"
-		echo "1. No, I do not need to trim my data."; echo "2. Yes, I need to trim by quality."
-		echo "3. Yes, I need to trim by bases."; echo "4. Yes, I need to trim using UMI's."
+		echo "Do you need to trim the data?"
+		echo "1. No, the data does not need to be trimmed."; echo "2. Yes, the data needs to be trimmed using a quality score."
+		echo "3. Yes, the data needs a specific number of bases trimmed."; echo "4. Yes, the data needs to be trimmed using UMI's."
 		read -p "> " trim_num
 		if [[ "$trim_num" = "1" ]]; then trim_type="untrimmed"
-			trim_disp="You do not need to trim your data."
+			trim_disp="The data does not need to be trimmed."
 			if [[ "$concat_num" = "1" ]]; then mapfiles="$SAVE_LOC/$project_name/concat"
 			else 
 			mapfiles="$file_location"
 			fi
 		elif [[ "$trim_num" = "2" ]]; then trim_type="quality_trim"
                 	read -p "Please enter the quality score you would like to use: " trim_quality_num
-                	trim_disp="You need to trim your data using a quality score of $trim_quality_num."
+                	trim_disp="The data needs to be trimmed using a quality score of $trim_quality_num."
 			mapfiles="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
         	elif [[ "$trim_num" = "3" ]]; then trim_type="base_trim"
             		read -p "Please enter the number of bases you would like to trim: " trim_base_num
-            		trim_disp="You would like to trim $trim_base_num bases from your data."
+            		trim_disp="The data needs $trim_base_num bases trimmed."
             		mapfiles="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
             	elif [[ "$trim_num" = "4" ]]; then trim_type="umi_trim"
-                	trim_disp="You need to trim your data using UMI's."
+                	trim_disp="The data needs to be trimmed using UMI's."
                 	mapfiles="$SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed"
                 else  echo "Your input is not one of the options, please try again."; sleep 3; continue
         	fi
@@ -183,9 +183,10 @@ until [[ "$verify" = "1" ]]; do
 
 	## Save information to Mapping Info
 	mapping_information="$SAVE_LOC/$project_name/summary/Mapping_Information.txt"
-	echo "Your project name: $project_name is mapping data: $file_location." >> $mapping_information
+	echo "The project $project_name is mapping data located at $file_location." >> $mapping_information
 	echo "The samples were indicated to be $species $data_type." >> $mapping_information
-	echo "Your data is $strand_type and  $trim_disp" >> $mapping_information
+	echo "Your data is $strand_type." >> $mapping_information
+	echo "$trim_disp" >> $mapping_information
 	echo " " >> $mapping_information
 	start_time=$(timedatectl | head -1 | cut -d " " -f23-28)
 	echo "Mapping begining at $start_time." >> $mapping_information
