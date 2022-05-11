@@ -19,9 +19,9 @@ tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
 
 for i in $samples; do
     ID=$(basename $i | cut -d "-" -f1)
-    echo "ID variable: $ID"
  
     if [[ ! -f $summary_dir/$counts_file ]]; then
+        echo "ID variable: $ID in if"
         printf "%s\n" "Gene Name" > $tmp_dir/GeneName-tmp.txt
         awk '{print $1}' $i >> $tmp_dir/GeneName-tmp.txt
         printf "%s\n" "Gene ID" > $tmp_dir/GeneID.txt
@@ -30,6 +30,7 @@ for i in $samples; do
         awk '{print $3}' $i >> $tmp_dir/$ID-tmp.txt
         paste $tmp_dir/GeneID.txt $tmp_dir/GeneName-tmp.txt $tmp_dir/$ID-tmp.txt >> $summary_dir/$counts_file
     else
+        echo "ID variable: $ID in else"    
         printf "%s\n" "$ID" > $tmp_dir/$ID-tmp.txt
         awk '{print $3}' $i >> $tmp_dir/$ID-tmp.txt
         paste $summary_dir/$counts_file $tmp_dir/$ID-tmp.txt >> $tmp_dir/$ID-counts-tmp.txt
