@@ -31,11 +31,11 @@ for i in $samples; do
         awk '{print $2}' $i >> $tmp_dir/GeneID.txt
         printf "%s\n" "$ID" > $tmp_dir/$ID-tmp.txt
         awk '{print $3}' $i >> $tmp_dir/$ID-tmp.txt
-        paste $tmp_dir/GeneID.txt $tmp_dir/GeneName-tmp.txt $tmp_dir/$ID-tmp >> $summary_dir/$counts_file
+        paste $tmp_dir/GeneID.txt $tmp_dir/GeneName-tmp.txt $tmp_dir/$ID-tmp.txt >> $summary_dir/$counts_file
     else
         printf "%s\n" "$ID" > $tmp_dir/$ID-tmp.txt
         awk '{print $3}' $i >> $tmp_dir/$ID-tmp.txt
-        paste $tmp_dir/$counts_file $tmp_dir/$ID-tmp >> $summary_dir/$counts_file        
+        paste $summary_dir/$counts_file $tmp_dir/$ID-tmp.txt >> $summary_dir/$counts_file        
     fi
 #rm -r $tmp_dir/
 done
