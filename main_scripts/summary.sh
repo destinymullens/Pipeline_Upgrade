@@ -2,6 +2,7 @@
 
 # Read config.sh
 . $(dirname $0)/../config.sh
+. $SAVE_LOC/$project_name/project_config.sh
 
 mkdir -p $SAVE_LOC/$project_name/htseq_counts/temp
 

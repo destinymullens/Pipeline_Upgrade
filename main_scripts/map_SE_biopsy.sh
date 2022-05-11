@@ -8,6 +8,7 @@ echo "Mapping single-end biopsy now.."
 
 # Read config.sh
 . $(dirname $0)/../config.sh
+. $SAVE_LOC/$project_name/project_config.sh
 
 if [[ "$trim_type" = "untrimmed" ]]; then
 	map_dir_in="$SAVE_LOC/$project_name/concat"

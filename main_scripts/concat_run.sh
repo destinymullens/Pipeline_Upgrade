@@ -2,6 +2,7 @@
 
 # Read config.sh
 . $(dirname $0)/../config.sh
+. $SAVE_LOC/$project_name/project_config.sh
 
 SAMPLES=$(find $file_location -type f -printf '%f\n' | cut -c 1-$concat_length | sort | uniq)
 

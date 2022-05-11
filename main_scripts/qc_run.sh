@@ -3,6 +3,7 @@
 ## This script is to run QC Reports
 # Read config.sh
 . $(dirname $0)/../config.sh
+. $SAVE_LOC/$project_name/project_config.sh
 
 SAMPLES=$(find $qc_dir_in -type f -printf '%f\n')
 #echo "$SAMPLES"

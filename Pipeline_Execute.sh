@@ -3,9 +3,7 @@
 
 # Read config.sh
 . $(dirname $0)/config.sh
-.$($SAVE_LOC/$project_name/project_config.sh)
-
-
+. $SAVE_LOC/$project_name/project_config.sh
 
 ./misc_scripts/top_banner.sh
 ## Runs concat script to concatenate script
