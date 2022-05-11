@@ -33,6 +33,6 @@ for s in $SAMPLES; do
 done
 echo "Extraction of UMI's and trimming complete!"
 umi_tools_version=$($UMI_TOOLS --version)
-echo "UMI extraction and deduplication performed with $umi_tools_version." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
+echo "UMI extraction and deduplication performed with $umi_tools_version." >> $mapping_information
 cutadapt_version=$($CUTADAPT --version)
-echo "Trimming performed using Cutadapt version $cutadapt_version." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
+echo "Trimming performed using Cutadapt version $cutadapt_version." >> $mapping_information

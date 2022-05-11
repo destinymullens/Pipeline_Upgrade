@@ -54,4 +54,4 @@ for i in $samples; do
 	awk '{if ($3>10) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.10.count
 done
 htseq_version=$($HTSEQ_LOC --version)
-echo "Counting performed using htseq-count version $htseq_version." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
+echo "Counting performed using htseq-count version $htseq_version." >> $mapping_information

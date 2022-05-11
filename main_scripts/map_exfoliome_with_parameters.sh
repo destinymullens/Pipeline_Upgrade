@@ -93,4 +93,4 @@ fi
 
 done
 bowtie_version=$($BOWTIE --version | cut -d " " -f3 | head -1)
-echo "Mapping performed using Bowtie2 version $bowtie_version with parameters ma $ma and mp $mp." >> $SAVE_LOC/$project_name/summary/Mapping_Information.txt
+echo "Mapping performed using Bowtie2 version $bowtie_version with parameters ma $ma and mp $mp." >> $mapping_information
