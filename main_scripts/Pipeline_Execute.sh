@@ -5,14 +5,14 @@
 
 ##Importinh input variables
 config_dir="$SAVE_LOC/$project_name/tmp"
-READ project_name < $config_dir/project_name.txt
-READ SAVE_LOC < $config_dir/SAVE_LOC.txt
-READ concat_response < $config_dir/concat_response.txt
-READ concat_length < $config_dir/concat_response.txt
-READ trim_num < $config_dir/trim_num.txt
-READ data_type < $config_dir/data_type.txt
-READ strand_num < $config_dir/strand_num.txt
-READ file_location < $config_dir/file_location.txt
+project_name=$(cat $config_dir/project_name.txt)
+SAVE_LOC=$(cat $config_dir/SAVE_LOC.txt)
+concat_response=$(cat $config_dir/concat_response.txt)
+concat_length=$(cat $config_dir/concat_response.txt)
+trim_num=$(cat $config_dir/trim_num.txt)
+data_type=$(cat $config_dir/data_type.txt)
+strand_num=$(cat $config_dir/strand_num.txt)
+file_location=$(cat $config_dir/file_location.txt)
 
 ./misc_scripts/top_banner.sh
 ## Runs concat script to concatenate script
