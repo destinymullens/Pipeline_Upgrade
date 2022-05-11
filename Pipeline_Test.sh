@@ -7,6 +7,7 @@ set -a # Command exports variables automatically for other scripts
 
 ## Gather user input for various variables needed to determine the correct scripts for the pipeline to process
 verify="0"
+
 until [[ "$verify" = "1" ]]; do
 	clear
 	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
