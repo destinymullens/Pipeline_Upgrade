@@ -24,7 +24,7 @@ for i in $samples; do
     ID=$(basename $i | cut -d "-" -f1)
     echo "ID variable: $ID"
 
-    if [[ ! -f $counts_file ]]; then
+    if [[ ! -f $summary_dir/$counts_file ]]; then
         printf "%s\n" "Gene Name" > $tmp_dir/GeneName-tmp.txt
         awk '{print $1}' $i >> $tmp_dir/GeneName-tmp.txt
         printf "%s\n" "Gene ID" > $tmp_dir/GeneID.txt
@@ -39,24 +39,6 @@ for i in $samples; do
     fi
 #rm -r $tmp_dir/
 done
-
-#for i in $samples; do
-#	ID=$(echo "$i" | cut -d "-" -f1)
-#	if [[ ! -f $counts_file ]]; then
-#		printf "%s" "Gene Name" > $tmp_dir/GeneName-tmp.txt
-#		awk '{print $1}' $i >> $tmp_dir/GeneName-tmp.txt
-#		printf "%s\t" "Gene ID" > $tmp_dir/GeneID.txt
-#		awk '{print $2}' $i >> $tmp_dir/GeneID.txt
-#		printf "%s" "$ID" > $tmp_dir/$ID-tmp.txt
-#		awk '{print $3}' $i >> $tmp_dir/$ID-tmp.txt
-#		paste $tmp_dir/GeneID.txt $tmp_dir/GeneName-tmp.txt $tmp_dir/$ID-tmp >> $counts_file
-#	else
-#		printf "%s" "$ID" > $tmp_dir/$ID-tmp.txt
-#		awk '{print $3}' $i >> $tmp_dir/$ID-tmp.txt
-#		paste $tmp_dir/$counts_file $tmp_dir/$ID-tmp >> $counts_file		
-#	fi
-#rm -r $tmp_dir/
-#done
 
 #for j in $(seq $n)
  #	do
