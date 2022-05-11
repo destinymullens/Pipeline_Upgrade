@@ -11,7 +11,7 @@ htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
 samples=$(ls $htseq_dir_out/*/*.txt)
 counts_file="$SAVE_LOC/$project_name/summary/$project_name-counts.csv"
 mapping_logs="$SAVE_LOC/$project_name/logs/mapping"
-summary_file="$SAVE_LOC/$project_name/summary/$project_name-summary.csv"
+summary_file="$SAVE_LOC/$project_name/summary/$project_name-Overall_mapping_summary.csv"
 tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
 logs=$(ls $mapping_logs/*.log)
 ### Merge htseq count files into one counts csv file
@@ -34,7 +34,7 @@ for i in $samples; do
         mv $tmp_dir/$ID-counts-tmp.txt $counts_file
     fi
 done
- head -n -5 $counts_file > $counts_file
+# head -n -5 $counts_file > $counts_file
 rm -r $tmp_dir/
 
 ## Print headers for overall for overall metrics
