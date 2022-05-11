@@ -21,9 +21,9 @@ tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
 
 for i in $samples; do
     echo "i variable: $i"
-    ID=$(echo "$i" | cut -d "-" -f1)
-    echo "ID variable: $ID"
-    ID2=$(basename $i)
+    #ID=$(echo "$i" | cut -d "-" -f1)
+    #echo "ID variable: $ID"
+    ID2=$(basename $i | cut -d "-" -f1)
     echo "ID2 variable: $ID2"
 
     if [[ ! -f $counts_file ]]; then
