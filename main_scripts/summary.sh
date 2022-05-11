@@ -41,12 +41,6 @@ rm -r $tmp_dir/
     printf "%s\n" "Sample Name Total Reads  Single Mapped Reads     Multi-Mapped Reads  Alignment Rate" >> $summary_file ## Print sample name to summary  
 for j in $logs; do
     FILE=$(basename $j | cut -d "." -f1)
-     printf "%s\t" "$MAPPING" >> $summary_file ## Print mapping to summary
-  #  printf "%s\t" "$TOTAL_READS" >> $summary_file ## Print Total reads to summary
-   # printf "%s\t" "$SINGLE_MAPPED_READS" >> $summary_file ## Print single mapped reads to summary
-#    printf "%s\t" "$UNMAPPED_READS" >> $summary_file ## Print unmapped reads to summary 
- #   printf "%s\t" "$MULTI_MAP_READS" >> $summary_file ## Print multimapped reads to summary
-  #  printf "%s\n" "$ALIGNMENT_RATE" >> $summary_file ## Print alignment rate to summary
     ## Cut info from each log file for overall metrics
     TOTAL_READS=$(cat $j | head -5 | tail -1 | cut -d " " -f1)
     SINGLE_MAPPED_READS=$(cat $j | head -8 | tail -1 | cut -d " " -f5)
