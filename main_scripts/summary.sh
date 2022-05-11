@@ -34,33 +34,33 @@ for i in $samples; do
         paste $summary_dir/$counts_file $tmp_dir/$ID-tmp.txt >> $tmp_dir/$ID-counts-tmp.txt
         mv $tmp_dir/$ID-counts-tmp.txt $summary_dir/$counts_file        
     fi
-rm -r $tmp_dir/
+#rm -r $tmp_dir/
 done
 
+## Print headers for overall for overall metrics
+    printf "%s\n" "Sample Name Total Reads  Single Mapped Reads     Multi-Mapped Reads  Alignment Rate" >> $summary_file ## Print sample name to summary  
 for j in $logs; do
     FILE=$(basename $j | cut -d "." -f1)
-    ## Print headers for overall for overall metrics
-    printf "%s\n" "Sample Name Total Reads  Single Mapped Reads     Multi-Mapped Reads  Alignment Rate" >> $summary_file ## Print sample name to summary   
- #   printf "%s\t" "$MAPPING" >> $summary_file ## Print mapping to summary
+     printf "%s\t" "$MAPPING" >> $summary_file ## Print mapping to summary
   #  printf "%s\t" "$TOTAL_READS" >> $summary_file ## Print Total reads to summary
    # printf "%s\t" "$SINGLE_MAPPED_READS" >> $summary_file ## Print single mapped reads to summary
 #    printf "%s\t" "$UNMAPPED_READS" >> $summary_file ## Print unmapped reads to summary 
  #   printf "%s\t" "$MULTI_MAP_READS" >> $summary_file ## Print multimapped reads to summary
   #  printf "%s\n" "$ALIGNMENT_RATE" >> $summary_file ## Print alignment rate to summary
     ## Cut info from each log file for overall metrics
-                TOTAL_READS=$(cat $j | head -5 | tail -1 | cut -d " " -f1)
-                SINGLE_MAPPED_READS=$(cat $j | head -8 | tail -1 | cut -d " " -f5)
-                UNMAPPED_READS=$(cat $j | head -7 | tail -1 | cut -d " " -f5)
-                MULTI_MAP_READS=$(cat $j | head -9 | tail -1 | cut -d " " -f5)
-                ALIGNMENT_RATE=$(cat $j | head -10 | tail -1 | cut -d " " -f1)
+    TOTAL_READS=$(cat $j | head -5 | tail -1 | cut -d " " -f1)
+    SINGLE_MAPPED_READS=$(cat $j | head -8 | tail -1 | cut -d " " -f5)
+    UNMAPPED_READS=$(cat $j | head -7 | tail -1 | cut -d " " -f5)
+    MULTI_MAP_READS=$(cat $j | head -9 | tail -1 | cut -d " " -f5)
+    ALIGNMENT_RATE=$(cat $j | head -10 | tail -1 | cut -d " " -f1)
 
-                printf "%s\t" "$FILE" >> $summary_file ## Print sample name to summary   
-                printf "%s\t" "$MAPPING" >> $summary_file ## Print mapping to summary
-                printf "%s\t" "$TOTAL_READS" >> $summary_file ## Print Total reads to summary
-                printf "%s\t" "$SINGLE_MAPPED_READS" >> $summary_file ## Print single mapped reads to summary
-                printf "%s\t" "$UNMAPPED_READS" >> $summary_file ## Print unmapped reads to summary 
-                printf "%s\t" "$MULTI_MAP_READS" >> $summary_file ## Print multimapped reads to summary
-                printf "%s\n" "$ALIGNMENT_RATE" >> $summary_file ## Print alignment rate to summary
+    printf "%s\t" "$FILE" >> $summary_file ## Print sample name to summary   
+    printf "%s\t" "$MAPPING" >> $summary_file ## Print mapping to summary
+    printf "%s\t" "$TOTAL_READS" >> $summary_file ## Print Total reads to summary
+    printf "%s\t" "$SINGLE_MAPPED_READS" >> $summary_file ## Print single mapped reads to summary
+    printf "%s\t" "$UNMAPPED_READS" >> $summary_file ## Print unmapped reads to summary 
+    printf "%s\t" "$MULTI_MAP_READS" >> $summary_file ## Print multimapped reads to summary
+    printf "%s\n" "$ALIGNMENT_RATE" >> $summary_file ## Print alignment rate to summary
 done
 
 echo "Summary complete! The summary files are saved $summary_dir."
