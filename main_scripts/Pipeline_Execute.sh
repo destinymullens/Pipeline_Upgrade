@@ -2,7 +2,17 @@
 
 # Read config.sh
 . $(dirname $0)/../config.sh
-. $SAVE_LOC/$project_name/project_config.sh
+
+##Importinh input variables
+config_dir="SAVE_LOC/$project_name/tmp"
+READ project_name < $config_dir/project_name.txt
+READ SAVE_LOC < $config_dir/SAVE_LOC.txt
+READ concat_response < $config_dir/concat_response.txt
+READ concat_length < $config_dir/concat_response.txt
+READ trim_num < $config_dir/trim_num.txt
+READ data_type < $config_dir/data_type.txt
+READ strand_num < $config_dir/strand_num.txt
+READ file_location < $config_dir/file_location.txt
 
 ./misc_scripts/top_banner.sh
 ## Runs concat script to concatenate script

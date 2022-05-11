@@ -199,18 +199,28 @@ until [[ "$verify" = "1" ]]; do
 	fi
 done
 
-mkdir="SAVE_LOC/$project_name"
+mkdir -p "$SAVE_LOC/$project_name/tmp"
+config_dir="SAVE_LOC/$project_name/tmp"
 
 ## Output responses to project_config.sh file
 
-echo "project_name=$project_name" > $SAVE_LOC/$project_name/project_config.sh
-echo "SAVE_LOC=$SAVE_LOC" >> $SAVE_LOC/$project_name/project_config.sh
-echo "concat_response=$concat_response" >> $SAVE_LOC/$project_name/project_config.sh
-echo "trim_num=$trim_num" >> $SAVE_LOC/$project_name/project_config.sh
-echo "data_type=$data_type" >> $SAVE_LOC/$project_name/project_config.sh
-echo "strand_num=$strand_num" >> $SAVE_LOC/$project_name/project_config.sh
-echo "data_type=$data_type" >> $SAVE_LOC/$project_name/project_config.sh
-echo "file_location=$file_location" >> $SAVE_LOC/$project_name/project_config.sh
+echo "$project_name" > $config_dir/project_name.txt
+echo "$SAVE_LOC" > $config_dir/SAVE_LOC.txt
+echo "$concat_response" > $config_dir/concat_response.txt
+echo "$concat_length" > $config_dir/concat_response.txt
+echo "$trim_num" > $config_dir/trim_num.txt
+echo "$data_type" > $config_dir/data_type.txt
+echo "$strand_num" > $config_dir/strand_num.txt
+echo "$file_location" > $config_dir/file_location.txt
+ 
+#echo "project_name=$project_name" > $SAVE_LOC/$project_name/tmp/project_config.sh
+#echo "SAVE_LOC=$SAVE_LOC" >> $SAVE_LOC/$project_name/project_config.sh
+#echo "concat_response=$concat_response" >> $SAVE_LOC/$project_name/project_config.sh
+#echo "trim_num=$trim_num" >> $SAVE_LOC/$project_name/project_config.sh
+#echo "data_type=$data_type" >> $SAVE_LOC/$project_name/project_config.sh
+#echo "strand_num=$strand_num" >> $SAVE_LOC/$project_name/project_config.sh
+#echo "data_type=$data_type" >> $SAVE_LOC/$project_name/project_config.sh
+#echo "file_location=$file_location" >> $SAVE_LOC/$project_name/project_config.sh
 
 
-nohup ./main_scripts/Pipeline_Execute.sh 1> $project_name-log.out 2> $project_name-log.err &
+nohup ./main_scripts/Pipeline_Execute.sh 1> $SAVE_LOC/$project_name/$project_name-log.out 2> $SAVE_LOC/$project_name/$project_name-log.err &
