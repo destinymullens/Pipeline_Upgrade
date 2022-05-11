@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Read config.sh
