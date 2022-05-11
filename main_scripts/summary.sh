@@ -33,8 +33,8 @@ for i in $samples; do
     else
         printf "%s\n" "$ID" > $tmp_dir/$ID-tmp.txt
         awk '{print $3}' $i >> $tmp_dir/$ID-tmp.txt
-        printf "%s\t" $tmp_dir/$ID-tmp.txt >> $summary_dir/$counts_file 
-        #paste $summary_dir/$counts_file $tmp_dir/$ID-tmp.txt >> $summary_dir/$counts_file        
+        paste $summary_dir/$counts_file $tmp_dir/$ID-tmp.txt >> $tmp_dir/$ID-counts-tmp.txt
+        mv $tmp_dir/$ID-counts-tmp.txt $summary_dir/$counts_file        
     fi
 #rm -r $tmp_dir/
 done
