@@ -3,17 +3,16 @@
 # Read config.sh
 . $(dirname $0)/../config.sh
 
-SAVE_LOC="/mnt/zion/Destiny_Pipeline_Test"
-project_name="Zion_Write_Test"
 mkdir -p $SAVE_LOC/$project_name/htseq_counts/temp
 
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
 samples=$(ls $htseq_dir_out/*/*.txt)
 counts_file="$SAVE_LOC/$project_name/summary/$project_name-counts.csv"
+tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
+
 mapping_logs="$SAVE_LOC/$project_name/logs/mapping"
 summary_file="$SAVE_LOC/$project_name/summary/$project_name-Overall_mapping_summary.csv"
-tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
-logs=$(ls $mapping_logs/*.log)
+
 ### Merge htseq count files into one counts csv file
 
 for i in $samples; do
@@ -38,8 +37,13 @@ head -n -5 $counts_file > $tmp_dir/counts_file-tmp.txt
 mv $tmp_dir/counts_file-tmp.txt $counts_file
 rm -r $tmp_dir/
 
+
+## Compile overall mapping metrics into one file
+logs=$(ls $mapping_logs/*.log)
 ## Print headers for overall for overall metrics
-    printf "%s\n" "Sample Name Total Reads  Single Mapped Reads     Multi-Mapped Reads  Alignment Rate" >> $summary_file ## Print sample name to summary  
+printf "%s\n" "Sample Name Total Reads  Single Mapped Reads     Multi-Mapped Reads  Alignment Rate" >> $summary_file ## Print sample name to summary  
+
+## Collect and paste information from each sample into overall summary file
 for j in $logs; do
     FILE=$(basename $j | cut -d "." -f1)
     ## Cut info from each log file for overall metrics
