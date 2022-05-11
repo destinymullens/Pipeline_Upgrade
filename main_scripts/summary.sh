@@ -21,6 +21,7 @@ tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
 
 for i in $samples; do
     ID=$(echo "$i" | cut -d "-" -f1)
+    echo $ID
     if [[ ! -f $counts_file ]]; then
         printf "%s" "Gene Name" > $tmp_dir/GeneName-tmp.txt
         awk '{print $1}' $i >> $tmp_dir/GeneName-tmp.txt
