@@ -183,9 +183,9 @@ until [[ "$verify" = "1" ]]; do
 
 	## Save information to Mapping Info
 	mapping_information="$SAVE_LOC/$project_name/summary/Mapping_Information.txt"
-	echo "Your project name: $project_name is mapping data: $file_location."; >> $mapping_information
+	echo "Your project name: $project_name is mapping data: $file_location." >> $mapping_information
 	echo "The samples were indicated to be $species $data_type." >> $mapping_information
-	echo "Your data is $strand_type with $trim_disp." >> $mapping_information
+	echo "Your data is $strand_type and  $trim_disp" >> $mapping_information
 	echo " " >> $mapping_information
 	start_time=$(timedatectl | head -1 | cut -d " " -f23-28)
 	echo "Mapping begining at $start_time." >> $mapping_information
@@ -307,4 +307,4 @@ echo " " >> $mapping_information
 echo "All mapping is completed for $project_name! Your files are located at $SAVE_LOC/$project_name."
 echo "All mapping is completed for $project_name and files are located at $SAVE_LOC/$project_name." >> $mapping_information
 completed_time=$(timedatectl | head -1 | cut -d " " -f23-28)
-echo "Mapping completed at: $completed_time." >> $mapping_information
+echo "Mapping began at: $completed_time." >> $mapping_information
