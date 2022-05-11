@@ -34,8 +34,8 @@ for i in $samples; do
         mv $tmp_dir/$ID-counts-tmp.txt $counts_file
     fi
 done
-head -n -5 $counts_file > $tmp_dir/cut-$counts_file
-mv $$tmp_dir/cut-$counts_file $counts_file
+head -n -5 $counts_file > $tmp_dir/$counts_file-tmp.txt
+mv $counts_file-tmp.txt $counts_file
 rm -r $tmp_dir/
 
 ## Print headers for overall for overall metrics
