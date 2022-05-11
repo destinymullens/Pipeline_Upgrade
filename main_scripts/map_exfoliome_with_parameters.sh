@@ -63,34 +63,6 @@ else
 	echo "Mapping of $FILE with $MAPPING is already complete."
 fi
 
-if [[ ! -f $SUMMARY ]];then
-	touch $SUMMARY
-	printf "%s\t" "Sample Name" >> $SUMMARY ## Print sample name to summary
-	printf "%s\t" "Mapping" >> $SUMMARY ## Print mapping to summary
-	printf "%s\t" "Total_Reads" >> $SUMMARY ## Print Total reads to summary
-	printf "%s\t" "Single Mapped Reads" >> $SUMMARY ## Print single mapped reads to summary
-	printf "%s\t" "Unmapped Reads" >> $SUMMARY ## Print unmapped reads to summary 
-	printf "%s\t" "Multi-mapped Reads" >> $SUMMARY ## Print multimapped reads to summary
-	printf "%s\n" "Alignment Rate" >> $SUMMARY ## Print alignment rate to summary
-
-	printf "%s\t" "$FILE" >> $SUMMARY ## Print sample name to summary	
-	printf "%s\t" "$MAPPING" >> $SUMMARY ## Print mapping to summary
-	printf "%s\t" "$TOTAL_READS" >> $SUMMARY ## Print Total reads to summary
-	printf "%s\t" "$SINGLE_MAPPED_READS" >> $SUMMARY ## Print single mapped reads to summary
-	printf "%s\t" "$UNMAPPED_READS" >> $SUMMARY ## Print unmapped reads to summary 
-	printf "%s\t" "$MULTI_MAP_READS" >> $SUMMARY ## Print multimapped reads to summary
-	printf "%s\n" "$ALIGNMENT_RATE" >> $SUMMARY ## Print alignment rate to summary
-
-	else
-	printf "%s\t" "$FILE" >> $SUMMARY ## Print sample name to summary	
-	printf "%s\t" "$MAPPING" >> $SUMMARY ## Print mapping to summary
-	printf "%s\t" "$TOTAL_READS" >> $SUMMARY ## Print Total reads to summary
-	printf "%s\t" "$SINGLE_MAPPED_READS" >> $SUMMARY ## Print single mapped reads to summary
-	printf "%s\t" "$UNMAPPED_READS" >> $SUMMARY ## Print unmapped reads to summary 
-	printf "%s\t" "$MULTI_MAP_READS" >> $SUMMARY ## Print multimapped reads to summary
-	printf "%s\n" "$ALIGNMENT_RATE" >> $SUMMARY ## Print alignment rate to summary
-fi
-
 done
 bowtie_version=$($BOWTIE --version | cut -d " " -f3 | head -1)
 echo "Mapping performed using Bowtie2 version $bowtie_version with parameters ma $ma and mp $mp." >> $mapping_information

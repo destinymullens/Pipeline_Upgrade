@@ -43,22 +43,22 @@ logs=$(ls $mapping_logs/*.log)
 printf "%s\n" "Sample Name Total Reads  Single Mapped Reads     Multi-Mapped Reads  Alignment Rate" >> $summary_file ## Print sample name to summary  
 
 ## Collect and paste information from each sample into overall summary file
-#for j in $logs; do
-#    FILE=$(basename $j | cut -d "." -f1)
+for j in $logs; do
+    FILE=$(basename $j | cut -d "." -f1)
     ## Cut info from each log file for overall metrics
-#    TOTAL_READS=$(cat $j | head -5 | tail -1 | cut -d " " -f1)
-#    SINGLE_MAPPED_READS=$(cat $j | head -8 | tail -1 | cut -d " " -f5)
-#    UNMAPPED_READS=$(cat $j | head -7 | tail -1 | cut -d " " -f5)
-#    MULTI_MAP_READS=$(cat $j | head -9 | tail -1 | cut -d " " -f5)
-#    ALIGNMENT_RATE=$(cat $j | head -10 | tail -1 | cut -d " " -f1)
+    TOTAL_READS=$(cat $j | head -5 | tail -1 | cut -d " " -f1)
+    SINGLE_MAPPED_READS=$(cat $j | head -8 | tail -1 | cut -d " " -f5)
+    UNMAPPED_READS=$(cat $j | head -7 | tail -1 | cut -d " " -f5)
+    MULTI_MAP_READS=$(cat $j | head -9 | tail -1 | cut -d " " -f5)
+    ALIGNMENT_RATE=$(cat $j | head -10 | tail -1 | cut -d " " -f1)
 
-#    printf "%s\t" "$FILE" >> $summary_file ## Print sample name to summary   
-#    printf "%s\t" "$MAPPING" >> $summary_file ## Print mapping to summary
-#    printf "%s\t" "$TOTAL_READS" >> $summary_file ## Print Total reads to summary
-#    printf "%s\t" "$SINGLE_MAPPED_READS" >> $summary_file ## Print single mapped reads to summary
-#    printf "%s\t" "$UNMAPPED_READS" >> $summary_file ## Print unmapped reads to summary 
-#    printf "%s\t" "$MULTI_MAP_READS" >> $summary_file ## Print multimapped reads to summary
-#    printf "%s\n" "$ALIGNMENT_RATE" >> $summary_file ## Print alignment rate to summary
-#done
+    printf "%s\t" "$FILE" >> $summary_file ## Print sample name to summary   
+    printf "%s\t" "$MAPPING" >> $summary_file ## Print mapping to summary
+    printf "%s\t" "$TOTAL_READS" >> $summary_file ## Print Total reads to summary
+    printf "%s\t" "$SINGLE_MAPPED_READS" >> $summary_file ## Print single mapped reads to summary
+    printf "%s\t" "$UNMAPPED_READS" >> $summary_file ## Print unmapped reads to summary 
+    printf "%s\t" "$MULTI_MAP_READS" >> $summary_file ## Print multimapped reads to summary
+    printf "%s\n" "$ALIGNMENT_RATE" >> $summary_file ## Print alignment rate to summary
+done
 
 echo "Summary complete! The summary files are saved $SAVE_LOC/summary"
