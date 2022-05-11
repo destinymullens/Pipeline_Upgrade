@@ -25,6 +25,7 @@ until [[ "$verify" = "1" ]]; do
 	echo "If using special characters, it must be quoted or escaped using the \ symbol."
 	echo ""
 	read -p "What would you like to name your project? " project_name
+	read -p "Where would you like to save your project?" $SAVE_LOC
 	echo ""; echo "Thank you! Your final results wil be saved at $SAVE_LOC/$project_name"; sleep 3
 
 ## Input data type: Biopsy or Exfoliome

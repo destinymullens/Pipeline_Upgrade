@@ -18,6 +18,6 @@ SAMTOOLS="/usr/bin/samtools"
 #The following variable is for the parent folder that the reference genomes are saved in.
 REF_LOC="/mnt/datab/refs"
 #The following variable is for the parent folder that projects are saved in.
-SAVE_LOC="/mnt/zion/Destiny_Pipeline_Test"
+#SAVE_LOC="/mnt/zion/Destiny_Pipeline_Test"
 #The following variable is for the number of threads available on the computer you are using.
 THREADS=30
