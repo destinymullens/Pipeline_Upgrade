@@ -20,8 +20,12 @@ tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
 #awk 'NF > 1{ a[$1] = a[$3]"\t"$2} END {for( I in a ) print I a[i]}' $samples > merged.tmp
 
 for i in $samples; do
+    echo "i variable: $i"
     ID=$(echo "$i" | cut -d "-" -f1)
-    echo $ID
+    echo "ID variable: $ID"
+    ID2=$(basename $i)
+    echo "ID2 variable: $ID2"
+
     if [[ ! -f $counts_file ]]; then
         printf "%s" "Gene Name" > $tmp_dir/GeneName-tmp.txt
         awk '{print $1}' $i >> $tmp_dir/GeneName-tmp.txt
