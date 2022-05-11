@@ -18,10 +18,9 @@ tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
 ### Merge htseq count files into one counts csv file
 
 for i in $samples; do
-    echo "i variable: $i"
     ID=$(basename $i | cut -d "-" -f1)
     echo "ID variable: $ID"
-
+ 
     if [[ ! -f $summary_dir/$counts_file ]]; then
         printf "%s\n" "Gene Name" > $tmp_dir/GeneName-tmp.txt
         awk '{print $1}' $i >> $tmp_dir/GeneName-tmp.txt
