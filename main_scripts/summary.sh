@@ -35,7 +35,7 @@ for i in $samples; do
     fi
 done
  head -n -5 $counts_file > $counts_file
-#rm -r $tmp_dir/
+rm -r $tmp_dir/
 
 ## Print headers for overall for overall metrics
     printf "%s\n" "Sample Name Total Reads  Single Mapped Reads     Multi-Mapped Reads  Alignment Rate" >> $summary_file ## Print sample name to summary  
