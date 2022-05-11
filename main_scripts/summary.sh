@@ -38,7 +38,7 @@ for i in $samples; do
 		paste $tmp_dir/$counts_file $tmp_dir/$ID-tmp >> $counts_file		
 	fi
 #rm -r $tmp_dir/
-#done
+done
 
 #for j in $(seq $n)
  #	do
