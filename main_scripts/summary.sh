@@ -16,11 +16,9 @@ summary_file="$SAVE_LOC/$project_name/summary/$project_name-summary.csv"
 tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
 
 ### Merge htseq count files into one counts csv file
-
-
 	
 
-awk 'NF > 1{ a[$3] = a[$3]"\t"$2} END {for( I in a ) print I a[i]}' $samples > merged.tmp
+awk 'NF > 1{ a[$1] = a[$3]"\t"$2} END {for( I in a ) print I a[i]}' $samples > merged.tmp
 
 #for i in $samples; do
 #	ID=$(echo "$i" | cut -d "-" -f1)
