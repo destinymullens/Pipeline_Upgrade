@@ -9,8 +9,7 @@ mkdir -p $SAVE_LOC/$project_name/htseq_counts/temp
 
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
 samples=$(ls $htseq_dir_out/*/*.txt)
-summary_dir="$SAVE_LOC/$project_name/summary"
-counts_file="$project_name-counts.csv"
+counts_file="$SAVE_LOC/$project_name/summary/project_name-counts.csv"
 mapping_logs="$SAVE_LOC/$project_name/logs/mapping"
 summary_file="$SAVE_LOC/$project_name/summary/$project_name-summary.csv"
 tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
@@ -27,15 +26,16 @@ for i in $samples; do
         awk '{print $2}' $i >> $tmp_dir/GeneID.txt
         printf "%s\n" "$ID" > $tmp_dir/$ID-tmp.txt
         awk '{print $3}' $i >> $tmp_dir/$ID-tmp.txt
-        paste $tmp_dir/GeneID.txt $tmp_dir/GeneName-tmp.txt $tmp_dir/$ID-tmp.txt >> $summary_dir/$counts_file
+        paste $tmp_dir/GeneID.txt $tmp_dir/GeneName-tmp.txt $tmp_dir/$ID-tmp.txt >> $counts_file
     else 
         printf "%s\n" "$ID" > $tmp_dir/$ID-tmp.txt
         awk '{print $3}' $i >> $tmp_dir/$ID-tmp.txt
         paste $summary_dir/$counts_file $tmp_dir/$ID-tmp.txt >> $tmp_dir/$ID-counts-tmp.txt
-        mv $tmp_dir/$ID-counts-tmp.txt $summary_dir/$counts_file        
+        mv $tmp_dir/$ID-counts-tmp.txt $counts_file
     fi
-#rm -r $tmp_dir/
 done
+ head -n -5 $counts_file > $counts_file
+#rm -r $tmp_dir/
 
 ## Print headers for overall for overall metrics
     printf "%s\n" "Sample Name Total Reads  Single Mapped Reads     Multi-Mapped Reads  Alignment Rate" >> $summary_file ## Print sample name to summary  
@@ -63,4 +63,4 @@ for j in $logs; do
     printf "%s\n" "$ALIGNMENT_RATE" >> $summary_file ## Print alignment rate to summary
 done
 
-echo "Summary complete! The summary files are saved $summary_dir."
+echo "Summary complete! The summary files are saved $SAVE_LOC/summary"
