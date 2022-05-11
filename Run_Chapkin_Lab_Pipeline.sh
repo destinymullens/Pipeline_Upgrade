@@ -27,7 +27,7 @@ until [[ "$verify" = "1" ]]; do
 	echo "If using special characters, it must be quoted or escaped using the \ symbol."
 	echo ""
 	read -p "What would you like to name your project? " project_name
-	read -p "Where would you like to save your project?" SAVE_LOC
+	read -p "Where would you like to save your project? " SAVE_LOC
 	echo ""; echo "Thank you! Your final results wil be saved at $SAVE_LOC/$project_name"; sleep 3
 
 ## Input data type: Biopsy or Exfoliome
@@ -210,6 +210,8 @@ echo "trim_num=\"$trim_num"\" >> $SAVE_LOC/$project_name/project_config.sh
 echo "data_type=\"$data_type"\" >> $SAVE_LOC/$project_name/project_config.sh
 echo "strand_num=\"$strand_num"\" >> $SAVE_LOC/$project_name/project_config.sh
 echo "data_type=\"$data_type"\" >> $SAVE_LOC/$project_name/project_config.sh
+echo "file_location=\"$file_location\"" >> $SAVE_LOC/$project_name/project_config.sh
+
 
 nohup ./Pipeline_Execute.sh 
 #> $SAVE_LOC/$project_name-Log.out 2>&1 &
