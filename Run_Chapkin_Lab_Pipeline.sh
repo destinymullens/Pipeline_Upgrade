@@ -200,7 +200,7 @@ until [[ "$verify" = "1" ]]; do
 done
 
 mkdir -p "$SAVE_LOC/$project_name/tmp"
-config_dir="SAVE_LOC/$project_name/tmp"
+config_dir="$SAVE_LOC/$project_name/tmp"
 
 ## Output responses to project_config.sh file
 

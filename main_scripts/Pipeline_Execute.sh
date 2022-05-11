@@ -4,7 +4,7 @@
 . $(dirname $0)/../config.sh
 
 ##Importinh input variables
-config_dir="SAVE_LOC/$project_name/tmp"
+config_dir="$SAVE_LOC/$project_name/tmp"
 READ project_name < $config_dir/project_name.txt
 READ SAVE_LOC < $config_dir/SAVE_LOC.txt
 READ concat_response < $config_dir/concat_response.txt
