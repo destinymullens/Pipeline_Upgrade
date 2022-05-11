@@ -34,12 +34,20 @@ for i in $samples; do
         paste $summary_dir/$counts_file $tmp_dir/$ID-tmp.txt >> $tmp_dir/$ID-counts-tmp.txt
         mv $tmp_dir/$ID-counts-tmp.txt $summary_dir/$counts_file        
     fi
-#rm -r $tmp_dir/
+rm -r $tmp_dir/
 done
 
 for j in $logs; do
     FILE=$(basename $j | cut -d "." -f1)
-## Cut info from each log file for comparision to see which is the best mapping option
+    ## Print headers for overall for overall metrics
+    printf "%s\n" "Sample Name Total Reads  Single Mapped Reads     Multi-Mapped Reads  Alignment Rate" >> $summary_file ## Print sample name to summary   
+ #   printf "%s\t" "$MAPPING" >> $summary_file ## Print mapping to summary
+  #  printf "%s\t" "$TOTAL_READS" >> $summary_file ## Print Total reads to summary
+   # printf "%s\t" "$SINGLE_MAPPED_READS" >> $summary_file ## Print single mapped reads to summary
+#    printf "%s\t" "$UNMAPPED_READS" >> $summary_file ## Print unmapped reads to summary 
+ #   printf "%s\t" "$MULTI_MAP_READS" >> $summary_file ## Print multimapped reads to summary
+  #  printf "%s\n" "$ALIGNMENT_RATE" >> $summary_file ## Print alignment rate to summary
+    ## Cut info from each log file for overall metrics
                 TOTAL_READS=$(cat $j | head -5 | tail -1 | cut -d " " -f1)
                 SINGLE_MAPPED_READS=$(cat $j | head -8 | tail -1 | cut -d " " -f5)
                 UNMAPPED_READS=$(cat $j | head -7 | tail -1 | cut -d " " -f5)
