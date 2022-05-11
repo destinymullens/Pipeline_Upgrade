@@ -213,4 +213,4 @@ echo "data_type=\"$data_type"\" >> $SAVE_LOC/$project_name/project_config.sh
 echo "file_location=\"$file_location\"" >> $SAVE_LOC/$project_name/project_config.sh
 
 
-nohup ./main_scripts/Pipeline_Execute.sh > $SAVE_LOC/$project_name-Log.out 2>&1 &
+nohup ./main_scripts/Pipeline_Execute.sh 1> $project_name-log.out 2> $project_name-log.err &
