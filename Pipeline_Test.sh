@@ -182,7 +182,7 @@ until [[ "$verify" = "1" ]]; do
 	read -p "> " verify
 
 	## Save information to Mapping Info
-	mapping_information="$SAVE_LOC/$project_name/summary/Mapping_Information.txt"
+	mapping_information="$SAVE_LOC/$project_name/summary/$project_name-Mapping_Information.txt"
 	echo "The project $project_name is mapping data located at $file_location." >> $mapping_information
 	echo "The samples were indicated to be $species $data_type." >> $mapping_information
 	echo "Your data is $strand_type." >> $mapping_information
