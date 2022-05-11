@@ -203,12 +203,12 @@ mkdir="SAVE_LOC/$project_name"
 
 ## Output responses to project_config.sh file
 
-echo "project_name="$project_name"" > $SAVE_LOC/$project_name/project_config.sh
-echo "SAVE_LOC="$SAVE_LOC"" >> $SAVE_LOC/$project_name/project_config.sh
-echo "concat_response="$concat_response"" >> $SAVE_LOC/$project_name/project_config.sh
-echo "trim_num="$trim_num"" >> $SAVE_LOC/$project_name/project_config.sh
-echo "data_type="$data_type"" >> $SAVE_LOC/$project_name/project_config.sh
-echo "strand_num="$strand_num"" >> $SAVE_LOC/$project_name/project_config.sh
-echo "data_type="$data_type"" >> $SAVE_LOC/$project_name/project_config.sh
+echo "project_name=\"$project_name\"" > $SAVE_LOC/$project_name/project_config.sh
+echo "SAVE_LOC=\"$SAVE_LOC\"" >> $SAVE_LOC/$project_name/project_config.sh
+echo "concat_response=\"$concat_response\"" >> $SAVE_LOC/$project_name/project_config.sh
+echo "trim_num=\"$trim_num"\" >> $SAVE_LOC/$project_name/project_config.sh
+echo "data_type=\"$data_type"\" >> $SAVE_LOC/$project_name/project_config.sh
+echo "strand_num=\"$strand_num"\" >> $SAVE_LOC/$project_name/project_config.sh
+echo "data_type=\"$data_type"\" >> $SAVE_LOC/$project_name/project_config.sh
 
 nohup ./Pipeline_Execute.sh > $SAVE_LOC/$project_name-Log.out 2>&1 &
