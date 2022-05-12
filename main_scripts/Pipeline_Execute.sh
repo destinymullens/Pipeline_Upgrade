@@ -24,11 +24,15 @@ if [[ "$concat_response" == "1" ]]; then
 	./main_scripts/concat_run.sh
 	qc_dir_in="$SAVE_LOC/$project_name/concat"
 	trim_dir_in="$SAVE_LOC/$project_name/concat"
+	echo "$qc_dir_in" > $config_dir/qc_dir_in.txt
+	echo "$trim_dir_in" > $config_dir/trim_dir_in.txt
 	echo "Concatenation of files is finished! Moving on to QC Reports."
 	else
 	echo "File concatentation not needed. Moving on to QC Reports."
 	qc_dir_in="$file_location"
 	trim_dir_in="$file_location"
+	echo "$qc_dir_in" > $config_dir/qc_dir_in.txt
+	echo "$trim_dir_in" > $config_dir/trim_dir_in.txt
 fi
 
 echo " "
@@ -36,6 +40,8 @@ echo " "
 
 echo "Beginning QC Reports..."
 qc_dir_out="$SAVE_LOC/$project_name/qc_reports/untrimmed"
+echo "$qc_dir_out" > $config_dir/qc_dir_out.txt
+
 ./main_scripts/qc_run.sh
 echo "QC Reports complete!"
 
@@ -66,9 +72,11 @@ if [[ "$data_type" = "biopsy" ]]; then
 			echo "Moving on to dedup"
 			./main_scripts/umi_after_map.sh
 			htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
+			echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
 			./main_scripts/htseq.sh
 		else
 			htseq_dir_in="$SAVE_LOC/$project_name/mapping"
+			echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
 			./main_scripts/htseq.sh
 		fi
 	else 
@@ -77,9 +85,11 @@ if [[ "$data_type" = "biopsy" ]]; then
 			echo "Moving on to dedup"
 			./main_scripts/umi_after_map.sh
 			htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
+			echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
 			./main_scripts/htseq.sh
 		else
 			htseq_dir_in="$SAVE_LOC/$project_name/mapping"
+			echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
 			./main_scripts/htseq.sh
 		fi
 	fi
@@ -90,9 +100,11 @@ elif [[ "$data_type" = "exfoliome with testing" ]]; then
 			echo "Moving on to dedup"
 			./main_scripts/umi_after_map.sh
 			htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
+			echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
 			./main_scripts/htseq.sh
 		else
 			htseq_dir_in="$SAVE_LOC/$project_name/mapping"
+			echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
 			./main_scripts/htseq.sh
 		fi
 	
@@ -101,10 +113,12 @@ elif [[ "$data_type" = "exfoliome with default values" ]]; then
 	if [[ "$trim_num" = "4" ]]; then
 		echo "Moving on to dedup"
 		./main_scripts/umi_after_map.sh
-		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"		
+		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
+		echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt		
 		./main_scripts/htseq.sh
 	else
 		htseq_dir_in="$SAVE_LOC/$project_name/mapping"
+		echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
 		./main_scripts/htseq.sh
 	fi
 else 
@@ -115,6 +129,7 @@ else
 		./main_scripts/htseq.sh
 	else
 		htseq_dir_in="$SAVE_LOC/$project_name/mapping"
+		echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
 		./main_scripts/htseq.sh
 	fi
 fi
@@ -127,6 +142,4 @@ completed_time=$(timedatectl | head -1 | cut -d " " -f23-28)
 echo "Mapping began at: $completed_time." >> $mapping_information
 
 
-##Export variables for other scripts
-echo "$qc_dir_in" > $config_dir/qc_dir_in.txt
-echo "$qc_dir_out" > $config_dir/qc_dir_out.txt
+
