@@ -14,6 +14,7 @@ data_type=$(cat $config_dir/data_type.txt)
 strand_num=$(cat $config_dir/strand_num.txt)
 file_location=$(cat $config_dir/file_location.txt)
 mapfiles=$(cat $config_dir/mapfiles.txt)
+mapping_information=$(cat $config_dir/mapping_information.txt)
 
 ./misc_scripts/top_banner.sh
 ## Runs concat script to concatenate script
@@ -127,4 +128,5 @@ echo "Mapping began at: $completed_time." >> $mapping_information
 
 
 ##Export variables for other scripts
-
+echo "$qc_dir_in" > $config_dir/qc_dir_in.txt
+echo "$qc_dir_out" > $config_dir/qc_dir_out.txt

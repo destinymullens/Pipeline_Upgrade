@@ -213,6 +213,8 @@ echo "$data_type" > $config_dir/data_type.txt
 echo "$strand_num" > $config_dir/strand_num.txt
 echo "$file_location" > $config_dir/file_location.txt
 echo "$mapfiles" > $config_dir/mapfiles.txt
+echo "$mapping_information" > $config_dir/mapping_information.txt
+echo "$trim_type" > $config_dir/trim_type.txt
  
 #echo "project_name=$project_name" > $SAVE_LOC/$project_name/tmp/project_config.sh
 #echo "SAVE_LOC=$SAVE_LOC" >> $SAVE_LOC/$project_name/project_config.sh
@@ -223,5 +225,5 @@ echo "$mapfiles" > $config_dir/mapfiles.txt
 #echo "data_type=$data_type" >> $SAVE_LOC/$project_name/project_config.sh
 #echo "file_location=$file_location" >> $SAVE_LOC/$project_name/project_config.sh
 
-
-nohup ./main_scripts/Pipeline_Execute.sh 1> $SAVE_LOC/$project_name/$project_name-log.out 2> $SAVE_LOC/$project_name/$project_name-log.err &
+./main_scripts/Pipeline_Execute.sh
+#nohup ./main_scripts/Pipeline_Execute.sh 1> $SAVE_LOC/$project_name/$project_name-log.out 2> $SAVE_LOC/$project_name/$project_name-log.err &
