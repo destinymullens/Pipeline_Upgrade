@@ -26,9 +26,21 @@ until [[ "$verify" = "1" ]]; do
 	echo "Please avoid using special characters such as: spaces, /, >, |, :, ?, *  or & in your project name."
 	echo "If using special characters, it must be quoted or escaped using the \ symbol."
 	echo ""
-	read -p "What would you like to name your project? " project_name
 	read -p "Where would you like to save your project? " SAVE_LOC
+	echo ""
+	read -p "What would you like to name your project? " project_name
+	
 	echo ""; echo "Thank you! Your final results wil be saved at $SAVE_LOC/$project_name"; sleep 3
+
+	## Get file location
+	verify="0"
+	until [[ "$verify" = "1" ]]; do ./misc_scripts/top_banner.sh
+		read -p "Where are your files located? (Note: Please use /home/username instead of ~/ if files are located in your home directory.) " file_location
+		echo " "
+		find $file_location -type f -printf '%f\n'
+		echo " "; echo "Are these the correct files?"; echo "1. Yes"; echo "2. No"
+		read -p "> " verify
+	done
 
 ## Input data type: Biopsy or Exfoliome
 	verify="0"
@@ -101,16 +113,6 @@ until [[ "$verify" = "1" ]]; do
 				read -p "> " verify
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
 		fi
-	done
-
-## Get file location
-	verify="0"
-	until [[ "$verify" = "1" ]]; do ./misc_scripts/top_banner.sh
-		read -p "Where are your files located? (Note: Please use /home/username instead of ~/ if files are located in your home directory.) " file_location
-		echo " "
-		find $file_location -type f -printf '%f\n'
-		echo " "; echo "Are these the correct files?"; echo "1. Yes"; echo "2. No"
-		read -p "> " verify
 	done
 
 ## Get concat number & check
