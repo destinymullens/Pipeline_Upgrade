@@ -70,9 +70,9 @@ if [[ "$data_type" = "biopsy" ]]; then
 		./main_scripts/map_SE_biopsy.sh
 		if [[ "$trim_num" = "4" ]]; then
 			echo "Moving on to dedup"
-			./main_scripts/umi_after_map.sh
 			htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
 			echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
+			./main_scripts/umi_after_map.sh
 			./main_scripts/htseq.sh
 		else
 			htseq_dir_in="$SAVE_LOC/$project_name/mapping"
@@ -83,9 +83,9 @@ if [[ "$data_type" = "biopsy" ]]; then
 		./main_scripts/map_PE_biopsy.sh
 		if [[ "$trim_num" = "4" ]]; then
 			echo "Moving on to dedup"
-			./main_scripts/umi_after_map.sh
 			htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
 			echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
+			./main_scripts/umi_after_map.sh
 			./main_scripts/htseq.sh
 		else
 			htseq_dir_in="$SAVE_LOC/$project_name/mapping"
@@ -98,9 +98,9 @@ elif [[ "$data_type" = "exfoliome with testing" ]]; then
 	./main_scripts/map_exfoliome_with_parameters.sh
 		if [[ "$trim_num" = "4" ]]; then
 			echo "Moving on to dedup"
-			./main_scripts/umi_after_map.sh
 			htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
 			echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
+			./main_scripts/umi_after_map.sh
 			./main_scripts/htseq.sh
 		else
 			htseq_dir_in="$SAVE_LOC/$project_name/mapping"
@@ -112,9 +112,9 @@ elif [[ "$data_type" = "exfoliome with default values" ]]; then
 	./main_scripts/map_exfoliome_default.sh
 	if [[ "$trim_num" = "4" ]]; then
 		echo "Moving on to dedup"
-		./main_scripts/umi_after_map.sh
-		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
-		echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt		
+		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_files"
+		echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
+		./main_scripts/umi_after_map.sh	
 		./main_scripts/htseq.sh
 	else
 		htseq_dir_in="$SAVE_LOC/$project_name/mapping"
@@ -125,9 +125,9 @@ else
 	./main_scripts/map_exfoliome_with_parameters.sh
 		if [[ "$trim_num" = "4" ]]; then
 		echo "Moving on to dedup"
-		./main_scripts/umi_after_map.sh
 		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_files"
 		echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
+		./main_scripts/umi_after_map.sh
 		./main_scripts/htseq.sh
 	else
 		htseq_dir_in="$SAVE_LOC/$project_name/mapping"
