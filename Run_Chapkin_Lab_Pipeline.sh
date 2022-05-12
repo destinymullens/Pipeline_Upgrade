@@ -226,15 +226,5 @@ if [[ "$trim_num" = "4" ]]; then
 		echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
 fi
 
-
-#echo "project_name=$project_name" > $SAVE_LOC/$project_name/tmp/project_config.sh
-#echo "SAVE_LOC=$SAVE_LOC" >> $SAVE_LOC/$project_name/project_config.sh
-#echo "concat_response=$concat_response" >> $SAVE_LOC/$project_name/project_config.sh
-#echo "trim_num=$trim_num" >> $SAVE_LOC/$project_name/project_config.sh
-#echo "data_type=$data_type" >> $SAVE_LOC/$project_name/project_config.sh
-#echo "strand_num=$strand_num" >> $SAVE_LOC/$project_name/project_config.sh
-#echo "data_type=$data_type" >> $SAVE_LOC/$project_name/project_config.sh
-#echo "file_location=$file_location" >> $SAVE_LOC/$project_name/project_config.sh
-
 ./main_scripts/Pipeline_Execute.sh
 #nohup ./main_scripts/Pipeline_Execute.sh 1> $SAVE_LOC/$project_name/$project_name-log.out 2> $SAVE_LOC/$project_name/$project_name-log.err &
