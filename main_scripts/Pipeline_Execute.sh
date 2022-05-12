@@ -126,6 +126,8 @@ else
 		if [[ "$trim_num" = "4" ]]; then
 		echo "Moving on to dedup"
 		./main_scripts/umi_after_map.sh
+		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_files"
+		echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
 		./main_scripts/htseq.sh
 	else
 		htseq_dir_in="$SAVE_LOC/$project_name/mapping"
@@ -140,6 +142,3 @@ echo "All mapping is completed for $project_name! Your files are located at $SAV
 echo "All mapping is completed for $project_name and files are located at $SAVE_LOC/$project_name." >> $mapping_information
 completed_time=$(timedatectl | head -1 | cut -d " " -f23-28)
 echo "Mapping began at: $completed_time." >> $mapping_information
-
-
-
