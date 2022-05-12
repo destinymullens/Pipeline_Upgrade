@@ -3,7 +3,12 @@
 ## This script is to run QC Reports
 # Read config.sh
 . $(dirname $0)/../config.sh
-. $SAVE_LOC/$project_name/project_config.sh
+
+##Importing input variables
+mapping_information=$(cat $config_dir/mapping_information.txt)
+qc_dir_in=$(cat $config_dir/qc_dir_in.txt)
+qc_dir_out=$(cat $config_dir/qc_dir_out.txt)
+
 
 SAMPLES=$(find $qc_dir_in -type f -printf '%f\n')
 #echo "$SAMPLES"

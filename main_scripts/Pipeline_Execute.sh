@@ -124,3 +124,7 @@ echo "All mapping is completed for $project_name! Your files are located at $SAV
 echo "All mapping is completed for $project_name and files are located at $SAVE_LOC/$project_name." >> $mapping_information
 completed_time=$(timedatectl | head -1 | cut -d " " -f23-28)
 echo "Mapping began at: $completed_time." >> $mapping_information
+
+
+##Export variables for other scripts
+

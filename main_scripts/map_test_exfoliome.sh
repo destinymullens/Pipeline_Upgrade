@@ -4,7 +4,13 @@
 
 # Read config.sh
 . $(dirname $0)/../config.sh
-. $SAVE_LOC/$project_name/project_config.sh
+
+##Importing input variables
+config_dir="$SAVE_LOC/$project_name/tmp"
+project_name=$(cat $config_dir/project_name.txt)
+SAVE_LOC=$(cat $config_dir/SAVE_LOC.txt)
+mapping_information=$(cat $config_dir/mapping_information.txt)
+mapfiles=$(cat $config_dir/mapfiles.txt)
 
 ## Select random files for test mapping
 
