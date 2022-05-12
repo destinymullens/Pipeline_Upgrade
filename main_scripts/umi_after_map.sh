@@ -7,27 +7,17 @@
 
 ##Importing input variables
 config_dir="$SAVE_LOC/$project_name/tmp"
+
 project_name=$(cat $config_dir/project_name.txt)
 SAVE_LOC=$(cat $config_dir/SAVE_LOC.txt)
-concat_response=$(cat $config_dir/concat_response.txt)
-concat_length=$(cat $config_dir/concat_response.txt)
-trim_num=$(cat $config_dir/trim_num.txt)
-data_type=$(cat $config_dir/data_type.txt)
-strand_num=$(cat $config_dir/strand_num.txt)
-file_location=$(cat $config_dir/file_location.txt)
-qc_dir_in=$(cat $config_dir/qc_dir_in.txt)
-qc_dir_out=$(cat $config_dir/qc_dir_out.txt)
 trim_dir_in=$(cat $config_dir/trim_dir_in.txt)
-mapping_information=$(cat $config_dir/mapping_information.txt)
-mapfiles=$(cat $config_dir/mapfiles.txt)
 trim_type=$(cat $config_dir/trim_type.txt)
-
 
 mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_files
 mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files
-mkdir -p $SAVE_LOC/$project_name/logs/$trim_type/deduplication 
+mkdir -p $SAVE_LOC/$project_name/logs/$trim_type/deduplication
 
-map_dir_in="$SAVE_LOC/$project_name/mapping"
+map_dir_out="$SAVE_LOC/$project_name/mapping"
 index_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
 dedup_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_files"
 deduplog="$SAVE_LOC/$project_name/logs/$trim_type/deduplication"
@@ -38,7 +28,7 @@ for s in $SAMPLES; do
 	samplename="${s%%.*}"
 	if [[ ! -f $dedup_dir_out/$samplename-dedup.bam ]]; then
 			echo "Begining sorting of $s...."
-			$SAMTOOLS sort $map_dir_in/$s -o $index_dir_out/$samplename-sort.bam
+			$SAMTOOLS sort $map_dir_out/$s -o $index_dir_out/$samplename-sort.bam
 			echo "Sorting of $s is complete."
 			echo "Begining indexing of $s..."
 			$SAMTOOLS index $index_dir_out/$samplename-sort.bam

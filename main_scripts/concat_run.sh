@@ -4,8 +4,9 @@
 . $(dirname $0)/../config.sh
 
 ##Importing input variables
-concat_length=$(cat $config_dir/concat_response.txt)
 config_dir="$SAVE_LOC/$project_name/tmp"
+
+concat_length=$(cat $config_dir/concat_length.txt)
 data_type=$(cat $config_dir/data_type.txt)
 file_location=$(cat $config_dir/file_location.txt)
 project_name=$(cat $config_dir/project_name.txt)

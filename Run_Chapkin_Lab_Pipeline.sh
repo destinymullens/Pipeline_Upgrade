@@ -218,7 +218,14 @@ echo "$file_location" > $config_dir/file_location.txt
 echo "$mapfiles" > $config_dir/mapfiles.txt
 echo "$mapping_information" > $config_dir/mapping_information.txt
 echo "$trim_type" > $config_dir/trim_type.txt
- 
+echo "$species_location" > $config_dir/species_location.txt
+echo "$trim_quality_num" > $config_dir/trim_quality_num.txt
+echo "$trim_base_num" > $config_dir/trim_base_num.txt
+
+
+trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed"
+echo "$trim_dir_out" > $config_dir/trim_dir_out.txt
+
 if [[ "$trim_num" = "4" ]]; then
 		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
 		echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt

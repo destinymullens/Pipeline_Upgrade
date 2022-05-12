@@ -6,27 +6,16 @@
 ##Importing input variables
 config_dir="$SAVE_LOC/$project_name/tmp"
 
-concat_length=$(cat $config_dir/concat_response.txt)
-concat_response=$(cat $config_dir/concat_length.txt)
-data_type=$(cat $config_dir/data_type.txt)
-file_location=$(cat $config_dir/file_location.txt)
 htseq_dir_in=$(cat $config_dir/htseq_dir_in.txt)
-mapfiles=$(cat $config_dir/mapfiles.txt)
 mapping_information=$(cat $config_dir/mapping_information.txt)
 project_name=$(cat $config_dir/project_name.txt)
-qc_dir_in=$(cat $config_dir/qc_dir_in.txt)
-qc_dir_out=$(cat $config_dir/qc_dir_out.txt)
 SAVE_LOC=$(cat $config_dir/SAVE_LOC.txt)
-strand_num=$(cat $config_dir/strand_num.txt)
-trim_dir_in=$(cat $config_dir/trim_dir_in.txt)
-trim_num=$(cat $config_dir/trim_num.txt)
-trim_type=$(cat $config_dir/trim_type.txt)
 species_location=$(cat $config_dir/species_location.txt)
+strand_num=$(cat $config_dir/strand_num.txt)
 
 mkdir -p "$SAVE_LOC/$project_name/htseq_counts"
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
 samples=$(ls $htseq_dir_in/*.bam)
-
 
 for i in $samples; do
 	FILE=$(basename $i)

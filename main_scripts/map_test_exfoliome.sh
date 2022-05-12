@@ -7,10 +7,13 @@
 
 ##Importing input variables
 config_dir="$SAVE_LOC/$project_name/tmp"
+
+mapfiles=$(cat $config_dir/mapfiles.txt)
+mapping_information=$(cat $config_dir/mapping_information.txt)
 project_name=$(cat $config_dir/project_name.txt)
 SAVE_LOC=$(cat $config_dir/SAVE_LOC.txt)
-mapping_information=$(cat $config_dir/mapping_information.txt)
-mapfiles=$(cat $config_dir/mapfiles.txt)
+species_location=$(cat $config_dir/species_location.txt)
+strand_num=$(cat $config_dir/strand_num.txt)
 
 ## Select random files for test mapping
 
@@ -20,14 +23,10 @@ mkdir -p $SAVE_LOC/$project_name/logs/test_mapping
 test_map_out="$SAVE_LOC/$project_name/test_mapping"
 test_map_logs="$SAVE_LOC/$project_name/logs/test_mapping"
 
-
 test_mappings=$(ls $mapfiles | shuf -n 3)
 test_summary="$test_map_logs/Test_mapping_results.txt"
 
-#printf "%s\n" "Test mappings are: $test_mappings"
-
 ##### RUN BOWTIE2 #########
-
 if [[ ! -f $SAVE_LOC/$project_name/mapping_parameter.txt ]]; then
 	for t in $test_mappings; do
 		FILE=$(basename $t)
