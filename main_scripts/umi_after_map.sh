@@ -21,10 +21,10 @@ index_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
 dedup_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_files"
 deduplog="$SAVE_LOC/$project_name/logs/$trim_type/deduplication"
 
-SAMPLES=$(find $mapping_dir_out -type f -printf '%f\n')
+SAMPLES=$(ls $mapping_dir_out -type f -printf '%f\n')
 
 for s in $SAMPLES; do
-	samplename="${s%%.*}"
+	samplename="${$s%%.*}"
 	if [[ ! -f $dedup_dir_out/$samplename-dedup.bam ]]; then
 			echo "Begining sorting of $s...."
 			$SAMTOOLS sort $mapping_dir_out/$s -o $index_dir_out/$samplename-sort.bam
