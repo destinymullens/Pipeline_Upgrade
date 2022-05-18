@@ -4,17 +4,6 @@
 #. $(dirname $0)/../config.sh
 . $SAVE_LOC/$project_name/config.sh
 
-##Importing input variables
-#config_dir="$SAVE_LOC/$project_name/tmp"
-
-#data_type=$(cat $config_dir/data_type.txt)
-#file_location=$(cat $config_dir/file_location.txt)
-
-#mapfiles=$(cat $config_dir/mapfiles.txt)
-#mapping_information=$(cat $config_dir/mapping_information.txt)
-#project_name=$(cat $config_dir/project_name.txt)
-#SAVE_LOC=$(cat $config_dir/SAVE_LOC.txt)
-
 mkdir -p $SAVE_LOC/$project_name/htseq_counts/temp
 
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"

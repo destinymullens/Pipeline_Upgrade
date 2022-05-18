@@ -6,15 +6,6 @@
 #. $(dirname $0)/../config.sh
 . $SAVE_LOC/$project_name/config.sh
 
-##Importing input variables
-#config_dir="$SAVE_LOC/$project_name/tmp"
-
-#mapping_information=$(cat $config_dir/mapping_information.txt)
-#project_name=$(cat $config_dir/project_name.txt)
-#SAVE_LOC=$(cat $config_dir/SAVE_LOC.txt)
-#trim_dir_in=$(cat $config_dir/trim_dir_in.txt)
-#trim_type=$(cat $config_dir/trim_type.txt)
-
 mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed
 mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/umi_extracted
 

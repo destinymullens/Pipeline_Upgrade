@@ -3,16 +3,6 @@
 # Read config.sh
 . $SAVE_LOC/$project_name/config.sh
 
-#config_dir="$SAVE_LOC/$project_name/tmp"
-#project_name=$(cat $config_dir/project_name.txt)
-#SAVE_LOC=$(cat $config_dir/SAVE_LOC.txt)
-#concat_response=$(cat $config_dir/concat_response.txt)
-#trim_num=$(cat $config_dir/trim_num.txt)
-#data_type=$(cat $config_dir/data_type.txt)
-#strand_num=$(cat $config_dir/strand_num.txt)
-#file_location=$(cat $config_dir/file_location.txt)
-#mapping_information=$(cat $config_dir/mapping_information.txt)
-
 ./misc_scripts/top_banner.sh
 ## Runs concat script to concatenate script
 
@@ -22,18 +12,14 @@ if [[ "$concat_response" == "1" ]]; then
 	mkdir -p "$SAVE_LOC/$project_name/concat"
 	qc_dir_in="$SAVE_LOC/$project_name/concat"
 	trim_dir_in="$SAVE_LOC/$project_name/concat"
-#	echo "$qc_dir_in" > $config_dir/qc_dir_in.txt
 	echo "qc_dir_in=\"$qc_dir_in\"" >> $SAVE_LOC/$project_name/config.sh
-#	echo "$trim_dir_in" > $config_dir/trim_dir_in.txt
 	echo "trim_dir_in=\"$trim_dir_in\"" >> $SAVE_LOC/$project_name/config.sh
 	echo "Concatenation of files is finished! Moving on to QC Reports."
 else
 	echo "File concatentation not needed. Moving on to QC Reports."
 	qc_dir_in="$file_location"
 	trim_dir_in="$file_location"
-	#echo "$qc_dir_in" > $config_dir/qc_dir_in.txt
 	echo "qc_dir_in=\"$qc_dir_in\"" >> $SAVE_LOC/$project_name/config.sh
-#	echo "$trim_dir_in" > $config_dir/trim_dir_in.txt
 	echo "trim_dir_in=\"$trim_dir_in\"" >> $SAVE_LOC/$project_name/config.sh
 fi
 
@@ -43,7 +29,6 @@ echo " "
 echo "Beginning QC Reports..."
 mkdir -p "$SAVE_LOC/$project_name/qc_reports/untrimmed"
 qc_dir_out="$SAVE_LOC/$project_name/qc_reports/untrimmed"
-#echo "$qc_dir_out" > $config_dir/qc_dir_out.txt
 echo "qc_dir_out=\"$qc_dir_out\"" >> $SAVE_LOC/$project_name/config.sh
 ./main_scripts/qc_run.sh
 echo "QC Reports complete!"
@@ -57,7 +42,6 @@ if [[ "$trim_num" = "1" ]]; then
 		./main_scripts/trim_quality.sh
 		mkdir -p "$SAVE_LOC/$project_name/qc_reports/trimmed"
 		qc_dir_out2="$SAVE_LOC/$project_name/qc_reports/trimmed"
-		#echo "$qc_dir_out2" > $config_dir/qc_dir_out2.txt
 		echo "qc_dir_out2=\"$qc_dir_out2\"" >> $SAVE_LOC/$project_name/config.sh
 		./secondary_scripts/qc_second_run.sh		
 	elif [[ "$trim_num" = "3" ]]; then
@@ -65,7 +49,6 @@ if [[ "$trim_num" = "1" ]]; then
 		./main_scripts/trim_base.sh
 		mkdir -p "$SAVE_LOC/$project_name/qc_reports/trimmed"
 		qc_dir_out2="$SAVE_LOC/$project_name/qc_reports/trimmed"
-		#echo "$qc_dir_out2" > $config_dir/qc_dir_out2.txt
 		echo "qc_dir_out2=\"$qc_dir_out2\"" >> $SAVE_LOC/$project_name/config.sh
 		./secondary_scripts/qc_second_run
 	else
@@ -73,7 +56,6 @@ if [[ "$trim_num" = "1" ]]; then
 		./main_scripts/trim_umi.sh
 		mkdir -p "$SAVE_LOC/$project_name/qc_reports/trimmed"
 		qc_dir_out2="$SAVE_LOC/$project_name/qc_reports/trimmed"
-		#echo "$qc_dir_out2" > $config_dir/qc_dir_out2.txt
 		echo "qc_dir_out2=\"$qc_dir_out2\"" >> $SAVE_LOC/$project_name/config.sh
 		./secondary_scripts/qc_second_run.sh
 fi
