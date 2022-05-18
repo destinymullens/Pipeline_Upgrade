@@ -202,9 +202,13 @@ until [[ "$verify" = "1" ]]; do
 	fi
 done
 
+## Create directories to save various files in
 mkdir -p "$SAVE_LOC/$project_name/tmp"
 config_dir="$SAVE_LOC/$project_name/tmp"
+mkdir -p $SAVE_LOC/$project_name/mapping
 mapping_dir_out="$SAVE_LOC/$project_name/mapping"
+mkdir -p $SAVE_LOC/$project_name/logs/mapping
+mapping_logs="$SAVE_LOC/$project_name/logs/mapping"
 
 ## Output responses to project_config.sh file
 
@@ -223,7 +227,7 @@ echo "$species_location" > $config_dir/species_location.txt
 echo "$trim_quality_num" > $config_dir/trim_quality_num.txt
 echo "$trim_base_num" > $config_dir/trim_base_num.txt
 echo "$mapping_dir_out" > $config/mapping_dir_out.txt
-
+echo "$mapping_logs" > $config_dir/mapping_logs.txt
 
 trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed"
 echo "$trim_dir_out" > $config_dir/trim_dir_out.txt
