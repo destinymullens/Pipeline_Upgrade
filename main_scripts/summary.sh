@@ -24,7 +24,7 @@ tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
 mapping_logs="$SAVE_LOC/$project_name/logs/mapping"
 summary_file="$SAVE_LOC/$project_name/summary/$project_name-Overall_mapping_summary.csv"
 
-### Merge htseq count files into one counts csv file
+### Merge individual htseq count files into counts csv file
 for i in $samples; do
     ID=$(basename $i | cut -d "-" -f1)
  

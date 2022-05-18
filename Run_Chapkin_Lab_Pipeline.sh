@@ -195,7 +195,7 @@ until [[ "$verify" = "1" ]]; do
 	echo "$trim_disp" >> $mapping_information
 	echo " " >> $mapping_information
 	start_time=$(timedatectl | head -1 | cut -d " " -f23-28)
-	echo "Mapping begining at $start_time." >> $mapping_information
+	echo "Mapping beginning at $start_time." >> $mapping_information
 	
 	if [[ "$verify" = "3" ]]; then
 		exit
