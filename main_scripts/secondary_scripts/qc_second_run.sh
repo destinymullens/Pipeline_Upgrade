@@ -10,9 +10,9 @@ SAMPLES=$(find $mapfiles -type f -printf '%f\n')
 for s in $SAMPLES; do
 	samplename="${s%%.*}"
 	if [[ ! -d $qc_dir_out2/$samplename ]]; then
-		echo "$samplename QC Report currently running."
+		echo "$samplename post-trimming QC Report currently running."
 		mkdir -p $qc_dir_out2/$samplename
 		$FASTQC $mapfiles/$s -o $qc_dir_out2/$samplename -t 50
-		echo ""
+		echo "$samplename post-trimming QC Report completed."
 	fi
 done

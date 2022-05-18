@@ -43,21 +43,21 @@ if [[ "$trim_num" = "1" ]]; then
 		mkdir -p "$SAVE_LOC/$project_name/qc_reports/trimmed"
 		qc_dir_out2="$SAVE_LOC/$project_name/qc_reports/trimmed"
 		echo "qc_dir_out2=\"$qc_dir_out2\"" >> $SAVE_LOC/$project_name/config.sh
-		./secondary_scripts/qc_second_run.sh		
+		./main_scripts/secondary_scripts/qc_second_run.sh		
 	elif [[ "$trim_num" = "3" ]]; then
 		echo "Beginning trimming of files!"
 		./main_scripts/trim_base.sh
 		mkdir -p "$SAVE_LOC/$project_name/qc_reports/trimmed"
 		qc_dir_out2="$SAVE_LOC/$project_name/qc_reports/trimmed"
 		echo "qc_dir_out2=\"$qc_dir_out2\"" >> $SAVE_LOC/$project_name/config.sh
-		./secondary_scripts/qc_second_run
+		./main_scripts/secondary_scripts/qc_second_run.sh
 	else
 		echo "Beginning trimming of files!"
 		./main_scripts/trim_umi.sh
 		mkdir -p "$SAVE_LOC/$project_name/qc_reports/trimmed"
 		qc_dir_out2="$SAVE_LOC/$project_name/qc_reports/trimmed"
 		echo "qc_dir_out2=\"$qc_dir_out2\"" >> $SAVE_LOC/$project_name/config.sh
-		./secondary_scripts/qc_second_run.sh
+		./main_scripts/secondary_scripts/qc_second_run.sh
 fi
 
 ###echo "Beginning mapping of files."
