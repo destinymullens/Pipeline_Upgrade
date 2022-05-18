@@ -24,7 +24,7 @@ deduplog="$SAVE_LOC/$project_name/logs/$trim_type/deduplication"
 SAMPLES=$(ls $mapping_dir_out)
 
 for s in $SAMPLES; do
-	samplename="${s%%.*}"
+	samplename=$(basename $s)
 	if [[ ! -f $dedup_dir_out/$samplename-dedup.bam ]]; then
 			echo "Begining sorting of $s...."
 			$SAMTOOLS sort $mapping_dir_out/$s -o $index_dir_out/$samplename-sort.bam
