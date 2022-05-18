@@ -249,16 +249,16 @@ echo "mapping_logs=\"$mapping_logs\"" >> $project_config
 
 trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed"
 #echo "$trim_dir_out" > $config_dir/trim_dir_out.txt
-echo "$trim_dir_out=\"$trim_dir_out\"" >> $project_config
+echo "trim_dir_out=\"$trim_dir_out\"" >> $project_config
 
 if [[ "$trim_num" = "4" ]]; then
 		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
 		#echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
-		echo "$htseq_dir_in=\"$htseq_dir_in\"" >> $project_config
+		echo "htseq_dir_in=\"$htseq_dir_in\"" >> $project_config
 	else
 		htseq_dir_in="$SAVE_LOC/$project_name/mapping"
 		#echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
-		echo "$htseq_dir_in=\"$htseq_dir_in\"" >> $project_config
+		echo "htseq_dir_in=\"$htseq_dir_in\"" >> $project_config
 fi
 
 ./main_scripts/Pipeline_Execute.sh
