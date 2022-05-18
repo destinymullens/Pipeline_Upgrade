@@ -22,8 +22,10 @@ if [[ "$concat_response" == "1" ]]; then
 	mkdir -p "$SAVE_LOC/$project_name/concat"
 	qc_dir_in="$SAVE_LOC/$project_name/concat"
 	trim_dir_in="$SAVE_LOC/$project_name/concat"
-	echo "$qc_dir_in" > $config_dir/qc_dir_in.txt
-	echo "$trim_dir_in" > $config_dir/trim_dir_in.txt
+#	echo "$qc_dir_in" > $config_dir/qc_dir_in.txt
+	echo "qc_dir_in=\"$qc_dir_in\"" >> $SAVE_LOC/$project_name/config.sh
+#	echo "$trim_dir_in" > $config_dir/trim_dir_in.txt
+	echo "trim_dir_in=\"$trim_dir_in\"" >> $SAVE_LOC/$project_name/config.sh
 	echo "Concatenation of files is finished! Moving on to QC Reports."
 else
 	echo "File concatentation not needed. Moving on to QC Reports."
