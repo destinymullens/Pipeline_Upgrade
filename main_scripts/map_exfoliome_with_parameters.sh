@@ -1,8 +1,6 @@
-##!/bin/bash
-
 #!/bin/bash
 
-## This script is to perform test mappings for exfoliome samples
+## This script is to perform mappings for exfoliome samples with parameter settings
 
 # Read config.sh
 . $(dirname $0)/../config.sh
@@ -51,30 +49,31 @@ for m in $MAP_FILES; do
 
 	if [[ ! -f $mapping_dir_out/$FILE-$MAPPING.sam ]]; then
 
-	printf "%s\n" "Mapping $FILE with $MAPPING mapping options beginning..."
-	
-	if [[ "$strand_num" = "1" ]]; then
-		$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -U $mapfiles/$m --mp $mp --ma $ma --local --time -S $mapping_dir_out/$FILE-$MAPPING.sam 2> $mapping_logs/$FILE-$MAPPING-Results.log
+		printf "%s\n" "Mapping $FILE with $MAPPING mapping options beginning..."
+
+		if [[ "$strand_num" = "1" ]]; then
+			$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -U $mapfiles/$m --mp $mp --ma $ma --local --time -S $mapping_dir_out/$FILE-$MAPPING.sam 2> $mapping_logs/$FILE-$MAPPING-Results.log
+		else
+			$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -1 $mapfiles/$m*1.fastq.gz -2 $mapfiles/$m*2.fastq.gz --mp $mp --ma $ma --local --time -S $mapping_dir_out/$FILE-$MAPPING.sam 2> $mapping_logs/$FILE-$MAPPING-Results.log
+		fi
+		
+		printf "%s\n" "Mapping $FILE with $MAPPING mapping options complete."
+		
+		## Cut info from each log file for comparision to see which is the best mapping option
+		TOTAL_READS=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -5 | tail -1 | cut -d " " -f1)
+		SINGLE_MAPPED_READS=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -8 | tail -1 | cut -d " " -f5)
+		UNMAPPED_READS=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -7 | tail -1 | cut -d " " -f5)
+		MULTI_MAP_READS=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -9 | tail -1 | cut -d " " -f5)
+		ALIGNMENT_RATE=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -10 | tail -1 | cut -d " " -f1)
+
 	else
-		$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -1 $mapfiles/$m*1.fastq.gz -2 $mapfiles/$m*2.fastq.gz --mp $mp --ma $ma --local --time -S $mapping_dir_out/$FILE-$MAPPING.sam 2> $mapping_logs/$FILE-$MAPPING-Results.log
-	fi
-		
-	printf "%s\n" "Mapping $FILE with $MAPPING mapping options complete."
-		
-	## Cut info from each log file for comparision to see which is the best mapping option
-	TOTAL_READS=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -5 | tail -1 | cut -d " " -f1)
-	SINGLE_MAPPED_READS=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -8 | tail -1 | cut -d " " -f5)
-	UNMAPPED_READS=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -7 | tail -1 | cut -d " " -f5)
-	MULTI_MAP_READS=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -9 | tail -1 | cut -d " " -f5)
-	ALIGNMENT_RATE=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -10 | tail -1 | cut -d " " -f1)
-else
+	
 	echo "Mapping of $FILE with $MAPPING is already complete."
 	TOTAL_READS=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -5 | tail -1 | cut -d " " -f1)
 	SINGLE_MAPPED_READS=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -8 | tail -1 | cut -d " " -f5)
 	UNMAPPED_READS=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -7 | tail -1 | cut -d " " -f5)
 	MULTI_MAP_READS=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -9 | tail -1 | cut -d " " -f5)
 	ALIGNMENT_RATE=$(cat $mapping_logs/$FILE-$MAPPING-Results.log | head -10 | tail -1 | cut -d " " -f1)
-
 fi
 
 done
