@@ -240,5 +240,5 @@ if [[ "$trim_num" = "4" ]]; then
 		echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
 fi
 
-#./main_scripts/Pipeline_Execute.sh
-nohup ./main_scripts/Pipeline_Execute.sh 1> $SAVE_LOC/$project_name/$project_name-log.out 2> $SAVE_LOC/$project_name/$project_name-log.err &
+./main_scripts/Pipeline_Execute.sh
+#nohup ./main_scripts/Pipeline_Execute.sh 1> $SAVE_LOC/$project_name/$project_name-log.out 2> $SAVE_LOC/$project_name/$project_name-log.err &

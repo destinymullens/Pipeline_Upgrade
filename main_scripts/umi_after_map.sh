@@ -22,9 +22,12 @@ dedup_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_fil
 deduplog="$SAVE_LOC/$project_name/logs/$trim_type/deduplication"
 
 SAMPLES=$(ls $mapping_dir_out)
+echo "Samples to deduplicate are located at $mapping_dir_out"
 
 for s in $SAMPLES; do
+	echo $s
 	samplename=$(basename $s)
+	echo "Sample name is $samplename"
 	if [[ ! -f $dedup_dir_out/$samplename-dedup.bam ]]; then
 			echo "Begining sorting of $s...."
 			$SAMTOOLS sort $mapping_dir_out/$s -o $index_dir_out/$samplename-sort.bam
