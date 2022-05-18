@@ -11,7 +11,7 @@ config_dir="$SAVE_LOC/$project_name/tmp"
 project_name=$(cat $config_dir/project_name.txt)
 SAVE_LOC=$(cat $config_dir/SAVE_LOC.txt)
 trim_type=$(cat $config_dir/trim_type.txt)
-mapping_dir_out=$(cat $config/mapping_dir_out.txt)
+mapping_dir_out=$(cat $config_dir/mapping_dir_out.txt)
 
 mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_files
 mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files
