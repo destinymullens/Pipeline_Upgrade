@@ -44,7 +44,7 @@ echo "Beginning QC Reports..."
 mkdir -p "$SAVE_LOC/$project_name/qc_reports/untrimmed"
 qc_dir_out="$SAVE_LOC/$project_name/qc_reports/untrimmed"
 #echo "$qc_dir_out" > $config_dir/qc_dir_out.txt
-echo "qc_dir_in=\"$qc_dir_in\"" >> $SAVE_LOC/$project_name/config.sh
+echo "qc_dir_out=\"$qc_dir_out\"" >> $SAVE_LOC/$project_name/config.sh
 ./main_scripts/qc_run.sh
 echo "QC Reports complete!"
 
