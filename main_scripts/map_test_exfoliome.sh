@@ -3,17 +3,18 @@
 ## This script is to perform test mappings for exfoliome samples
 
 # Read config.sh
-. $(dirname $0)/../config.sh
+#. $(dirname $0)/../config.sh
+. $SAVE_LOC/$project_name/config.sh
 
 ##Importing input variables
-config_dir="$SAVE_LOC/$project_name/tmp"
+#config_dir="$SAVE_LOC/$project_name/tmp"
 
-mapfiles=$(cat $config_dir/mapfiles.txt)
-mapping_information=$(cat $config_dir/mapping_information.txt)
-project_name=$(cat $config_dir/project_name.txt)
-SAVE_LOC=$(cat $config_dir/SAVE_LOC.txt)
-species_location=$(cat $config_dir/species_location.txt)
-strand_num=$(cat $config_dir/strand_num.txt)
+#mapfiles=$(cat $config_dir/mapfiles.txt)
+#mapping_information=$(cat $config_dir/mapping_information.txt)
+#project_name=$(cat $config_dir/project_name.txt)
+#SAVE_LOC=$(cat $config_dir/SAVE_LOC.txt)
+#species_location=$(cat $config_dir/species_location.txt)
+#strand_num=$(cat $config_dir/strand_num.txt)
 
 ## Select random files for test mapping
 

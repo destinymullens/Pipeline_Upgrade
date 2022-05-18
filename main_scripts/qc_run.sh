@@ -5,12 +5,6 @@
 #. $(dirname $0)/../config.sh
 . $SAVE_LOC/$project_name/config.sh
 
-##Importing input variables
-#config_dir="$SAVE_LOC/$project_name/tmp"
-#mapping_information=$(cat $config_dir/mapping_information.txt)
-#qc_dir_in=$(cat $config_dir/qc_dir_in.txt)
-#qc_dir_out=$(cat $config_dir/qc_dir_out.txt)
-
 SAMPLES=$(find $qc_dir_in -type f -printf '%f\n')
 
 for s in $SAMPLES; do
