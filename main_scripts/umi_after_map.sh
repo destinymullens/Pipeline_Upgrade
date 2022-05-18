@@ -23,7 +23,7 @@ deduplog="$SAVE_LOC/$project_name/logs/$trim_type/deduplication"
 
 SAMPLES=$(find $mapping_dir_out -type f -printf '%f\n')
 
-for s in $SAMPLES; do
+for s in $mapping_dir_out/$SAMPLES; do
 	samplename="${s%%.*}"
 	if [[ ! -f $dedup_dir_out/$samplename-dedup.bam ]]; then
 			echo "Begining sorting of $s...."
@@ -36,6 +36,6 @@ for s in $SAMPLES; do
 			$UMI_TOOLS dedup -I $index_dir_out/$samplename-sort.bam --output-stats=$deduplog/$samplename-dedup -S $dedup_dir_out/$samplename-dedup.bam -L $deduplog/$samplename-dedup.log
 			echo "Deduplication of $s is now complete."
 			else
-				echo "Sample already complete."
+				echo "Sample $samplename is already complete."
 	fi
 done
