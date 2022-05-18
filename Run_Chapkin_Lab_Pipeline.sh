@@ -211,7 +211,7 @@ mkdir -p $SAVE_LOC/$project_name/logs/mapping
 mapping_logs="$SAVE_LOC/$project_name/logs/mapping"
 
 ## Create project specific config file
-cp $(dirname $0)/../config.sh $SAVE_LOC/$project_name/config.sh
+cp config.sh $SAVE_LOC/$project_name/config.sh
 
 echo "project_name=\"$project_name\"" >> $project_config
 echo "SAVE_LOC=\"$SAVE_LOC\"" >> $project_config
