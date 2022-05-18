@@ -3,7 +3,7 @@
 # Read config.sh
 . $(dirname $0)/config.sh
 
-project_config="$SAVE_LOC/$project_name/project_config.sh"
+project_config="$SAVE_LOC/$project_name/config.sh"
 set -a # Command exports variables automatically for other scripts
 
 ## Gather user input for various variables needed to determine the correct scripts for the pipeline to process
@@ -40,6 +40,20 @@ until [[ "$verify" = "1" ]]; do
 		find $file_location -type f -printf '%f\n'
 		echo " "; echo "Are these the correct files?"; echo "1. Yes"; echo "2. No"
 		read -p "> " verify
+	done
+
+## Get concat number & check
+	verify="0"	
+	until [[ "$verify" = "1" ]]; do ./misc_scripts/top_banner.sh
+		read -p "Do you need to concatenate your files? 1. Yes 2. No " concat_response
+		if [[ "$concat_response" == "1" ]]; then
+			read -p "How long is your filename? " concat_length
+			./misc_scripts/concat_preview.sh
+			echo "Is this correct?"; echo "1. Yes"; echo "2. No"
+			read -p "> " verify
+		else
+			verify="1"
+		fi
 	done
 
 ## Input data type: Biopsy or Exfoliome
@@ -112,20 +126,6 @@ until [[ "$verify" = "1" ]]; do
 				echo "Is this correct?"; echo "1. Yes"; echo "2. No"
 				read -p "> " verify
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
-		fi
-	done
-
-## Get concat number & check
-	verify="0"	
-	until [[ "$verify" = "1" ]]; do ./misc_scripts/top_banner.sh
-		read -p "Do you need to concatenate your files? 1. Yes 2. No " concat_response
-		if [[ "$concat_response" == "1" ]]; then
-			read -p "How long is your filename? " concat_length
-			./misc_scripts/concat_preview.sh
-			echo "Is this correct?"; echo "1. Yes"; echo "2. No"
-			read -p "> " verify
-		else
-			verify="1"
 		fi
 	done
 
@@ -203,42 +203,64 @@ until [[ "$verify" = "1" ]]; do
 done
 
 ## Create directories to save various files in
-mkdir -p "$SAVE_LOC/$project_name/tmp"
-config_dir="$SAVE_LOC/$project_name/tmp"
+#mkdir -p "$SAVE_LOC/$project_name/tmp"
+#config_dir="$SAVE_LOC/$project_name/tmp"
 mkdir -p $SAVE_LOC/$project_name/mapping
 mapping_dir_out="$SAVE_LOC/$project_name/mapping"
 mkdir -p $SAVE_LOC/$project_name/logs/mapping
 mapping_logs="$SAVE_LOC/$project_name/logs/mapping"
 
-## Output responses to project_config.sh file
+## Create project specific config file
+cp $(dirname $0)/../config.sh $SAVE_LOC/$project_name/config.sh
 
-echo "$project_name" > $config_dir/project_name.txt
-echo "$SAVE_LOC" > $config_dir/SAVE_LOC.txt
-echo "$concat_response" > $config_dir/concat_response.txt
-echo "$concat_length" > $config_dir/concat_response.txt
-echo "$trim_num" > $config_dir/trim_num.txt
-echo "$data_type" > $config_dir/data_type.txt
-echo "$strand_num" > $config_dir/strand_num.txt
-echo "$file_location" > $config_dir/file_location.txt
-echo "$mapfiles" > $config_dir/mapfiles.txt
-echo "$mapping_information" > $config_dir/mapping_information.txt
-echo "$trim_type" > $config_dir/trim_type.txt
-echo "$species_location" > $config_dir/species_location.txt
-echo "$trim_quality_num" > $config_dir/trim_quality_num.txt
-echo "$trim_base_num" > $config_dir/trim_base_num.txt
-echo "$mapping_dir_out" > $config_dir/mapping_dir_out.txt
-echo "$mapping_logs" > $config_dir/mapping_logs.txt
+echo "project_name=\"$project_name\"" >> $project_config
+echo "SAVE_LOC=\"$SAVE_LOC\"" >> $project_config
+echo "concat_response=\"$concat_response\"" >> $project_config
+echo "concat_length=\"$concat_length\"" >> $project_config
+echo "$trim_num=\"$trim_num\"" > $project_config
+echo "$data_type=\"$data_type\"" > $project_config
+echo "$strand_num=\"$strand_num\"" > $project_config
+echo "$file_location=\"$file_location\"" > $project_config
+echo "$mapfiles=\"$mapfiles\"" > $project_config
+echo "$mapping_information=\"$mapping_information\"" > $project_config
+echo "$trim_type=\"$trim_type\"" > $project_config
+echo "$species_location=\"$species_location\"" > $project_config
+echo "$trim_quality_num=\"$trim_quality_num\"" > $project_config
+echo "$trim_base_num=\"$trim_base_num\"" > $project_config
+echo "$mapping_dir_out=\"$mapping_dir_out\"" > $project_config
+echo "$mapping_logs=\"$mapping_logs\"" > $project_config
+
+
+#echo "$project_name" > $config_dir/project_name.txt
+#echo "$SAVE_LOC" > $config_dir/SAVE_LOC.txt
+#echo "$concat_response" > $config_dir/concat_response.txt
+#echo "$concat_length" > $config_dir/concat_response.txt
+#echo "$trim_num" > $config_dir/trim_num.txt
+#echo "$data_type" > $config_dir/data_type.txt
+#echo "$strand_num" > $config_dir/strand_num.txt
+#echo "$file_location" > $config_dir/file_location.txt
+#echo "$mapfiles" > $config_dir/mapfiles.txt
+#echo "$mapping_information" > $config_dir/mapping_information.txt
+#echo "$trim_type" > $config_dir/trim_type.txt
+#echo "$species_location" > $config_dir/species_location.txt
+#echo "$trim_quality_num" > $config_dir/trim_quality_num.txt
+#echo "$trim_base_num" > $config_dir/trim_base_num.txt
+#echo "$mapping_dir_out" > $config_dir/mapping_dir_out.txt
+#echo "$mapping_logs" > $config_dir/mapping_logs.txt
 
 trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed"
-echo "$trim_dir_out" > $config_dir/trim_dir_out.txt
+#echo "$trim_dir_out" > $config_dir/trim_dir_out.txt
+echo "$trim_dir_out=\"$trim_dir_out\"" > $project_config
 
 if [[ "$trim_num" = "4" ]]; then
 		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
-		echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
+		#echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
+		echo "$htseq_dir_in=\"$htseq_dir_in\"" > $project_config
 	else
 		htseq_dir_in="$SAVE_LOC/$project_name/mapping"
-		echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
+		#echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
+		echo "$htseq_dir_in=\"$htseq_dir_in\"" > $project_config
 fi
 
-#./main_scripts/Pipeline_Execute.sh
-nohup ./main_scripts/Pipeline_Execute.sh 1> $SAVE_LOC/$project_name/$project_name-log.out 2> $SAVE_LOC/$project_name/$project_name-log.err &
+./main_scripts/Pipeline_Execute.sh
+#nohup ./main_scripts/Pipeline_Execute.sh 1> $SAVE_LOC/$project_name/$project_name-log.out 2> $SAVE_LOC/$project_name/$project_name-log.err &
