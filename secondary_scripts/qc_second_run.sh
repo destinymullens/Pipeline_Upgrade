@@ -2,11 +2,8 @@
 
 ## This script is to run QC Reports
 
-# Read config.sh
-. $(dirname $0)/../config.sh
-config_dir="$SAVE_LOC/$project_name/tmp"
-mapfiles=$(cat $config_dir/mapfiles.txt)
-qc_dir_out2=$(cat $config_dir/qc_dir_out2.txt)
+#. $(dirname $0)/../config.sh
+. $SAVE_LOC/$project_name/config.sh
 
 SAMPLES=$(find $mapfiles -type f -printf '%f\n')
 

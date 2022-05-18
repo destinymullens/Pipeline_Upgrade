@@ -11,6 +11,7 @@ mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/umi_extracted
 
 processed_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/umi_extracted"
 trim_log="$SAVE_LOC/$project_name/logs/$trim_type"
+mkdir -p $trim_log
 
 #### Extract UMI's ####
 SAMPLES=$(find $trim_dir_in -type f -printf '%f\n')
