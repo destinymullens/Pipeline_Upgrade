@@ -19,6 +19,8 @@ samplename="${s%%.*}"
 		mkdir -p $qc_dir_out/$samplename
 		$FASTQC $qc_dir_in/$s -o $qc_dir_out/$samplename -t 50
 		echo ""
+	else
+		echo "$samplename is already complete."
 	fi
 done
 fastqc_version=$($FASTQC --version)

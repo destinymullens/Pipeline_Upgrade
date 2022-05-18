@@ -23,7 +23,7 @@ deduplog="$SAVE_LOC/$project_name/logs/$trim_type/deduplication"
 
 SAMPLES=$(find $mapping_dir_out -type f -printf '%f\n')
 
-for s in $mapping_dir_out/$SAMPLES; do
+for s in $SAMPLES; do
 	samplename="${s%%.*}"
 	if [[ ! -f $dedup_dir_out/$samplename-dedup.bam ]]; then
 			echo "Begining sorting of $s...."
