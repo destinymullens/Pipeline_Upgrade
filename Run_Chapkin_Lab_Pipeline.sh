@@ -204,6 +204,7 @@ done
 
 mkdir -p "$SAVE_LOC/$project_name/tmp"
 config_dir="$SAVE_LOC/$project_name/tmp"
+mapping_dir_out="$SAVE_LOC/$project_name/mapping"
 
 ## Output responses to project_config.sh file
 
@@ -221,6 +222,7 @@ echo "$trim_type" > $config_dir/trim_type.txt
 echo "$species_location" > $config_dir/species_location.txt
 echo "$trim_quality_num" > $config_dir/trim_quality_num.txt
 echo "$trim_base_num" > $config_dir/trim_base_num.txt
+echo "$mapping_dir_out" > $config/mapping_dir_out.txt
 
 
 trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed"

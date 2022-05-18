@@ -10,19 +10,18 @@ config_dir="$SAVE_LOC/$project_name/tmp"
 
 project_name=$(cat $config_dir/project_name.txt)
 SAVE_LOC=$(cat $config_dir/SAVE_LOC.txt)
-trim_dir_in=$(cat $config_dir/trim_dir_in.txt)
 trim_type=$(cat $config_dir/trim_type.txt)
+mapping_dir_out=$(cat $config/mapping_dir_out.txt)
 
 mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_files
 mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files
 mkdir -p $SAVE_LOC/$project_name/logs/$trim_type/deduplication
 
-map_dir_out="$SAVE_LOC/$project_name/mapping"
 index_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
 dedup_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_files"
 deduplog="$SAVE_LOC/$project_name/logs/$trim_type/deduplication"
 
-SAMPLES=$(find $map_dir_in -type f -printf '%f\n')
+SAMPLES=$(find $mapping_dir_out -type f -printf '%f\n')
 
 for s in $SAMPLES; do
 	samplename="${s%%.*}"
