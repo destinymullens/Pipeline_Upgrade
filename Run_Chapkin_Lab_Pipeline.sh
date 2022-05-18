@@ -226,7 +226,7 @@ echo "$trim_type" > $config_dir/trim_type.txt
 echo "$species_location" > $config_dir/species_location.txt
 echo "$trim_quality_num" > $config_dir/trim_quality_num.txt
 echo "$trim_base_num" > $config_dir/trim_base_num.txt
-echo "$mapping_dir_out" > $config/mapping_dir_out.txt
+echo "$mapping_dir_out" > $config_dir/mapping_dir_out.txt
 echo "$mapping_logs" > $config_dir/mapping_logs.txt
 
 trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed"
