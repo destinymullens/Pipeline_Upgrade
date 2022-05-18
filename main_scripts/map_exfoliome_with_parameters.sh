@@ -28,6 +28,10 @@ for m in $MAP_FILES; do
 	
 	MAPPING="D$A-F$B"
 
+	if [[ -f $test_map_out/$FILE-$MAPPING.sam ]]; then
+		cp $test_map_out/$FILE-$MAPPING.sam $mapping_dir_out/$FILE-$MAPPING.sam
+	done
+
 	if [[ ! -f $mapping_dir_out/$FILE-$MAPPING.sam ]]; then
 		printf "%s\n" "Mapping $FILE with $MAPPING mapping options beginning..."
 		if [[ "$strand_num" = "1" ]]; then
