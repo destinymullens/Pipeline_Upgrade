@@ -30,19 +30,18 @@ for m in $MAP_FILES; do
 
 	if [[ -f $test_map_out/$FILE-$MAPPING.sam ]]; then
 		cp $test_map_out/$FILE-$MAPPING.sam $mapping_dir_out/$FILE-$MAPPING.sam
-	done
-
-	if [[ ! -f $mapping_dir_out/$FILE-$MAPPING.sam ]]; then
-		printf "%s\n" "Mapping $FILE with $MAPPING mapping options beginning..."
-		if [[ "$strand_num" = "1" ]]; then
-			$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -U $mapfiles/$m --mp $mp --ma $ma --local --time -S $mapping_dir_out/$FILE-$MAPPING.sam 2> $mapping_logs/$FILE-$MAPPING-Results.log
-		else
-			$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -1 $mapfiles/$m*1.fastq.gz -2 $mapfiles/$m*2.fastq.gz --mp $mp --ma $ma --local --time -S $mapping_dir_out/$FILE-$MAPPING.sam 2> $mapping_logs/$FILE-$MAPPING-Results.log
-		fi		
-		printf "%s\n" "Mapping $FILE with $MAPPING mapping options complete."
-
+		echo "Moving $FILE-$MAPPING.sam test mapping to save time!"
 	else
-	echo "Mapping of $FILE with $MAPPING is already complete."
+		if [[ ! -f $mapping_dir_out/$FILE-$MAPPING.sam ]]; then
+			printf "%s\n" "Mapping $FILE with $MAPPING mapping options beginning..."
+			if [[ "$strand_num" = "1" ]]; then
+				$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -U $mapfiles/$m --mp $mp --ma $ma --local --time -S $mapping_dir_out/$FILE-$MAPPING.sam 2> $mapping_logs/$FILE-$MAPPING-Results.log
+			else
+				$BOWTIE -x $species_location/bowtie2/$species --threads $THREADS -1 $mapfiles/$m*1.fastq.gz -2 $mapfiles/$m*2.fastq.gz --mp $mp --ma $ma --local --time -S $mapping_dir_out/$FILE-$MAPPING.sam 2> $mapping_logs/$FILE-$MAPPING-Results.log
+			fi		
+			printf "%s\n" "Mapping $FILE with $MAPPING mapping options complete."
+		else
+		echo "Mapping of $FILE with $MAPPING is already complete."
 fi
 done
 bowtie_version=$($BOWTIE --version | cut -d " " -f3 | head -1)
