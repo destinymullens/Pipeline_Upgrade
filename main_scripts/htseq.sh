@@ -8,6 +8,9 @@ mkdir -p "$SAVE_LOC/$project_name/htseq_counts"
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
 samples=$(ls $htseq_dir_in/*.bam)
 
+summary_file="$SAVE_LOC/$project_name/summary/$project_name-htseq-metrics.csv"
+	printf "%s\n" "Sample Name  Mitochondrial Reads	Genes > 0 Reads Reads	Genes > 1 Reads Reads	Genes > 2 Reads" >> $summary_file ## Print sample name to summary  
+	
 for i in $samples; do
 	FILE=$(basename $i)
 	if [[ ! -d $htseq_dir_out/$FILE ]]; then
@@ -52,8 +55,6 @@ for i in $samples; do
 #	awk '{if ($3>5) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.5.count
 #	awk '{if ($3>10) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.10.count
 
-	summary_file="$SAVE_LOC/$project_name/summary/$project_name-htseq-metrics.csv"
-	printf "%s\n" "Sample Name  Mitochondrial Reads	Genes > 0 Reads Reads	Genes > 1 Reads Reads	Genes > 2 Reads" >> $summary_file ## Print sample name to summary  
 	printf "%s\t" "$FILE" >> $summary_file ## Print sample name to summary   
     printf "%s\t" $(cat $htseq_dir_out/$FILE/$FILE-MITO.count) >> $summary_file ## Print Total mito reads to summary
     printf "%s\t" $(cat $htseq_dir_out/$FILE/$FILE-htseq.0.count) >> $summary_file ## Print Total > 0 reads to summary
