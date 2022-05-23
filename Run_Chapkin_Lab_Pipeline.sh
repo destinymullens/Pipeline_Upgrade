@@ -165,7 +165,7 @@ until [[ "$verify" = "1" ]]; do
             		mapfiles="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
             	elif [[ "$trim_num" = "4" ]]; then trim_type="umi_trim"
                 	trim_disp="The data needs to be trimmed using UMI's."
-                	mapfiles="$SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_files"
+                	mapfiles="$SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed"
                 else  echo "Your input is not one of the options, please try again."; sleep 3; continue
         	fi
 	  	
@@ -252,7 +252,7 @@ trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed"
 echo "trim_dir_out=\"$trim_dir_out\"" >> $project_config
 
 if [[ "$trim_num" = "4" ]]; then
-		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/indexed_files"
+		htseq_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_files"
 		#echo "$htseq_dir_in" > $config_dir/htseq_dir_in.txt
 		echo "htseq_dir_in=\"$htseq_dir_in\"" >> $project_config
 	else
