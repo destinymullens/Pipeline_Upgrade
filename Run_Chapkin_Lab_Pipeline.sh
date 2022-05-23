@@ -165,7 +165,7 @@ until [[ "$verify" = "1" ]]; do
             		mapfiles="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
             	elif [[ "$trim_num" = "4" ]]; then trim_type="umi_trim"
                 	trim_disp="The data needs to be trimmed using UMI's."
-                	mapfiles="$SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed"
+                	mapfiles="$SAVE_LOC/$project_name/trimmed_files/$trim_type/deduplicated_files"
                 else  echo "Your input is not one of the options, please try again."; sleep 3; continue
         	fi
 	  	
