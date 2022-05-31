@@ -16,7 +16,7 @@ summary_file="$SAVE_LOC/$project_name/summary/$project_name-Overall_mapping_summ
 
 ### Merge individual htseq count files into counts csv file
 for i in $samples; do
-    ID=$(basename $i | cut -d "-" -f1)
+    ID=$(basename $i | cut -d "_" -f1)
  
     if [[ ! -f $counts_file ]]; then
         printf "%s\n" "Gene Name" > $tmp_dir/GeneName-tmp.txt
