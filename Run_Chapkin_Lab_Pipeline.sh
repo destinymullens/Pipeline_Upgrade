@@ -28,7 +28,7 @@ until [[ "$verify" = "1" ]]; do
 	echo ""
 	read -p "What would you like to name your project? " project_name
 	
-	echo ""; echo "Thank you! Your final results wil be saved at $SAVE_LOC/$project_name"; sleep 3
+	echo ""; echo "Thank you! Your final results will be saved at $SAVE_LOC/$project_name"; sleep 3
 
 	## Get file location
 	verify="0"
