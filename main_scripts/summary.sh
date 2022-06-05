@@ -40,7 +40,12 @@ rm -r $tmp_dir/
 ## Compile overall mapping metrics into one file
 logs=$(ls $mapping_logs/*.log)
 ## Print headers for overall for overall metrics
-printf "%s\n" "Sample Name  Total Reads  Single Mapped  Unmapped Reads   Multi-Mapped Reads  Alignment Rate" >> $summary_file ## Print sample name to summary  
+printf "%s\t" "Sample Name" >> $summary_file ## Print sample name to summary  
+printf "%s\t" "Total Reads" >> $summary_file ## Print sample name to summary  
+printf "%s\t" "Single Mapped" >> $summary_file ## Print sample name to summary  
+printf "%s\t" "Unmapped Reads" >> $summary_file ## Print sample name to summary  
+printf "%s\t" "Multi-Mapped Reads" >> $summary_file ## Print sample name to summary  
+printf "%s\n" "Alignment Rate" >> $summary_file ## Print sample name to summary  
 
 ## Collect and paste information from each sample into overall summary file
 for j in $logs; do

@@ -9,7 +9,11 @@ htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
 samples=$(ls $htseq_dir_in/*.bam)
 
 summary_file="$SAVE_LOC/$project_name/summary/$project_name-htseq-metrics.csv"
-	printf "%s\n" "Sample Name  Mitochondrial Reads	Genes > 0 Reads Reads	Genes > 1 Reads Reads	Genes > 2 Reads" >> $summary_file ## Print sample name to summary  
+	printf "%s\t" "Sample Name" >> $summary_file ## Print sample name to summary  
+	printf "%s\t" "Mitochondrial Reads" >> $summary_file ## Print sample name to summary	
+	printf "%s\t" "Genes > 0 Reads" >> $summary_file ## Print sample name to summary
+	printf "%s\t" "Genes > 1 Reads" >> $summary_file ## Print sample name to summary  
+	printf "%s\n" "Genes > 2 Reads" >> $summary_file ## Print sample name to summary  
 	
 for i in $samples; do
 	FILE=$(basename $i)
