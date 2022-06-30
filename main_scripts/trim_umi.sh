@@ -29,7 +29,7 @@ for s in $SAMPLES; do
 	fi
 	if [[ ! -f $trim_dir_out/$stoutfile_trimmed ]]; then
 		echo "Begining trimming of $s...."
-		$CUTADAPT -u 4 -o $trim_dir_out/$stoutfile_trimmed $processed_dir_out/$stoutfile
+		$CUTADAPT -u 4 -q 28 -o $trim_dir_out/$stoutfile_trimmed $processed_dir_out/$stoutfile
 		echo "Trimming of $s is now complete."
 		else
 		echo "Trimming of $s is already complete."
