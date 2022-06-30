@@ -12,7 +12,7 @@ for s in $SAMPLES; do
 	if [[ ! -d $qc_dir_out2/$samplename ]]; then
 		echo "$samplename post-trimming QC Report currently running."
 		mkdir -p $qc_dir_out2/$samplename
-		$FASTQC $mapfiles/$s -o $qc_dir_out2/$samplename -t 50
+		$FASTQC $mapfiles/$s -o $qc_dir_out2/$samplename -t $THREADS
 		echo "$samplename post-trimming QC Report completed."
 	fi
 done

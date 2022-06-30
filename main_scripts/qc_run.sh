@@ -12,7 +12,7 @@ samplename="${s%%.*}"
 	if [[ ! -d $qc_dir_out/$samplename ]]; then
 		echo "$samplename QC Report currently running."
 		mkdir -p $qc_dir_out/$samplename
-		$FASTQC $qc_dir_in/$s -o $qc_dir_out/$samplename -t 50
+		$FASTQC $qc_dir_in/$s -o $qc_dir_out/$samplename -t $THREADS
 		echo ""
 	else
 		echo "$samplename is already complete."
