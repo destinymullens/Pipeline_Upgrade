@@ -63,25 +63,15 @@ fi
 ###echo "Beginning mapping of files."
 
 if [[ "$data_type" = "biopsy" ]]; then 
-	if [[ "$strand_num" = "1" ]]; then 
-		./main_scripts/map_SE_biopsy.sh
-		if [[ "$trim_num" = "4" ]]; then
-			echo "Moving on to deduplication..."
-			./main_scripts/umi_after_map.sh
-			./main_scripts/htseq.sh
-		else
-			./main_scripts/htseq.sh
-		fi
-	else 
-		./main_scripts/map_PE_biopsy.sh
-		if [[ "$trim_num" = "4" ]]; then
-			echo "Moving on to deduplication..."
-			./main_scripts/umi_after_map.sh
-			./main_scripts/htseq.sh
-		else
-			./main_scripts/htseq.sh
-		fi
-	fi
+	if [[ "$trim_num" = "4" ]]; then
+		./main_scripts/map_biopsy.sh
+		echo "Moving on to deduplication..."
+		./main_scripts/umi_after_map.sh
+		./main_scripts/htseq.sh
+	else
+		./main_scripts/map_biopsy.sh
+		./main_scripts/htseq.sh
+	fi	
 elif [[ "$data_type" = "exfoliome with testing" ]]; then
 	./main_scripts/map_test_exfoliome.sh
 	./main_scripts/map_exfoliome_with_parameters.sh
@@ -92,7 +82,6 @@ elif [[ "$data_type" = "exfoliome with testing" ]]; then
 		else
 			./main_scripts/htseq.sh
 		fi
-	
 elif [[ "$data_type" = "exfoliome with default values" ]]; then 
 	./main_scripts/map_exfoliome_default.sh
 	if [[ "$trim_num" = "4" ]]; then
