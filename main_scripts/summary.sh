@@ -51,11 +51,11 @@ printf "%s\n" "Alignment Rate" >> $summary_file ## Print sample name to summary
 for j in $logs; do
     FILE=$(basename $j | cut -d "." -f1)
     ## Cut info from each log file for overall metrics
-    TOTAL_READS=$(cat $j | head -5 | tail -1 | cut -d " " -f1)
-    SINGLE_MAPPED_READS=$(cat $j | head -8 | tail -1 | cut -d " " -f5)
-    UNMAPPED_READS=$(cat $j | head -7 | tail -1 | cut -d " " -f5)
-    MULTI_MAP_READS=$(cat $j | head -9 | tail -1 | cut -d " " -f5)
-    ALIGNMENT_RATE=$(cat $j | head -10 | tail -1 | cut -d " " -f1)
+    TOTAL_READS=$(cat $j | tail -8 | head -1 | cut -d " " -f1)
+    SINGLE_MAPPED_READS=$(cat $j | tail -5 | head -1 | cut -d " " -f5)
+    UNMAPPED_READS=$(cat $j | tail -6 | head -1 | cut -d " " -f5)
+    MULTI_MAP_READS=$(cat $j | tail -4 | head -1 | cut -d " " -f5)
+    ALIGNMENT_RATE=$(cat $j | tail -3 | head -1 | cut -d " " -f1)
 
     printf "%s\t" "$FILE" >> $summary_file ## Print sample name to summary   
     printf "%s\t" "$TOTAL_READS" >> $summary_file ## Print Total reads to summary
