@@ -26,4 +26,4 @@ for m in $MAP_FILES; do
 
 done
 bowtie_version=$BOWTIE --version | cut -d " " -f3
-echo "Mapping performed using Bowtie2 version $bowtie_version with defaul settings." >> $mapping_information
+echo "Mapping performed using Bowtie2 version $bowtie_version with default settings." >> $mapping_information

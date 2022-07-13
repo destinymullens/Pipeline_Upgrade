@@ -50,11 +50,11 @@ if [[ ! -f $SAVE_LOC/$project_name/mapping_parameter.txt ]]; then
 				printf "%s\n" "Test mapping of $FILE with $MAPPING mapping options finished."
 		
 				## Cut info from each log file for comparision to see which is the best mapping option
-				TOTAL_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -5 | tail -1 | cut -d " " -f1)
-				SINGLE_MAPPED_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -8 | tail -1 | cut -d " " -f5)
-				UNMAPPED_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -7 | tail -1 | cut -d " " -f5)
-				MULTI_MAP_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -9 | tail -1 | cut -d " " -f5)
-				ALIGNMENT_RATE=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | head -10 | tail -1 | cut -d " " -f1)
+				TOTAL_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | tail -8 | head -1 | cut -d " " -f1)
+				UNMAPPED_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | tail -6 | head -1 | cut -d " " -f5)
+				SINGLE_MAPPED_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | tail -5 | head -1 | cut -d " " -f5)
+				MULTI_MAP_READS=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | tail -4 | head -1 | cut -d " " -f5)
+				ALIGNMENT_RATE=$(cat $test_map_logs/$FILE-$MAPPING-Results.log | tail -3 | head -1 | cut -d " " -f1)
 
 				printf "%s\t" "$FILE" >> $test_summary ## Print sample name to summary	
 				printf "%s\t" "$MAPPING" >> $test_summary ## Print mapping to summary

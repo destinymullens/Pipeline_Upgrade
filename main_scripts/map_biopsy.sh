@@ -29,7 +29,7 @@ for s in $SAMPLES; do
     if [[ "$strand_num" = "1" ]]; then
       for i in $(ls $map_dir_in); do
 #       pushd $outputdir/star/$species
-        $STAR --genomeDir $species_location/STAR --readFilesCommand gunzip -c $map_dir_in/$i --runThreadN $THREADS --sjdbGTFfile $species_location/genes.gtf --outSAMtype BAM Unsorted --genomeLoad NoSharedMemory --outFileNamePrefix $outputdir/$samplename
+        $STAR --genomeDir $species_location/STAR --readFilesCommand gunzip -c --readFilesIn $map_dir_in/$i --runThreadN $THREADS --sjdbGTFfile $species_location/genes.gtf --outSAMtype BAM Unsorted --genomeLoad NoSharedMemory --outFileNamePrefix $outputdir/$samplename
 #       popd
         echo -n "Mapping for $samplename is complete."
       done
@@ -39,7 +39,7 @@ for s in $SAMPLES; do
         read1=$i
         read2=$(ls $map_dir_in/$readsearch*R2*)
 #       pushd $outputdir/star/$species
-        $STAR --genomeDir $species_location/STAR --readFilesCommand gunzip -c $map_dir_in/$read1 $map_dir_in/$read2  --runThreadN $THREADS --sjdbGTFfile $species_location/genes.gtf --outSAMtype BAM Unsorted --genomeLoad NoSharedMemory --outFileNamePrefix $outputdir/$samplename
+        $STAR --genomeDir $species_location/STAR --readFilesCommand gunzip -c --readFilesIn $map_dir_in/$read1 $map_dir_in/$read2  --runThreadN $THREADS --sjdbGTFfile $species_location/genes.gtf --outSAMtype BAM Unsorted --genomeLoad NoSharedMemory --outFileNamePrefix $outputdir/$samplename
 #       popd
         echo -n "Mapping for $samplename is complete."
       done
@@ -48,3 +48,6 @@ for s in $SAMPLES; do
   fi
   echo "##################################################################"
 done
+
+star_version=$($STAR --version)
+echo "Mapping performed using STAR version $star_version." >> $mapping_information
