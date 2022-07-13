@@ -1,25 +1,20 @@
 ##!/bin/bash
 
-echo "Mapping single-end biopsy now.."
-
 ## This script is to map biopsy samples using STAR
 # Read config.sh
-#. $(dirname $0)/../config.sh
 . $SAVE_LOC/$project_name/config.sh
 
 if [[ "$trim_type" = "untrimmed" ]]; then
 	map_dir_in="$SAVE_LOC/$project_name/concat"
 	read_cmd="bunzip2 -c"
-	else
+else
  	map_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
 	read_cmd="gunzip -c"
 fi
 
 map_dir_out="$SAVE_LOC/$project_name/mapping"
 
-
 SAMPLES=$(find $map_dir_in -type f -printf '%f\n')
-ls -m $map_dir_in | tr -s ', ' ',' > "$project_name/samplelist.txt"
 
 for s in $SAMPLES; do
   samplename="${s%%.*}"
@@ -31,24 +26,24 @@ for s in $SAMPLES; do
   echo "Processing file $samplename..."
 
 
-if [[ "$strand_num" = "1" ]]; then
-  if [[ ! -d $outputdir/$samplename ]];
-    then
-    	for i in $(ls $map_dir_in); do
+  if [[ "$strand_num" = "1" ]]; then
+    echo "Mapping single-end biopsy now.."
+    if [[ ! -d $outputdir/$samplename ]]; then
+    	 for i in $(ls $map_dir_in); do
 		    echo -n "Running STAR against host reference ... "
-#      	pushd $outputdir/star/$species
+#        pushd $outputdir/star/$species
       	$STAR --genomeDir $species_location/STAR --readFilesCommand $read_cmd $map_dir_in/$i --runThreadN $THREADS --sjdbGTFfile $species_location/genes.gtf --outSAMtype BAM Unsorted --genomeLoad NoSharedMemory --outFileNamePrefix $outputdir/$samplename
       	echo "Done."
       	echo -n "Filtering STAR host alignments... "
-#		   popd
+#        popd
       	echo "Done."
-	   done
+	     done
     fi
     echo "##################################################################"
-  done
-else
-    if [[ ! -d $outputdir/$samplename ]];
-    then
+    done
+  else
+  echo "Mapping paired-end biopsy now.."
+    if [[ ! -d $outputdir/$samplename ]]; then
       for i in $(ls $map_dir_in/*R1*); do
         readsearch=$(echo $i | cut -c 1-10)
         read1=$i
@@ -65,7 +60,3 @@ else
     echo "##################################################################"
   done
 done
-
-
-
-

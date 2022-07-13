@@ -106,7 +106,7 @@ fi
 echo " " >> $mapping_information
 echo "All mapping is completed for $project_name! Your files are located at $SAVE_LOC/$project_name."
 echo "All mapping is completed for $project_name and files are located at $SAVE_LOC/$project_name." >> $mapping_information
-completed_time=$(timedatectl | head -1 | cut -d " " -f23-28)
+completed_time=$(timedatectl | head -1 | cut -d " " -f18-20)
 echo "Mapping completed at: $completed_time." >> $mapping_information
 
 rm -r $config_dir

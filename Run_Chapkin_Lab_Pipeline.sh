@@ -50,6 +50,7 @@ until [[ "$verify" = "1" ]]; do
 			echo "Is this correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
 		else
+			$concat_length="NA"
 			verify="1"
 		fi
 	done
@@ -192,7 +193,7 @@ until [[ "$verify" = "1" ]]; do
 	echo "Your data is $strand_type." >> $mapping_information
 	echo "$trim_disp" >> $mapping_information
 	echo " " >> $mapping_information
-	start_time=$(timedatectl | head -1 | cut -d " " -f23-28)
+	start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
 	echo "Mapping beginning at $start_time." >> $mapping_information
 	
 	if [[ "$verify" = "3" ]]; then
@@ -228,24 +229,6 @@ echo "trim_quality_num=\"$trim_quality_num\"" >> $project_config
 echo "trim_base_num=\"$trim_base_num\"" >> $project_config
 echo "mapping_dir_out=\"$mapping_dir_out\"" >> $project_config
 echo "mapping_logs=\"$mapping_logs\"" >> $project_config
-
-
-#echo "$project_name" > $config_dir/project_name.txt
-#echo "$SAVE_LOC" > $config_dir/SAVE_LOC.txt
-#echo "$concat_response" > $config_dir/concat_response.txt
-#echo "$concat_length" > $config_dir/concat_response.txt
-#echo "$trim_num" > $config_dir/trim_num.txt
-#echo "$data_type" > $config_dir/data_type.txt
-#echo "$strand_num" > $config_dir/strand_num.txt
-#echo "$file_location" > $config_dir/file_location.txt
-#echo "$mapfiles" > $config_dir/mapfiles.txt
-#echo "$mapping_information" > $config_dir/mapping_information.txt
-#echo "$trim_type" > $config_dir/trim_type.txt
-#echo "$species_location" > $config_dir/species_location.txt
-#echo "$trim_quality_num" > $config_dir/trim_quality_num.txt
-#echo "$trim_base_num" > $config_dir/trim_base_num.txt
-#echo "$mapping_dir_out" > $config_dir/mapping_dir_out.txt
-#echo "$mapping_logs" > $config_dir/mapping_logs.txt
 
 trim_dir_out="$SAVE_LOC/$project_name/trimmed_files/$trim_type/trimmed"
 #echo "$trim_dir_out" > $config_dir/trim_dir_out.txt
