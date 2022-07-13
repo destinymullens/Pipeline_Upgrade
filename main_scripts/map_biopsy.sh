@@ -5,8 +5,12 @@
 . $SAVE_LOC/$project_name/config.sh
 
 if [[ "$trim_type" = "untrimmed" ]]; then
-	map_dir_in="$SAVE_LOC/$project_name/concat"
-	read_cmd="bunzip2 -c"
+  if [[ "$concat_response" = "1" ]]; then
+    map_dir_in="$SAVE_LOC/$project_name/concat"
+    read_cmd="bunzip2 -c"
+  else
+    map_dir_in="$file_location"
+  fi
 else
  	map_dir_in="$SAVE_LOC/$project_name/trimmed_files/$trim_type"
 	read_cmd="gunzip -c"

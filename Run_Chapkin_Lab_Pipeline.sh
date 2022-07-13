@@ -50,7 +50,7 @@ until [[ "$verify" = "1" ]]; do
 			echo "Is this correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
 		else
-			$concat_length="NA"
+			concat_length="NA"
 			verify="1"
 		fi
 	done
