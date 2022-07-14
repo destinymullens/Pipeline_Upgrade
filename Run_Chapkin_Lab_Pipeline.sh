@@ -224,6 +224,7 @@ echo "file_location=\"$file_location\"" >> $project_config
 echo "mapfiles=\"$mapfiles\"" >> $project_config
 echo "mapping_information=\"$mapping_information\"" >> $project_config
 echo "trim_type=\"$trim_type\"" >> $project_config
+echo "species=\"$species\"" >> $project_config
 echo "species_location=\"$species_location\"" >> $project_config
 echo "trim_quality_num=\"$trim_quality_num\"" >> $project_config
 echo "trim_base_num=\"$trim_base_num\"" >> $project_config
