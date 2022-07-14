@@ -6,7 +6,7 @@
 
 mkdir -p "$SAVE_LOC/$project_name/htseq_counts"
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
-samples=$(ls $htseq_dir_in/*.bam)
+samples=$(ls $htseq_dir_in/*.sam)
 
 summary_file="$SAVE_LOC/$project_name/summary/$project_name-htseq-metrics.csv"
 	printf "%s\t" "Sample Name" >> $summary_file ## Print sample name to summary  
