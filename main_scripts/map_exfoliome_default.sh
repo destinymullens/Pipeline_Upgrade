@@ -12,7 +12,7 @@ SUMMARY="$SAVE_LOC/$project_name/summary/$project_name-Mapping_summary.csv"
 ##### RUN BOWTIE2 #########
 for m in $MAP_FILES; do
 	FILE=$(basename $m)
-	if [[ ! -f $mapping_dir_out/$FILE-$MAPPING.sam ]]; then
+	if [[ ! -f $mapping_dir_out/$FILE.sam ]]; then
 		printf "%s\n" "Mapping of $FILE beginning..."
 	
 		if [[ "$strand_num" = "1" ]]; then
