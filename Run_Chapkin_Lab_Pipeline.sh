@@ -81,6 +81,7 @@ until [[ "$verify" = "1" ]]; do
 				echo "1. Yes"; echo "2. No"; 
 				read -p "> " verify
 				echo "$exfoliome_mapping_parameter" > $SAVE_LOC/$project_name/mapping_parameter.txt
+    				data_type="exfoliome with prior mapping option $exfoliome_mapping_parameter"
 			fi
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
 		fi
