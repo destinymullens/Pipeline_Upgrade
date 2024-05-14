@@ -81,7 +81,6 @@ until [[ "$verify" = "1" ]]; do
 				echo "1. Yes"; echo "2. No"; 
 				read -p "> " verify
 				echo "$exfoliome_mapping_parameter" > $SAVE_LOC/$project_name/mapping_parameter.txt
-    				data_type="exfoliome with prior mapping option $exfoliome_mapping_parameter"
 			fi
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
 		fi
@@ -99,20 +98,20 @@ until [[ "$verify" = "1" ]]; do
 			species="human"; htseq_num="1"
 			echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
-		elif [[ "$species_type" = "2" ]]; then species_location="$REF_LOC/GRCm38.94-mouse"
-			species="mouse"; htseq_num="1"
+		elif [[ "$species_type" = "2" ]]; then species_location="$REF_LOC/GRCm39-mouse"
+			species="GRCm39.mouse"; htseq_num="1"
 			echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
 		elif [[ "$species_type" = "3" ]]; then species_location="$REF_LOC/pig"
-			species="pig"; htseq_num="2"
+			species="pig"; htseq_num="1"
 			echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
 		elif [[ "$species_type" = "4" ]]; then species_location="$REF_LOC/Equus_caballus"
-			species="horse"; htseq_num="2"
+			species="horse"; htseq_num="1"
 			echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
-		elif [[ "$species_type" = "5" ]]; then species_location="$REF_LOC/Rnor6.0"
-			species="rat"; htseq_num="2"
+		elif [[ "$species_type" = "5" ]]; then species_location="$REF_LOC/GRCr-8-rat"
+			species="GRCr8"; htseq_num="1"
 			echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
 		elif [[ "$species_type" = "6" ]]; then
