@@ -6,7 +6,7 @@
 
 mkdir -p "$SAVE_LOC/$project_name/htseq_counts"
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
-samples=$(ls $htseq_dir_in/*.bam)
+samples=$(ls $htseq_dir_in/*am)
 
 summary_file="$SAVE_LOC/$project_name/summary/$project_name-htseq-metrics.csv"
 	printf "%s\t" "Sample Name" >> $summary_file ## Print sample name to summary  
@@ -21,9 +21,9 @@ for i in $samples; do
 		mkdir -p "$htseq_dir_out/$FILE"
 		printf "%s\n" "Counting of $FILE beginning..."
 			if [[ "$strand_num" = "1" ]]; then	
-				$HTSEQ_LOC $i $species_location/genes.gtf --stranded=no -m intersection-strict -f sam -i gene_id --additional-attr=gene_name > $htseq_dir_out/$FILE/$FILE-htseq.txt
+				$HTSEQ_LOC $i $species_location/genes.gtf --stranded=no -m intersection-strict -f sam -i gene_id --additional-attr=gene_name --additional_attr=db_xref -o $htseq_dir_out/$FILE/$FILE-htseq.sam > $htseq_dir_out/$FILE/$FILE-htseq.txt
 			else
-				$HTSEQ_LOC --stranded=yes -m intersection-strict -f sam -i gene_id --additional-attr=gene_name $i $species_location/genes.gtf  > $htseq_dir_out/$FILE/$FILE-htseq.txt
+				$HTSEQ_LOC --stranded=yes -m intersection-strict -f sam -i gene_id --additional-attr=gene_name $i $species_location/genes.gtf --additional_attr=db_xref -o $htseq_dir_out/$FILE/$FILE-htseq.sam > $htseq_dir_out/$FILE/$FILE-htseq.txt
 			fi
 		printf "%s\n" "Counting of $FILE complete."
 	else
@@ -38,19 +38,17 @@ for i in $samples; do
 	## Outputs only the gene counts without overall metrics at end of file (for easier merging with other gene counts later)
 	head -n -5 $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-gene_counts_all.list
 
-	## Creates list of only ERCC genes
-	grep "^ERCC-" $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-ERCC.list
+#	## Creates list of only ERCC genes
+#	grep "^ERCC-" $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-ERCC.list
 	
-	## Gets count of ERCC reads
-	awk '{ sum+=$3 } END { print sum }' $htseq_dir_out/$FILE/$FILE-ERCC.list > $htseq_dir_out/$FILE/$FILE-ERCC.count
+#	## Gets count of ERCC reads
+#	awk '{ sum+=$3 } END { print sum }' $htseq_dir_out/$FILE/$FILE-ERCC.list > $htseq_dir_out/$FILE/$FILE-ERCC.count
 
 	## Creates list of only mitochondrial genes
 	grep -i "MT-" $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-MITO.list
 	## Gets count of mitocondrial reads
 	awk '{ sum+=$3 } END { print sum }' $htseq_dir_out/$FILE/$FILE-MITO.list > $htseq_dir_out/$FILE/$FILE-MITO.count
 
-	## Create list without ERCC genes to get gene counts
-	grep -Fvxf $htseq_dir_out/$FILE/$FILE-ERCC.list $htseq_dir_out/$FILE/$FILE-gene_counts_all.list >$htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt
 
 	## Outputs number of genes with > X number of genes
 	awk '{if ($3>0) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.0.count
