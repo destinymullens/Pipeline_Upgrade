@@ -7,7 +7,7 @@
 mkdir -p $SAVE_LOC/$project_name/htseq_counts/temp
 
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
-samples=$(ls $htseq_dir_out/*/*no_ercc.txt)
+samples=$(ls $htseq_dir_out/*/*htseq.txt)
 counts_file="$SAVE_LOC/$project_name/summary/$project_name-counts.csv"
 tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
 

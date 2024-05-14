@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 ## Trinity config
 
 ## These are the variables that are the same across all of the various scripts in the pipeline. 
