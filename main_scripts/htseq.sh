@@ -36,7 +36,7 @@ for i in $samples; do
 	tail -5 $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-htseq_summary.log
 
 	## Outputs only the gene counts without overall metrics at end of file (for easier merging with other gene counts later)
-	head -n -5 $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-gene_counts_all.list
+	head -n -5 $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-gene_counts_all.txt
 
 #	## Creates list of only ERCC genes
 #	grep "^ERCC-" $htseq_dir_out/$FILE/$FILE-htseq.txt > $htseq_dir_out/$FILE/$FILE-ERCC.list
@@ -51,9 +51,9 @@ for i in $samples; do
 
 
 	## Outputs number of genes with > X number of genes
-	awk '{if ($3>0) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.0.count
-	awk '{if ($3>1) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.1.count
-	awk '{if ($3>2) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.2.count
+	awk '{if ($3>0) print }' $htseq_dir_out/$FILE/$FILE-gene_counts_all.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.0.count
+	awk '{if ($3>1) print }' $htseq_dir_out/$FILE/$FILE-gene_counts_all.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.1.count
+	awk '{if ($3>2) print }' $htseq_dir_out/$FILE/$FILE-gene_counts_all.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.2.count
 #	awk '{if ($3>5) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.5.count
 #	awk '{if ($3>10) print }' $htseq_dir_out/$FILE/$FILE-gene_counts-no_ercc.txt | wc -l > $htseq_dir_out/$FILE/$FILE-htseq.10.count
 
