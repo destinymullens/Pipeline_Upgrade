@@ -27,9 +27,9 @@ for i in $samples; do
 		#mkdir -p "$htseq_dir_out/$FILE"
 		printf "%s\n" "Counting of ${FILE} beginning..."
 			if [[ "$strand_num" = "1" ]]; then	
-				$HTSEQ_LOC $i ${species_location}/genes.gtf --stranded=no -m intersection-strict -f sam -i gene_id --additional-attr=gene_name -o ${htseq_dir_out}/sam_files/${FILE}-htseq.sam -c ${htseq_dir_out}/counts/${FILE}-htseq.csv
+				$HTSEQ_LOC $i ${species_location}/genes.gtf --stranded=no -m intersection-strict -f sam -i gene_id --additional-attr=gene_name -o ${htseq_dir_out}/sam_files/${FILE}-htseq.sam -c ${htseq_dir_out}/counts/${FILE}-htseq.csv --with-header
 			else
-				$HTSEQ_LOC --stranded=yes -m intersection-strict -f sam -i gene_id --additional-attr=gene_name $i ${species_location}/genes.gtf -o ${htseq_dir_out}/sam_files/${FILE}-htseq.sam -c ${htseq_dir_out}/counts/${FILE}-htseq.csv
+				$HTSEQ_LOC --stranded=yes -m intersection-strict -f sam -i gene_id --additional-attr=gene_name $i ${species_location}/genes.gtf -o ${htseq_dir_out}/sam_files/${FILE}-htseq.sam -c ${htseq_dir_out}/counts/${FILE}-htseq.csv --with-header
 			fi
 		printf "%s\n" "Counting of $FILE complete."
 	else
