@@ -21,9 +21,9 @@ for i in $samples; do
 		mkdir -p "$htseq_dir_out/$FILE"
 		printf "%s\n" "Counting of $FILE beginning..."
 			if [[ "$strand_num" = "1" ]]; then	
-				$HTSEQ_LOC $i $species_location/genes.gtf --stranded=no -m intersection-strict -f sam -i gene_id --additional-attr=gene_name --additional-attr=transcript_id --additional_attr=GeneID -o $htseq_dir_out/$FILE/$FILE-htseq.sam > $htseq_dir_out/$FILE/$FILE-htseq.txt
+				$HTSEQ_LOC $i $species_location/genes.gtf --stranded=no -m intersection-strict -f sam -i gene_id --additional-attr=gene_name -o $htseq_dir_out/$FILE/$FILE-htseq.sam > $htseq_dir_out/$FILE/$FILE-htseq.txt
 			else
-				$HTSEQ_LOC --stranded=yes -m intersection-strict -f sam -i gene_id --additional-attr=gene_name $i $species_location/genes.gtf --additional-attr=transcript_id --additional_attr=GeneID -o $htseq_dir_out/$FILE/$FILE-htseq.sam > $htseq_dir_out/$FILE/$FILE-htseq.txt
+				$HTSEQ_LOC --stranded=yes -m intersection-strict -f sam -i gene_id --additional-attr=gene_name $i $species_location/genes.gtf -o $htseq_dir_out/$FILE/$FILE-htseq.sam > $htseq_dir_out/$FILE/$FILE-htseq.txt
 			fi
 		printf "%s\n" "Counting of $FILE complete."
 	else
