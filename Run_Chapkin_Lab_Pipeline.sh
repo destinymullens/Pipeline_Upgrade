@@ -94,7 +94,7 @@ until [[ "$verify" = "1" ]]; do
 		echo "Please enter the species type:"
 		echo "1. Human"; echo "2. Mouse"; echo "3. Pig"; echo "4. Horse"; echo "5. Rat"; echo "6. Other"
 		read -p "> " species_type
-		if [[ "$species_type" = "1" ]]; then species_location="$REF_LOC/GRCh38.94-human"
+		if [[ "$species_type" = "1" ]]; then species_location="$REF_LOC/GRCh38p14-human"
 			species="human"; htseq_num="1"
 			echo ""; echo "Is $species correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
