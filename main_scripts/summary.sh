@@ -7,7 +7,7 @@
 mkdir -p $SAVE_LOC/$project_name/htseq_counts/temp
 
 htseq_dir_out="$SAVE_LOC/$project_name/htseq_counts"
-samples=$(ls $htseq_dir_out/*/*htseq.txt)
+samples=$(ls $htseq_dir_out/counts/*.htseq.csv)
 counts_file="$SAVE_LOC/$project_name/summary/$project_name-counts.csv"
 tmp_dir="$SAVE_LOC/$project_name/htseq_counts/temp"
 
@@ -19,10 +19,10 @@ for i in $samples; do
     ID=$(basename $i | cut -d "." -f1)
  
     if [[ ! -f $counts_file ]]; then
-        printf "%s\n" "Gene ID" > $tmp_dir/GeneName-tmp.txt
-        awk '{print $1}' $i >> $tmp_dir/GeneName-tmp.txt
-        printf "%s\n" "Gene Name" > $tmp_dir/GeneID.txt
-        awk '{print $2}' $i >> $tmp_dir/GeneID.txt
+        printf "%s\n" "Ensembl.ID" > $tmp_dir/GeneID-tmp.txt
+        awk '{print $1}' $i >> $tmp_dir/GeneID-tmp.txt
+        printf "%s\n" "Gene.Name" > $tmp_dir/GeneName.txt
+        awk '{print $2}' $i >> $tmp_dir/GeneName.txt
         printf "%s\n" "$ID" > $tmp_dir/$ID-tmp.txt
         awk '{print $3}' $i >> $tmp_dir/$ID-tmp.txt
         paste $tmp_dir/GeneID.txt $tmp_dir/GeneName-tmp.txt $tmp_dir/$ID-tmp.txt >> $counts_file
@@ -33,6 +33,7 @@ for i in $samples; do
         mv $tmp_dir/$ID-counts-tmp.txt $counts_file
     fi
 done
+
 head -n -5 $counts_file > $tmp_dir/counts_file-tmp.txt
 mv $tmp_dir/counts_file-tmp.txt $counts_file
 rm -r $tmp_dir/
