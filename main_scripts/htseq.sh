@@ -18,12 +18,13 @@ printf "%s\n" "Genes > 2 Reads" >> $summary_file ## Print sample name to summary
 
 mkdir -p "$htseq_dir_out/sam_files"
 mkdir -p "$htseq_dir_out/counts"
+mkdir -p "$htseq_dir_out/counts/MTcounts"
 mkdir -p "$htseq_dir_out/summary"
 mkdir -p "$htseq_dir_out/temp"
 
 for i in $samples; do
 	FILE=$(basename $i)
-	if [[ ! -d ${htseq_dir_out}/${FILE} ]]; then
+	if [[ ! -f ${htseq_dir_out}/counts/${FILE}-htseq.csv ]]; then
 		#mkdir -p "$htseq_dir_out/$FILE"
 		printf "%s\n" "Counting of ${FILE} beginning..."
 			if [[ "$strand_num" = "1" ]]; then	
@@ -42,7 +43,7 @@ for i in $samples; do
 	tail -5 ${htseq_dir_out}/counts/${FILE}-htseq.csv > ${htseq_dir_out}/summary/${FILE}-htseq_summary.txt
 
 	## Creates list of only mitochondrial genes
-	grep -i "MT-" ${htseq_dir_out}/counts/${FILE}-htseq.csv > ${htseq_dir_out}/${FILE}-MTreads.csv
+	grep -i "MT-" ${htseq_dir_out}/counts/${FILE}-htseq.csv > ${htseq_dir_out}/counts/MTcounts/${FILE}-MTreads.csv
 	
 	## Gets count of mitocondrial reads
 	awk '{ sum+=$3 } END { print sum }' ${htseq_dir_out}/counts/${FILE}-MTreads.csv > ${htseq_dir_out}/${FILE}-htseq.MT.count
