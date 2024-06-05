@@ -7,43 +7,42 @@ set -a # Command exports variables automatically for other scripts
 ## Gather user input for various variables needed to determine the correct scripts for the pipeline to process
 verify="0"
 
-until [[ "${verify}" = "1" ]]; do
-	clear
-	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-	echo "+                                                                                                  +"
-	echo "+                                          Welcome to the                                          +"
-	echo "+                                 Chapkin Lab Sequencing Pipeline!                                 +"
-	echo "+                                                                                                  +"
-	echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-	echo ""
-	echo "Our pipeline is designed to asked questions about your data before proceeding to map your samples."
-	echo ""
-	echo "After all questions are answered the pipeline will process your data."
-	echo ""
-	echo "To begin, we need to name your project to create the folder that will contain your results."
-	echo "Please avoid using special characters such as: spaces, /, >, |, :, ?, *  or & in your project name."
-	echo "If using special characters, it must be quoted or escaped using the \ symbol."
-	echo ""
-	read -p "Where would you like to save your project? " SAVE_LOC
-	echo ""
-	read -p "What would you like to name your project? " project_name
-	
-	echo ""; echo "Thank you! Your final results will be saved at ${SAVE_LOC}/${project_name}"; sleep 3
+clear
+echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo "+                                                                                                  +"
+echo "+                                          Welcome to the                                          +"
+echo "+                                 Chapkin Lab Sequencing Pipeline!                                 +"
+echo "+                                                                                                  +"
+echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo ""
+echo "Our pipeline is designed to asked questions about your data before proceeding to map your samples."
+echo ""
+echo "After all questions are answered the pipeline will process your data."
+echo ""
+echo "To begin, we need to name your project to create the folder that will contain your results."
+echo "Please avoid using special characters such as: spaces, /, >, |, :, ?, *  or & in your project name."
+echo "If using special characters, it must be quoted or escaped using the \ symbol."
+echo ""
+read -p "Where would you like to save your project? " SAVE_LOC
+echo ""
+read -p "What would you like to name your project? " project_name
+echo "";
+echo "Thank you! Your final results will be saved at ${SAVE_LOC}/${project_name}"; sleep 3
 
-
-	## Get file location
-	./misc_scripts/top_banner.sh
-	if [[ -f ${SAVE_LOC}/${project_name}/config.sh ]]; then
-		echo "A previous configuration file is saved at that location? Would you like to continue a previous mapping?"; echo "1. Yes"; echo "2. No"
-		read -p "> " continuenum
-		if [[ "${continuenum}" == "1" ]]; then
-			nohup ./main_scripts/Pipeline_Execute.sh 1> ${SAVE_LOC}/${project_name}/${project_name}-log.out 2> ${SAVE_LOC}/${project_name}/${project_name}-log.err &
-		else
-		fi
+## Get file location
+./misc_scripts/top_banner.sh
+if [[ -f ${SAVE_LOC}/${project_name}/config.sh ]]; then
+	echo "This is already a configuration file saved at that location? Would you like to continue a previous mapping?"; echo "1. Yes"; echo "2. No"
+	read -p "> " continuenum
+	if [[ "${continuenum}" == "1" ]]; then
+		nohup ./main_scripts/Pipeline_Execute.sh 1> ${SAVE_LOC}/${project_name}/${project_name}-log.out 2> ${SAVE_LOC}/${project_name}/${project_name}-log.err &
 	else
-		rm ${SAVE_LOC}/${project_name}/config.sh
 	fi
+else
+	rm ${SAVE_LOC}/${project_name}/config.sh
+fi
 
+until [[ "${verify}" = "1" ]]; do
 	## Get file location
 	verify="0"
 	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
