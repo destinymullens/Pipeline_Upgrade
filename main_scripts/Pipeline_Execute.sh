@@ -30,7 +30,7 @@ echo "Beginning QC Reports..."
 mkdir -p "${SAVE_LOC}/${project_name}/qc_reports/untrimmed"
 qc_dir_out="${SAVE_LOC}/${project_name}/qc_reports/untrimmed"
 echo "qc_dir_out=\"${qc_dir_out}\"" >> ${SAVE_LOC}/${project_name}/config.sh
-#./main_scripts/qc_run.sh
+./main_scripts/qc_run.sh
 echo "QC Reports complete!"
 
 ## Run scripts for trimming options 
@@ -43,21 +43,21 @@ if [[ "${trim_num}" = "1" ]]; then
 		mkdir -p "${SAVE_LOC}/${project_name}/qc_reports/trimmed"
 		qc_dir_out2="${SAVE_LOC}/${project_name}/qc_reports/trimmed"
 		echo "qc_dir_out2=\"${qc_dir_out2}\"" >> ${SAVE_LOC}/${project_name}/config.sh
-#		./main_scripts/secondary_scripts/qc_second_run.sh
+		./main_scripts/secondary_scripts/qc_second_run.sh
 	elif [[ "${trim_num}" = "3" ]]; then
 		echo "Beginning trimming of files!"
 		./main_scripts/trim_base.sh
 		mkdir -p "${SAVE_LOC}/${project_name}/qc_reports/trimmed"
 		qc_dir_out2="${SAVE_LOC}/${project_name}/qc_reports/trimmed"
 		echo "qc_dir_out2=\"${qc_dir_out2}\"" >> ${SAVE_LOC}/${project_name}/config.sh
-#		./main_scripts/secondary_scripts/qc_second_run.sh
+		./main_scripts/secondary_scripts/qc_second_run.sh
 	else
 		echo "Beginning trimming of files!"
 		./main_scripts/trim_umi.sh
 		mkdir -p "${SAVE_LOC}/${project_name}/qc_reports/trimmed"
 		qc_dir_out2="${SAVE_LOC}/${project_name}/qc_reports/trimmed"
 		echo "qc_dir_out2=\"${qc_dir_out2}\"" >> ${SAVE_LOC}/${project_name}/config.sh
-#		./main_scripts/secondary_scripts/qc_second_run.sh
+		./main_scripts/secondary_scripts/qc_second_run.sh
 fi
 
 ###echo "Beginning mapping of files."
@@ -108,5 +108,3 @@ echo "All mapping is completed for ${project_name}! Your files are located at ${
 echo "All mapping is completed for ${project_name} and files are located at ${SAVE_LOC}/${project_name}." >> ${mapping_information}
 completed_time=$(timedatectl | head -1 | cut -d " " -f18-20)
 echo "Mapping completed at: ${completed_time}." >> ${mapping_information}
-
-#rm -r $config_dir
