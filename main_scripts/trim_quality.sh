@@ -4,19 +4,19 @@
 
 # Read config.sh
 #. $(dirname $0)/../config.sh
-. $SAVE_LOC/$project_name/config.sh
+. ${SAVE_LOC}/${project_name}/config.sh
 
-mkdir -p $SAVE_LOC/$project_name/trimmed_files/$trim_type
+mkdir -p ${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}
 
-SAMPLES=$(find $trim_dir_in -type f -printf '%f\n')
+SAMPLES=$(find ${trim_dir_in} -type f -printf '%f\n')
 
-for s in $SAMPLES; do
+for s in ${SAMPLES}; do
 	samplename="${s%%.*}"
-	if [[ ! -s $trim_dir_out/$samplename.trimm.fastq.gz ]]; then
-		$CUTADAPT -q $trim_quality_num -j 0 -o $trim_dir_out/$samplename.trimm.fastq.gz $trim_dir_in/$s
+	if [[ ! -s ${trim_dir_out}/${samplename}.trimm.fastq.gz ]]; then
+		${CUTADAPT} -q ${trim_quality_num} -j 0 -o ${trim_dir_out}/${samplename}.trimm.fastq.gz ${trim_dir_in}/${s}
 		echo ""
 	fi
 done
 
-cutadapt_version=$($CUTADAPT --version)
-echo "Trimming performed using Cutadapt version $cutadapt_version." >> $mapping_information
+cutadapt_version=$(${CUTADAPT} --version)
+echo "Trimming performed using Cutadapt version ${cutadapt_version}." >> ${mapping_information}
