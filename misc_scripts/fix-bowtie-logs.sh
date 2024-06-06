@@ -1,7 +1,7 @@
 #!/bin/bash
 
-InDir="/mnt/matrix/pooh/2022_Lampe_Fish_and_Fiber/Batch2/Lampe_FF_Batch2-optimized/logs/mapping"
-OutDir="/mnt/matrix/pooh/2022_Lampe_Fish_and_Fiber/Batch2/Lampe_FF_Batch2-optimized/logs/mapping/short_logs"
+InDir="/mnt/matrix/pooh/2023_Donovan-4yr-olds/Exfoliome/Mappings/Donovan_4YR_Exfoliome_Mapping/logs/mapping"
+OutDir="${InDir}/short_logs"
 
 
 SAMPLES=$(find ${InDir} -type f -printf '%f\n')
