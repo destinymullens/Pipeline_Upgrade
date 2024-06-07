@@ -120,7 +120,7 @@ until [[ "${verify}" = "1" ]]; do
 				read -p "> " verify
 			else
 				species_location="${REF_LOC}/GRCh38p14-human"; 
-				pecies="human"; htseq_num="1"
+				species="human"; htseq_num="1"
 				echo ""; echo "Is ${species} reference GRCh38.p14 correct?"; echo "1. Yes"; echo "2. No"
 				read -p "> " verify
 			fi				
