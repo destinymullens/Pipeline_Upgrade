@@ -111,7 +111,7 @@ until [[ "${verify}" = "1" ]]; do
 		echo "1. Human"; echo "2. Mouse"; echo "3. Pig"; echo "4. Horse"; echo "5. Rat"; echo "6. Other"
 		read -p "> " species_type
 		if [[ "${species_type}" = "1" ]]; then 
-			echo "Which reference would you like to use?" echo "1. GRCh38.p12" echo "2. GRCh38.p14"
+			echo "Which reference would you like to use?"; echo "1. GRCh38.p12"; echo "2. GRCh38.p14"
 			read -p "> " ref_version
 			if [[ "${ref_version}" == "1" ]]; then
 				species_location="${REF_LOC}/GRCh38.94-human"; species="human"; htseq_num="1"
@@ -123,7 +123,7 @@ until [[ "${verify}" = "1" ]]; do
 				read -p "> " verify
 			fi				
 		elif [[ "${species_type}" = "2" ]]; then 
-			echo "Which reference would you like to use?" echo "1. GRCm38.94" echo "2. GRCm39"
+			echo "Which reference would you like to use?"; echo "1. GRCm38.94"; echo "2. GRCm39"
 			read -p "> " ref_version
 			if [[ "${ref_version}" == "1" ]]; then
 				species_location="${REF_LOC}/GRCm38.94-mouse"; species="mouse"; htseq_num="1"
