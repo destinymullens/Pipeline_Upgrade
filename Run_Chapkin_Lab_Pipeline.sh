@@ -114,11 +114,13 @@ until [[ "${verify}" = "1" ]]; do
 			echo "Which reference would you like to use?"; echo "1. GRCh38.p12"; echo "2. GRCh38.p14"
 			read -p "> " ref_version
 			if [[ "${ref_version}" == "1" ]]; then
-				species_location="${REF_LOC}/GRCh38.94-human"; species="human"; htseq_num="1"
+				species_location="${REF_LOC}/GRCh38.94-human"; 
+				species="human"; htseq_num="1"
 				echo ""; echo "Is ${species} reference GRCh38.p12 correct?"; echo "1. Yes"; echo "2. No"
 				read -p "> " verify
 			else
-				species_location="${REF_LOC}/GRCh38p14-human"; species="human"; htseq_num="1"
+				species_location="${REF_LOC}/GRCh38p14-human"; 
+				pecies="human"; htseq_num="1"
 				echo ""; echo "Is ${species} reference GRCh38.p14 correct?"; echo "1. Yes"; echo "2. No"
 				read -p "> " verify
 			fi				
@@ -134,7 +136,8 @@ until [[ "${verify}" = "1" ]]; do
 				echo ""; echo "Is ${species} reference GRCm39 correct?"; echo "1. Yes"; echo "2. No"
 				read -p "> " verify
 			fi			
-		elif [[ "${species_type}" = "3" ]]; then species_location="${REF_LOC}/pig"
+		elif [[ "${species_type}" = "3" ]]; then 
+			species_location="${REF_LOC}/pig"
 			species="pig"; htseq_num="1"
 			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
@@ -259,7 +262,7 @@ echo "mapfiles=\"${mapfiles}\"" >> ${project_config}
 echo "mapping_information=\"${mapping_information}\"" >> ${project_config}
 echo "trim_type=\"${trim_type}\"" >> ${project_config}
 echo "species=\"${species}\"" >> ${project_config}
-echo "species_location=\"${species}_location\"" >> ${project_config}
+echo "species_location=\"${species_location}\"" >> ${project_config}
 echo "trim_quality_num=\"${trim_quality_num}\"" >> ${project_config}
 echo "trim_base_num=\"${trim_base_num}\"" >> ${project_config}
 echo "mapping_dir_out=\"${mapping_dir_out}\"" >> ${project_config}
