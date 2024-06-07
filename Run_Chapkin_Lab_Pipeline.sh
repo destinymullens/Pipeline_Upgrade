@@ -100,10 +100,12 @@ until [[ "${verify}" = "1" ]]; do
 		fi
 	done
 
+
 ## Input species and set htseq type (gene_id or gene_name)
 ## Updated pre-programmed genomes (human,mouse,pig,horse,rat) that have been updated and
 ## are now in a folder with a new name should be updated in the corresponding species_location line
 	verify="0"
+	REF_LOC="/mnt/matrix/roo/refs"
 	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
 		echo "Please enter the species type:"
 		echo "1. Human"; echo "2. Mouse"; echo "3. Pig"; echo "4. Horse"; echo "5. Rat"; echo "6. Other"
@@ -242,6 +244,8 @@ mapping_logs="${SAVE_LOC}/${project_name}/logs/mapping"
 ## Create project specific config file
 cp config.sh ${SAVE_LOC}/${project_name}/config.sh
 project_config="${SAVE_LOC}/${project_name}/config.sh"
+
+
 
 echo "project_name=\"${project_name}\"" >> ${project_config}
 echo "SAVE_LOC=\"$SAVE_LOC\"" >> ${project_config}
