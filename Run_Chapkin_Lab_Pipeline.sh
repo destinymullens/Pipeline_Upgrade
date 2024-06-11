@@ -41,7 +41,7 @@ if [[ -f ${SAVE_LOC}/${project_name}/config.sh ]]; then
 	fi
 else
 	rm ${SAVE_LOC}/${project_name}/config.sh
-fi
+
 
 until [[ "${verify}" = "1" ]]; do
 	## Get file location
@@ -248,8 +248,6 @@ mapping_logs="${SAVE_LOC}/${project_name}/logs/mapping"
 cp config.sh ${SAVE_LOC}/${project_name}/config.sh
 project_config="${SAVE_LOC}/${project_name}/config.sh"
 
-
-
 echo "project_name=\"${project_name}\"" >> ${project_config}
 echo "SAVE_LOC=\"$SAVE_LOC\"" >> ${project_config}
 echo "concat_response=\"${concat_response}\"" >> ${project_config}
@@ -284,3 +282,4 @@ fi
 
 #./main_scripts/Pipeline_Execute.sh
 nohup ./main_scripts/Pipeline_Execute.sh 1> ${SAVE_LOC}/${project_name}/${project_name}-log.out 2> ${SAVE_LOC}/${project_name}/${project_name}-log.err &
+fi
