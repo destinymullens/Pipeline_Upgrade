@@ -237,36 +237,36 @@ mapping_logs="${SAVE_LOC}/${project_name}/logs/mapping"
 cp config.sh ${SAVE_LOC}/${project_name}/config.sh
 project_config="${SAVE_LOC}/${project_name}/config.sh"
 
-echo "project_name=\"${project_name}\"" >> ${project_config}
-echo "SAVE_LOC=\"$SAVE_LOC\"" >> ${project_config}
-echo "concat_response=\"${concat_response}\"" >> ${project_config}
-echo "concat_length=\"${concat_length}\"" >> ${project_config}
-echo "trim_num=\"${trim_num}\"" >> ${project_config}
-echo "data_type=\"$data_type\"" >> ${project_config}
-echo "strand_num=\"${strand_num}\"" >> ${project_config}
-echo "file_location=\"${file_location}\"" >> ${project_config}
-echo "mapfiles=\"${mapfiles}\"" >> ${project_config}
-echo "mapping_information=\"${mapping_information}\"" >> ${project_config}
-echo "trim_type=\"${trim_type}\"" >> ${project_config}
-echo "species=\"${species}\"" >> ${project_config}
-echo "species_location=\"${species_location}\"" >> ${project_config}
-echo "trim_quality_num=\"${trim_quality_num}\"" >> ${project_config}
-echo "trim_base_num=\"${trim_base_num}\"" >> ${project_config}
-echo "mapping_dir_out=\"${mapping_dir_out}\"" >> ${project_config}
-echo "mapping_logs=\"${mapping_logs}\"" >> ${project_config}
+echo "project_name=${project_name}" >> ${project_config}
+echo "SAVE_LOC=$SAVE_LOC" >> ${project_config}
+echo "concat_response=${concat_response}" >> ${project_config}
+echo "concat_length=${concat_length}" >> ${project_config}
+echo "trim_num=${trim_num}" >> ${project_config}
+echo "data_type=$data_type" >> ${project_config}
+echo "strand_num=${strand_num}" >> ${project_config}
+echo "file_location=${file_location}" >> ${project_config}
+echo "mapfiles=${mapfiles}" >> ${project_config}
+echo "mapping_information=${mapping_information}" >> ${project_config}
+echo "trim_type=${trim_type}" >> ${project_config}
+echo "species=${species}" >> ${project_config}
+echo "species_location=${species_location}" >> ${project_config}
+echo "trim_quality_num=${trim_quality_num}" >> ${project_config}
+echo "trim_base_num=${trim_base_num}" >> ${project_config}
+echo "mapping_dir_out=${mapping_dir_out}" >> ${project_config}
+echo "mapping_logs=${mapping_logs}" >> ${project_config}
 
-trim_dir_out="${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/trimmed"
+trim_dir_out=${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/trimmed
 #echo "$trim_dir_out" > $config_dir/trim_dir_out.txt
-echo "trim_dir_out=\"${trim_dir_out}\"" >> ${project_config}
+echo "trim_dir_out=${trim_dir_out}" >> ${project_config}
 
 if [[ "${trim_num}" = "4" ]]; then
-		htseq_dir_in="${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/deduplicated_files"
+		htseq_dir_in=${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/deduplicated_files
 		#echo "${htseq_dir_in}" > $config_dir/htseq_dir_in.txt
-		echo "htseq_dir_in=\"${htseq_dir_in}\"" >> ${project_config}
+		echo "htseq_dir_in=${htseq_dir_in}" >> ${project_config}
 	else
-		htseq_dir_in="${SAVE_LOC}/${project_name}/mapping"
+		htseq_dir_in=${SAVE_LOC}/${project_name}/mapping
 		#echo "${htseq_dir_in}" > $config_dir/htseq_dir_in.txt
-		echo "htseq_dir_in=\"${htseq_dir_in}\"" >> ${project_config}
+		echo "htseq_dir_in=${htseq_dir_in}" >> ${project_config}
 fi
 
 #./main_scripts/Pipeline_Execute.sh
