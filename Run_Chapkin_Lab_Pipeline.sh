@@ -77,29 +77,13 @@ until [[ "${verify}" = "1" ]]; do
 		if [[ "${data_type_num}" = "1" ]]; then data_type="biopsy"
 			echo ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
-		elif [[ "${data_type_num}" = "2" ]]; then
-			echo "Would you like to test parameters for exfoliome data?"; 
-			echo "1. Yes, I would like to test parameters.";
-			echo "2. No, please map with default paramters.";
-			echo "3. No, I already know my testing paremters."; read -p "> " exfoliome_map_option
-			if [[ "${exfoliome_map_option}" == "1" ]]; then data_type="exfoliome with testing"
-				echo "You have chosen to test parameters for exfoliome data. Is this correct?"; echo "1. Yes"; echo "2. No" 
-				read -p "> " verify
-			elif [[ "${exfoliome_map_option}" == "2" ]]; then data_type="exfoliome with default values"
-				echo "You have chosen to map exfoliome data with default parameters."; 
-				echo "Is this correct?"; echo "1. Yes"; echo "2. No"; 
-				read -p "> " verify
-			else echo "Please enter preset mapping options:  " 
-				read -p "> " exfoliome_mapping_parameter
-				echo "You have given ${exfoliome_mapping_parameter} for presets for mapping your exfoliome data. Is this correct?"; 
-				echo "1. Yes"; echo "2. No"; 
-				read -p "> " verify
-				echo "${exfoliome_mapping_parameter}" > ${SAVE_LOC}/${project_name}/mapping_parameter.txt
+		else [[ "${data_type_num}" = "2" ]]; then
+			eecho ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
+			read -p "> " verify
 			fi
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
 		fi
 	done
-
 
 ## Input species and set htseq type (gene_id or gene_name)
 ## Updated pre-programmed genomes (human,mouse,pig,horse,rat) that have been updated and
