@@ -31,7 +31,7 @@ set -e
 
 input_dir="$file_location"
 prefix_length="$concat_length"
-output_dir="${SAVE_LOC}/concat"
+output_dir="${SAVE_LOC}/${project_name}/concat"
 
 # Make sure directories exist
 if [ ! -d "$file_location" ]; then
@@ -56,7 +56,7 @@ done
 
 # Concatenate each group
 for prefix in "${!groups[@]}"; do
-    output_file="$output_dir/${prefix}_combined.txt"
+    output_file="$output_dir/${prefix}.fastq.gz"
     echo "Concatenating group '$prefix' -> $output_file"
     cat ${groups[$prefix]} > "$output_file"
 done
