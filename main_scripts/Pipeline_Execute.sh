@@ -8,12 +8,12 @@
 
 if [[ "${concat_response}" == "1" ]]; then
 	echo "Beginning concatenation of files..."
-	./main_scripts/concat_run.sh
 	mkdir -p "${SAVE_LOC}/${project_name}/concat"
 	qc_dir_in="${SAVE_LOC}/${project_name}/concat"
 	trim_dir_in="${SAVE_LOC}/${project_name}/concat"
 	echo "qc_dir_in=\"${qc_dir_in}\"" >> ${SAVE_LOC}/${project_name}/config.sh
 	echo "trim_dir_in=\"${trim_dir_in}\"" >> ${SAVE_LOC}/${project_name}/config.sh
+	./main_scripts/concat_run.sh
 	echo "Concatenation of files is finished! Moving on to QC Reports."
 else
 	echo "File concatentation not needed. Moving on to QC Reports."
