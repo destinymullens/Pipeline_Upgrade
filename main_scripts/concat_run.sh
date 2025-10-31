@@ -18,7 +18,7 @@ for s in ${SAMPLES}; do
             echo ${f}
         done
         echo "into new file: $SAVE_LOC/concat/$NEW"; echo ""
-    	#zcat ${FILES} >> ${SAVE_LOC}/concat/${NEW}
+    	zcat ${FILES} >> ${SAVE_LOC}/concat/${NEW}
         echo "... Done."; echo ""; echo ""
     
     fi
