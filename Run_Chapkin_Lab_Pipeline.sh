@@ -77,7 +77,7 @@ until [[ "${verify}" = "1" ]]; do
 		if [[ "${data_type_num}" = "1" ]]; then data_type="biopsy"
 			echo ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
-		else [[ "${data_type_num}" = "2" ]]; then
+		else [[ "${data_type_num}" = "2" ]]; then data_type="exfoliome"
 			eecho ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
 			fi
