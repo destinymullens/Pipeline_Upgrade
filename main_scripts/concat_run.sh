@@ -2,7 +2,7 @@
 
 # Read config.sh
 #. $(dirname $0)/../config.sh
-. ${SAVE_LOC}/${project_name}/config.sh
+source ${SAVE_LOC}/${project_name}/config.sh
 
 ##Import sample list from file location
 SAMPLES=$(find ${file_location} -type f -printf '%f\n' | cut -c 1-${concat_length} | sort | uniq)
