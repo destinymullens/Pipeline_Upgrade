@@ -133,7 +133,7 @@ until [[ "${verify}" = "1" ]]; do
 			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
 		elif [[ "${species_type}" = "6" ]]; then
-				echo ""
+				echo ""  
 				read -p "Please enter the species you will be using: " species
 				read -p "Please enter the name of the genome folder located at ${REF_LOC}/ " species_new
 				species_location="${REF_LOC}/${species}_new"
@@ -179,18 +179,19 @@ until [[ "${verify}" = "1" ]]; do
 				mapfiles="${file_location}"
 				fi
 		elif [[ "${trim_num}" = "2" ]]; then trim_type="quality_trim"
-                	read -p "Please enter the quality score you would like to use: " trim_quality_num
-                	trim_disp="The data needs to be trimmed using a quality score of ${trim_quality_num}."
-					mapfiles="${SAVE_LOC}/${project_name}/trimmed_files/$trim_type"
+			read -p "Please enter the quality score you would like to use: " trim_quality_num
+			trim_disp="The data needs to be trimmed using a quality score of ${trim_quality_num}."
+			mapfiles="${SAVE_LOC}/${project_name}/trimmed_files/$trim_type"
         elif [[ "${trim_num}" = "3" ]]; then trim_type="base_trim"
-            		read -p "Please enter the number of bases you would like to trim: " trim_base_num
-            		trim_disp="The data needs ${trim_base_num} bases trimmed."
-            		mapfiles="${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}"
+            read -p "Please enter the number of bases you would like to trim: " trim_base_num
+            trim_disp="The data needs ${trim_base_num} bases trimmed."
+            mapfiles="${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}"
         elif [[ "${trim_num}" = "4" ]]; then trim_type="umi_trim"
-                	trim_disp="The data needs to be trimmed using UMI's."
-                	mapfiles="${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/trimmed"
-        else  echo "Your input is not one of the options, please try again."; sleep 3; continue
-        	fi
+			trim_disp="The data needs to be trimmed using UMI's."
+			mapfiles="${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/trimmed"
+        else echo "Your input is not one of the options, please try again."; sleep 3; continue
+
+        fi
 	  	
 	  	echo ""; echo "${trim_disp} Is this correct?"; echo "1. Yes"; echo "2. No"
 		read -p "> " verify
