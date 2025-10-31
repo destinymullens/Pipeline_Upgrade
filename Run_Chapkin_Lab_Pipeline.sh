@@ -23,7 +23,7 @@ echo "To begin, we need to name your project to create the folder that will cont
 echo "Please avoid using special characters such as: spaces, /, >, |, :, ?, *  or & in your project name."
 echo "If using special characters, it must be quoted or escaped using the \ symbol."
 echo ""
-read -p "Where would you like to save your project? " SAVE_LOC
+read -p "Where would you like to save your project? (Note: Please use /home/username instead of ~/ if files are located in your home directory.)" SAVE_LOC
 echo ""
 read -p "What would you like to name your project? " project_name
 echo "";
@@ -78,7 +78,7 @@ until [[ "${verify}" = "1" ]]; do
 			echo ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
 		elif [[ "${data_type_num}" = "2" ]]; then data_type="exfoliome"
-			eecho ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
+			echo ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
 		fi
