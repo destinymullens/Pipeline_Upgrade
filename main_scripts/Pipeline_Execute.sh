@@ -11,16 +11,16 @@ if [[ "${concat_response}" == "1" ]]; then
 	mkdir -p "${SAVE_LOC}/${project_name}/concat"
 	qc_dir_in="${SAVE_LOC}/${project_name}/concat"
 	trim_dir_in="${SAVE_LOC}/${project_name}/concat"
-	echo "qc_dir_in=\"${qc_dir_in}\"" >> ${SAVE_LOC}/${project_name}/config.sh
-	echo "trim_dir_in=\"${trim_dir_in}\"" >> ${SAVE_LOC}/${project_name}/config.sh
+	echo "qc_dir_in=${qc_dir_in}" >> ${SAVE_LOC}/${project_name}/config.sh
+	echo "trim_dir_in=${trim_dir_in}" >> ${SAVE_LOC}/${project_name}/config.sh
 	./main_scripts/concat_run.sh
 	echo "Concatenation of files is finished! Moving on to QC Reports."
 else
 	echo "File concatentation not needed. Moving on to QC Reports."
 	qc_dir_in="${file_location}"
 	trim_dir_in="${file_location}"
-	echo "qc_dir_in=\"${qc_dir_in}\"" >> ${SAVE_LOC}/${project_name}/config.sh
-	echo "trim_dir_in=\"${trim_dir_in}\"" >> ${SAVE_LOC}/${project_name}/config.sh
+	echo "qc_dir_in=${qc_dir_in}" >> ${SAVE_LOC}/${project_name}/config.sh
+	echo "trim_dir_in=${trim_dir_in}" >> ${SAVE_LOC}/${project_name}/config.sh
 fi
 
 echo " "
@@ -28,8 +28,8 @@ echo " "
 
 echo "Beginning QC Reports..."
 mkdir -p "${SAVE_LOC}/${project_name}/qc_reports/untrimmed"
-qc_dir_out="${SAVE_LOC}/${project_name}/qc_reports/untrimmed"
-echo "qc_dir_out=\"${qc_dir_out}\"" >> ${SAVE_LOC}/${project_name}/config.sh
+qc_dir_out=${SAVE_LOC}/${project_name}/qc_reports/untrimmed
+echo "qc_dir_out=${qc_dir_out}" >> ${SAVE_LOC}/${project_name}/config.sh
 ./main_scripts/qc_run.sh
 echo "QC Reports complete!"
 
@@ -41,21 +41,21 @@ if [[ "${trim_num}" = "1" ]]; then
 		echo "Beginning trimming of files!"
 		./main_scripts/trim_quality.sh
 		mkdir -p "${SAVE_LOC}/${project_name}/qc_reports/trimmed"
-		qc_dir_out2="${SAVE_LOC}/${project_name}/qc_reports/trimmed"
+		qc_dir_out2=${SAVE_LOC}/${project_name}/qc_reports/trimmed
 		echo "qc_dir_out2=\"${qc_dir_out2}\"" >> ${SAVE_LOC}/${project_name}/config.sh
 		./main_scripts/secondary_scripts/qc_second_run.sh
 	elif [[ "${trim_num}" = "3" ]]; then
 		echo "Beginning trimming of files!"
 		./main_scripts/trim_base.sh
 		mkdir -p "${SAVE_LOC}/${project_name}/qc_reports/trimmed"
-		qc_dir_out2="${SAVE_LOC}/${project_name}/qc_reports/trimmed"
+		qc_dir_out2=${SAVE_LOC}/${project_name}/qc_reports/trimmed
 		echo "qc_dir_out2=\"${qc_dir_out2}\"" >> ${SAVE_LOC}/${project_name}/config.sh
 		./main_scripts/secondary_scripts/qc_second_run.sh
 	else
 		echo "Beginning trimming of files!"
 		./main_scripts/trim_umi.sh
 		mkdir -p "${SAVE_LOC}/${project_name}/qc_reports/trimmed"
-		qc_dir_out2="${SAVE_LOC}/${project_name}/qc_reports/trimmed"
+		qc_dir_out2=${SAVE_LOC}/${project_name}/qc_reports/trimmed
 		echo "qc_dir_out2=\"${qc_dir_out2}\"" >> ${SAVE_LOC}/${project_name}/config.sh
 		./main_scripts/secondary_scripts/qc_second_run.sh
 fi

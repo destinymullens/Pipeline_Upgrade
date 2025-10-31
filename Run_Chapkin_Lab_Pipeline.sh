@@ -97,7 +97,7 @@ until [[ "${verify}" = "1" ]]; do
 			echo "Which reference would you like to use?"; echo "1. GRCh38.p12"; echo "2. GRCh38.p14"
 			read -p "> " ref_version
 			if [[ "${ref_version}" == "1" ]]; then
-				species_location="${REF_LOC}/GRCh38.94-human"; 
+				species_location=${REF_LOC}/GRCh38.94-human; 
 				species="human"; htseq_num="1"
 				echo ""; echo "Is ${species} reference GRCh38.p12 correct?"; echo "1. Yes"; echo "2. No"
 				read -p "> " verify
@@ -111,24 +111,26 @@ until [[ "${verify}" = "1" ]]; do
 			echo "Which reference would you like to use?"; echo "1. GRCm38.94"; echo "2. GRCm39"
 			read -p "> " ref_version
 			if [[ "${ref_version}" == "1" ]]; then
-				species_location="${REF_LOC}/GRCm38.94-mouse"; species="mouse"; htseq_num="1"
+				species_location=${REF_LOC}/GRCm38.94-mouse; species="mouse"; htseq_num="1"
 				echo ""; echo "Is ${species} reference GRCm38.94 correct?"; echo "1. Yes"; echo "2. No"
 				read -p "> " verify
 			else
-				species_location="${REF_LOC}/GRCm39-mouse"; species="mouse"; htseq_num="1"
+				species_location=${REF_LOC}/GRCm39-mouse; species="mouse"; htseq_num="1"
 				echo ""; echo "Is ${species} reference GRCm39 correct?"; echo "1. Yes"; echo "2. No"
 				read -p "> " verify
 			fi			
 		elif [[ "${species_type}" = "3" ]]; then 
-			species_location="${REF_LOC}/pig"
+			species_location=${REF_LOC}/pig
 			species="pig"; htseq_num="1"
 			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
-		elif [[ "${species_type}" = "4" ]]; then species_location="${REF_LOC}/Equus_caballus"
+		elif [[ "${species_type}" = "4" ]]; then 
+			species_location=${REF_LOC}/Equus_caballus
 			species="horse"; htseq_num="1"
 			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
-		elif [[ "${species_type}" = "5" ]]; then species_location="${REF_LOC}/GRCr-8-rat"
+		elif [[ "${species_type}" = "5" ]]; then 
+			species_location=${REF_LOC}/GRCr-8-rat
 			species="GRCr8"; htseq_num="1"
 			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
@@ -136,7 +138,7 @@ until [[ "${verify}" = "1" ]]; do
 				echo ""  
 				read -p "Please enter the species you will be using: " species
 				read -p "Please enter the name of the genome folder located at ${REF_LOC}/ " species_new
-				species_location="${REF_LOC}/${species}_new"
+				species_location=${REF_LOC}/${species}_new
 				
 				echo ""
 				echo "The location for ${species} reference is ${species}_location."
@@ -175,21 +177,21 @@ until [[ "${verify}" = "1" ]]; do
 		if [[ "${trim_num}" = "1" ]]; then 
 			trim_type="untrimmed"
 			trim_disp="The data does not need to be trimmed."
-				if [[ "${concat_num}" = "1" ]]; then mapfiles="${SAVE_LOC}/${project_name}/concat"
+				if [[ "${concat_num}" = "1" ]]; then mapfiles=${SAVE_LOC}/${project_name}/concat
 			else 
-				mapfiles="${file_location}"
+				mapfiles=${file_location}
 				fi
 		elif [[ "${trim_num}" = "2" ]]; then trim_type="quality_trim"
 			read -p "Please enter the quality score you would like to use: " trim_quality_num
 			trim_disp="The data needs to be trimmed using a quality score of ${trim_quality_num}."
-			mapfiles="${SAVE_LOC}/${project_name}/trimmed_files/$trim_type"
+			mapfiles=${SAVE_LOC}/${project_name}/trimmed_files/$trim_type
         elif [[ "${trim_num}" = "3" ]]; then trim_type="base_trim"
             read -p "Please enter the number of bases you would like to trim: " trim_base_num
             trim_disp="The data needs ${trim_base_num} bases trimmed."
-            mapfiles="${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}"
+            mapfiles=${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}
         elif [[ "${trim_num}" = "4" ]]; then trim_type="umi_trim"
 			trim_disp="The data needs to be trimmed using UMI's."
-			mapfiles="${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/trimmed"
+			mapfiles=${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/trimmed
         else echo "Your input is not one of the options, please try again."; sleep 3; continue
 
         fi
