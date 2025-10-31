@@ -30,7 +30,7 @@ echo "Beginning QC Reports..."
 mkdir -p "${SAVE_LOC}/${project_name}/qc_reports/untrimmed"
 qc_dir_out="${SAVE_LOC}/${project_name}/qc_reports/untrimmed"
 echo "qc_dir_out=\"${qc_dir_out}\"" >> ${SAVE_LOC}/${project_name}/config.sh
-./main_scripts/qc_run.sh
+#./main_scripts/qc_run.sh
 echo "QC Reports complete!"
 
 ## Run scripts for trimming options 
@@ -72,16 +72,7 @@ if [[ "${data_type}" = "biopsy" ]]; then
 		./main_scripts/map_biopsy.sh
 		./main_scripts/htseq.sh
 	fi
-elif [[ "${data_type}" = "exfoliome with testing" ]]; then
-	./main_scripts/map_test_exfoliome.sh
-	./main_scripts/map_exfoliome_with_parameters.sh
-		if [[ "${trim_num}" = "4" ]]; then
-			echo "Moving on to deduplication..."
-			./main_scripts/umi_after_map.sh
-			./main_scripts/htseq.sh
-		else
-			./main_scripts/htseq.sh
-		fi
+
 elif [[ "${data_type}" = "exfoliome with default values" ]]; then 
 	./main_scripts/map_exfoliome_default.sh
 	if [[ "${trim_num}" = "4" ]]; then
