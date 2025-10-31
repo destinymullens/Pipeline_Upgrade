@@ -171,6 +171,7 @@ until [[ "${verify}" = "1" ]]; do
 		echo "3. Yes, the data needs a specific number of bases trimmed."; 
 		echo "4. Yes, the data needs to be trimmed using UMI's."
 		read -p "> " trim_num
+		
 		if [[ "${trim_num}" = "1" ]]; then 
 			trim_type="untrimmed"
 			trim_disp="The data does not need to be trimmed."
