@@ -16,7 +16,7 @@ for s in ${SAMPLES}; do
             echo ${f}
         done
         echo "into new file: ${NEW}"; echo ""
-    	zcat ${FILES} | gzip > ${NEW}
+    	zcat ${FILES} | gzip > ${SAVE_LOC}/${project_name}/concat/${NEW}
         echo "... Done."; echo ""; echo ""
     fi
 done
