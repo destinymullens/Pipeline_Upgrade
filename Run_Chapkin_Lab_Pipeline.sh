@@ -168,7 +168,7 @@ until [[ "${verify}" = "1" ]]; do
 		echo "1. No, the data does not need to be trimmed."; echo "2. Yes, the data needs to be trimmed using a quality score."
 		echo "3. Yes, the data needs a specific number of bases trimmed."; echo "4. Yes, the data needs to be trimmed using UMI's."
 		read -p "> " trim_num
-		if [[ "$t{rim_num}" = "1" ]]; then trim_type="untrimmed"
+		if [[ "${trim_num}" = "1" ]]; then trim_type="untrimmed"
 			trim_disp="The data does not need to be trimmed."
 			if [[ "${concat_num}" = "1" ]]; then mapfiles="${SAVE_LOC}/${project_name}/concat"
 			else 
