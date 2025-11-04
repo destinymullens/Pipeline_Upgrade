@@ -1,8 +1,11 @@
-##!/bin/bash
+#!/bin/bash
 
-## This script is to map biopsy samples using STAR
 # Read config.sh
-. ${SAVE_LOC}/${project_name}/config.sh
+source ${SAVE_LOC}/${project_name}/config.sh
+
+# Exit on error
+set -e
+
 hostrefdir=${species_location}
 
 if [[ "${trim_type}" = "untrimmed" ]]; then

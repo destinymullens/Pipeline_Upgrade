@@ -1,9 +1,10 @@
 #!/bin/bash
 
-## This script is to run QC Reports
 # Read config.sh
-#. $(dirname $0)/../config.sh
-. ${SAVE_LOC}/${project_name}/config.sh
+source ${SAVE_LOC}/${project_name}/config.sh
+
+# Exit on error
+set -e
 
 SAMPLES=$(find ${qc_dir_in} -type f -printf '%f\n')
 

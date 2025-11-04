@@ -1,10 +1,10 @@
 #!/bin/bash
 
-## This script is to perform test mappings for exfoliome samples
-
 # Read config.sh
-#. $(dirname $0)/../config.sh
-. ${SAVE_LOC}/${project_name}/config.sh
+source ${SAVE_LOC}/${project_name}/config.sh
+
+# Exit on error
+set -e
 
 MAP_FILES=$(ls "${mapfiles}")
 SUMMARY="${SAVE_LOC}/${project_name}/summary/$project_name-Mapping_summary.csv"

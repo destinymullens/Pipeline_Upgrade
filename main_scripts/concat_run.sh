@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # Read config.sh
-#. $(dirname $0)/../config.sh
 source ${SAVE_LOC}/${project_name}/config.sh
-
 
 # Exit on error
 set -e

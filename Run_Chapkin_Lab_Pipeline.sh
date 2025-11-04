@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Read config.sh
-. $(dirname $0)/config.sh
+source ${SAVE_LOC}/${project_name}/config.sh
+
+set -e # Exit on error
 set -a # Command exports variables automatically for other scripts
 
 ## Gather user input for various variables needed to determine the correct scripts for the pipeline to process

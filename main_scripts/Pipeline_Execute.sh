@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # Read config.sh
-. ${SAVE_LOC}/${project_name}/config.sh
+source ${SAVE_LOC}/${project_name}/config.sh
+
+# Exit on error
+set -e
 
 ./misc_scripts/top_banner.sh
 ## Runs concat script to concatenate script
