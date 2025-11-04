@@ -44,7 +44,6 @@ if [[ -f ${SAVE_LOC}/${project_name}/config.sh ]]; then
 	fi
 else
 
-fi
 
 until [[ "${verify}" = "1" ]]; do
 	## Get file location
