@@ -82,25 +82,24 @@ until [[ "${verify}" = "1" ]]; do
 		elif [[ "${data_type_num}" = "2" ]]; then data_type="exfoliome"
 			echo ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
+ 			## Determine Exfoliome Default or Optimized Pipeline
+ 			verify="0"
+			until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
+				echo ""; echo "You have entered ${data_type} as the type of data you are using. Would you like to use the default or optimized pipeline?"; echo "1. Default"; echo "2. Optimized"
+				read -p "> " exfoliome_map_option
+				if [[ "${exfoliome_map_option}" = "1" ]]; then data_type="Default"
+					echo ""; echo "You have selected the ${data_type} exfoliome pipeline. Is this correct?"; echo "1. Yes"; echo "2. No"
+					read -p "> " verify
+				elif [[ "${exfoliome_map_option}" = "2" ]]; then data_type="Optimized"
+					echo ""; echo "You have selected the ${data_type} exfoliome pipeline. Is this correct?"; echo "1. Yes"; echo "2. No"
+					read -p "> " verify
+				else echo "Your input is not one of the options, please try again."; sleep 3; continue
+				fi
+			done
+
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
 		fi
 	done
-
- ## Determine Exfoliome Default or Optimized Pipeline
- 	verify="0"
-	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-		echo ""; echo "You have entered ${data_type} as the type of data you are using. Would you like to use the default or optimized pipeline?"; echo "1. Default"; echo "2. Optimized"
-		read -p "> " exfoliome_map_option
-		if [[ "${exfoliome_map_option}" = "1" ]]; then data_type="Default"
-			echo ""; echo "You have selected the ${data_type} exfoliome pipeline. Is this correct?"; echo "1. Yes"; echo "2. No"
-			read -p "> " verify
-		elif [[ "${exfoliome_map_option}" = "2" ]]; then data_type="Optimized"
-			echo ""; echo "You have selected the ${data_type} exfoliome pipeline. Is this correct?"; echo "1. Yes"; echo "2. No"
-			read -p "> " verify
-		else echo "Your input is not one of the options, please try again."; sleep 3; continue
-		fi
-	done
-
 
 ## Input species and set htseq type (gene_id or gene_name)
 ## Updated pre-programmed genomes (human,mouse,pig,horse,rat) that have been updated and
@@ -168,7 +167,7 @@ until [[ "${verify}" = "1" ]]; do
 
 
 
-if [[ "${data_type}" = "biopsy" ]]; then data_type="biopsy"
+if [[ "${data_type}" = "biopsy" ]]; then
 
 ## Determine strands
 	verify="0"
@@ -224,7 +223,8 @@ if [[ "${data_type}" = "biopsy" ]]; then data_type="biopsy"
 
 	verify="0"
 
-else
+elif [[ "${data_type}" = "exfoliome" ]]; then
+	
 	trim_type="umi_trim"
 	strand_type="single end"
 fi
