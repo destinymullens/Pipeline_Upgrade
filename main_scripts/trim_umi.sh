@@ -6,11 +6,11 @@ source ${SAVE_LOC}/${project_name}/config.sh
 # Exit on error
 set -e
 
-mkdir -p ${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/trimmed
+mkdir -p ${SAVE_LOC}/${project_name}/trimmed_files/$trim_type
 mkdir -p ${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/umi_extracted
 
 processed_dir_out="${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/umi_extracted"
-trim_log="${SAVE_LOC}/${project_name}/logs/$trim_type"
+trim_log="${SAVE_LOC}/${project_name}/logs/$trim_type/umi_extraction"
 mkdir -p ${trim_log}
 
 #### Extract UMI's ####

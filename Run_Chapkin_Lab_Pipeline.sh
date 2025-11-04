@@ -231,11 +231,13 @@ if [[ "${data_type}" = "biopsy" ]]; then
 	verify="0"
 
 elif [[ "${data_type}" = "exfoliome default" ]]; then
+	trim_num="4"
 	trim_type="umi_trim"
 	trim_disp="The data needs to be trimmed using UMI's."
 	strand_type="single end"
 
 elif [[ "${data_type}" = "exfoliome optimized" ]]; then
+	trim_num="4"
 	trim_type="umi_trim"
 	trim_disp="The data needs to be trimmed using UMI's."
 	strand_type="single end"
@@ -297,17 +299,14 @@ echo "trim_base_num=${trim_base_num}" >> ${project_config}
 echo "mapping_dir_out=${mapping_dir_out}" >> ${project_config}
 echo "mapping_logs=${mapping_logs}" >> ${project_config}
 
-trim_dir_out=${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/trimmed
-#echo "$trim_dir_out" > $config_dir/trim_dir_out.txt
+trim_dir_out=${SAVE_LOC}/${project_name}/trimmed_files/$trim_type
 echo "trim_dir_out=${trim_dir_out}" >> ${project_config}
 
 if [[ "${trim_num}" = "4" ]]; then
 		htseq_dir_in=${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/deduplicated_files
-		#echo "${htseq_dir_in}" > $config_dir/htseq_dir_in.txt
 		echo "htseq_dir_in=${htseq_dir_in}" >> ${project_config}
 	else
 		htseq_dir_in=${SAVE_LOC}/${project_name}/mapping
-		#echo "${htseq_dir_in}" > $config_dir/htseq_dir_in.txt
 		echo "htseq_dir_in=${htseq_dir_in}" >> ${project_config}
 fi
 
