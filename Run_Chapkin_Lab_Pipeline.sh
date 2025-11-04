@@ -230,16 +230,17 @@ if [[ "${data_type}" = "biopsy" ]]; then
 
 	verify="0"
 
-elif [[ "${data_type}" = "exfoliome" ]]; then
-	
+elif [[ "${data_type}" = "exfoliome default" ]]; then
 	trim_type="umi_trim"
 	trim_disp="The data needs to be trimmed using UMI's."
 	strand_type="single end"
+
+elif [[ "${data_type}" = "exfoliome optimized" ]]; then
+	trim_type="umi_trim"
+	trim_disp="The data needs to be trimmed using UMI's."
+	strand_type="single end"
+
 fi
-
-
-
-
 
 ## Final verification of information before beginning pipeline
 	./misc_scripts/top_banner.sh
