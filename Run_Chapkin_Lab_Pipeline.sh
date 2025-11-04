@@ -117,12 +117,14 @@ until [[ "${verify}" = "1" ]]; do
 				species_location=${REF_LOC}/GRCh38.94-human; 
 				species="human"; htseq_num="1"
 				echo ""; echo "Is ${species} reference GRCh38.p12 correct?"; echo "1. Yes"; echo "2. No"
+				species_ref="GRCh38.p12";
 				read -p "> " verify
 			else
 				species_location="${REF_LOC}/GRCh38p14-human"; 
 				species="human"; htseq_num="1"
 				echo ""; echo "Is ${species} reference GRCh38.p14 correct?"; echo "1. Yes"; echo "2. No"
 				read -p "> " verify
+				species_ref="GRCh38.p14";
 			fi				
 		elif [[ "${species_type}" = "2" ]]; then 
 			echo "Which reference would you like to use?"; echo "1. GRCm38.94"; echo "2. GRCm39"
@@ -131,26 +133,31 @@ until [[ "${verify}" = "1" ]]; do
 				species_location=${REF_LOC}/GRCm38.94-mouse; species="mouse"; htseq_num="1"
 				echo ""; echo "Is ${species} reference GRCm38.94 correct?"; echo "1. Yes"; echo "2. No"
 				read -p "> " verify
+				species_ref="GRCm38.94";
 			else
 				species_location=${REF_LOC}/GRCm39-mouse; species="mouse"; htseq_num="1"
 				echo ""; echo "Is ${species} reference GRCm39 correct?"; echo "1. Yes"; echo "2. No"
 				read -p "> " verify
+				species_ref="GRCm39";
 			fi			
 		elif [[ "${species_type}" = "3" ]]; then 
 			species_location=${REF_LOC}/pig
 			species="pig"; htseq_num="1"
 			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
+			species_ref="Sus crofa 11.1";
 		elif [[ "${species_type}" = "4" ]]; then 
 			species_location=${REF_LOC}/Equus_caballus
 			species="horse"; htseq_num="1"
 			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
+			species_ref="Equus caballus 3.0";
 		elif [[ "${species_type}" = "5" ]]; then 
 			species_location=${REF_LOC}/GRCr-8-rat
 			species="GRCr8"; htseq_num="1"
 			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
+			species_ref="GRCr8";
 		elif [[ "${species_type}" = "6" ]]; then
 				echo ""  
 				read -p "Please enter the species you will be using: " species
@@ -239,7 +246,7 @@ fi
 	echo "Thank you for all of your input! Let's verify things one last time before beginning."; echo ""
 	echo "Project Name: ${project_name}"; echo "File Location: ${file_location}"
 	echo "Final filename length: ${concat_length}"; echo "Type of samples: ${data_type}"
-	echo "Species: ${species}"; echo "Your data is ${strand_type}."
+	echo "Species: ${species}" with reference ${species_ref}; echo "Your data is ${strand_type}."
 	echo "${trim_disp}"; echo ""; echo ""
 	echo "Would you like to proceed?"; echo "1. Yes"; echo "2. No"; echo "3. Please exit"
 	read -p "> " verify
