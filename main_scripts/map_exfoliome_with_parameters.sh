@@ -19,9 +19,7 @@ for m in ${MAP_FILES}; do
 	A=$(echo $exfoliome_mapping_parameter | cut -d "-" -f1 | cut -c 2-2)
 	B=$(echo $exfoliome_mapping_parameter | cut -d "-" -f2 | cut -c 2-2)
 
-	## Additional options can be added for the -mp and -ma mappings if preferred, but the number of loops needs to be changed if other options are added
-	mp_options=(6 4 2)
-	ma_options=(2 6 8)
+
 
 	mp=$(echo ${mp_options[A]})
 	ma=$(echo ${ma_options[B]})
