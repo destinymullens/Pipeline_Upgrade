@@ -83,7 +83,7 @@ elif [[ "${data_type}" = "exfoliome with default values" ]]; then
 		./main_scripts/htseq.sh
 	fi
 else 
-	./main_scripts/map_exfoliome_with_parameters.sh
+	./main_scripts/map_exfoliome_optimized.sh
 		if [[ "${trim_num}" = "4" ]]; then
 		echo "Moving on to deduplication..."
 		./main_scripts/umi_after_map.sh
