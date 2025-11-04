@@ -86,6 +86,22 @@ until [[ "${verify}" = "1" ]]; do
 		fi
 	done
 
+ ## Determine Exfoliome Default or Optimized Pipeline
+ 	verify="0"
+	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
+		echo ""; echo "You have entered ${data_type} as the type of data you are using. Would you like to use the default or optimized pipeline?"; echo "1. Default"; echo "2. Optimized"
+		read -p "> " exfoliome_map_option
+		if [[ "${exfoliome_map_option}" = "1" ]]; then data_type="Default"
+			echo ""; echo "You have selected the ${data_type} exfoliome pipeline. Is this correct?"; echo "1. Yes"; echo "2. No"
+			read -p "> " verify
+		elif [[ "${exfoliome_map_option}" = "2" ]]; then data_type="Optimized"
+			echo ""; echo "You have selected the ${data_type} exfoliome pipeline. Is this correct?"; echo "1. Yes"; echo "2. No"
+			read -p "> " verify
+		else echo "Your input is not one of the options, please try again."; sleep 3; continue
+		fi
+	done
+
+
 ## Input species and set htseq type (gene_id or gene_name)
 ## Updated pre-programmed genomes (human,mouse,pig,horse,rat) that have been updated and
 ## are now in a folder with a new name should be updated in the corresponding species_location line
@@ -150,6 +166,10 @@ until [[ "${verify}" = "1" ]]; do
 		fi
 	done
 
+
+
+if [[ "${data_type}" = "biopsy" ]]; then data_type="biopsy"
+
 ## Determine strands
 	verify="0"
 	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
@@ -203,6 +223,16 @@ until [[ "${verify}" = "1" ]]; do
 	done
 
 	verify="0"
+
+else
+	trim_type="umi_trim"
+	strand_type="single end"
+fi
+
+
+
+
+
 ## Final verification of information before beginning pipeline
 	./misc_scripts/top_banner.sh
 	echo "Thank you for all of your input! Let's verify things one last time before beginning."; echo ""
@@ -230,8 +260,6 @@ until [[ "${verify}" = "1" ]]; do
 done
 
 ## Create directories to save various files in
-#mkdir -p "${SAVE_LOC}/${project_name}/tmp"
-#config_dir="${SAVE_LOC}/${project_name}/tmp"
 mkdir -p ${SAVE_LOC}/${project_name}/mapping
 mapping_dir_out="${SAVE_LOC}/${project_name}/mapping"
 mkdir -p ${SAVE_LOC}/${project_name}/logs/mapping
@@ -247,6 +275,7 @@ echo "concat_response=${concat_response}" >> ${project_config}
 echo "concat_length=${concat_length}" >> ${project_config}
 echo "trim_num=${trim_num}" >> ${project_config}
 echo "data_type=$data_type" >> ${project_config}
+echo "exfoliome_map_option=$exfoliome_map_option" >> ${project_config}
 echo "strand_num=${strand_num}" >> ${project_config}
 echo "file_location=${file_location}" >> ${project_config}
 echo "mapfiles=${mapfiles}" >> ${project_config}
