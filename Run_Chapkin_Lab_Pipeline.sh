@@ -40,9 +40,10 @@ if [[ -f ${SAVE_LOC}/${project_name}/config.sh ]]; then
 		nohup ./main_scripts/Pipeline_Execute.sh 1> ${SAVE_LOC}/${project_name}/${project_name}-log.out 2> ${SAVE_LOC}/${project_name}/${project_name}-log.err &
 	else
 		:
-		#rm ${SAVE_LOC}/${project_name}/config.sh
+	rm ${SAVE_LOC}/${project_name}/config.sh
 	fi
 else
+
 fi
 
 until [[ "${verify}" = "1" ]]; do
