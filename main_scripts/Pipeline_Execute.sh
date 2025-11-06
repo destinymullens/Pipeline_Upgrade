@@ -40,28 +40,18 @@ echo "QC Reports complete!"
 echo " "
 if [[ "${trim_num}" = "1" ]]; then
 	echo "No trimming needed!"
+
 	elif [[ "${trim_num}" = "2" ]]; then
 		echo "Beginning trimming of files!"
 		./main_scripts/trim_quality.sh
-		mkdir -p "${SAVE_LOC}/${project_name}/qc_reports/trimmed"
-		qc_dir_out2=${SAVE_LOC}/${project_name}/qc_reports/trimmed
-		echo "qc_dir_out2=${qc_dir_out2}" >> ${SAVE_LOC}/${project_name}/config.sh
-
-		./main_scripts/secondary_scripts/qc_second_run.sh
+		
 	elif [[ "${trim_num}" = "3" ]]; then
 		echo "Beginning trimming of files!"
 		./main_scripts/trim_base.sh
-		mkdir -p "${SAVE_LOC}/${project_name}/qc_reports/trimmed"
-		qc_dir_out2=${SAVE_LOC}/${project_name}/qc_reports/trimmed
-		echo "qc_dir_out2=${qc_dir_out2}" >> ${SAVE_LOC}/${project_name}/config.sh
-		./main_scripts/secondary_scripts/qc_second_run.sh
+		
 	else
 		echo "Beginning trimming of files!"
 		./main_scripts/trim_umi.sh
-		mkdir -p "${SAVE_LOC}/${project_name}/qc_reports/trimmed"
-		qc_dir_out2=${SAVE_LOC}/${project_name}/qc_reports/trimmed
-		echo "qc_dir_out2=\"${qc_dir_out2}\"" >> ${SAVE_LOC}/${project_name}/config.sh
-		./main_scripts/secondary_scripts/qc_second_run.sh
 fi
 
 ###echo "Beginning mapping of files."
@@ -77,18 +67,15 @@ if [[ "${data_type}" = "biopsy" ]]; then
 		./main_scripts/htseq.sh
 	fi
 
-elif [[ "${data_type}" = "exfoliome with default values" ]]; then 
+elif [[ "${data_type}" = "exfoliome default" ]]; then 
 	./main_scripts/map_exfoliome_default.sh
-	if [[ "${trim_num}" = "4" ]]; then
-		echo "Moving on to deduplication..."
-		./main_scripts/umi_after_map.sh	
-		./main_scripts/htseq.sh
-	else
-		./main_scripts/htseq.sh
-	fi
+	echo "Moving on to deduplication..."
+	./main_scripts/umi_after_map.sh	
+	./main_scripts/htseq.sh
+	
 else 
 	./main_scripts/map_exfoliome_optimized.sh
-		if [[ "${trim_num}" = "4" ]]; then
+	if [[ "${trim_num}" = "4" ]]; then
 		echo "Moving on to deduplication..."
 		./main_scripts/umi_after_map.sh
 		./main_scripts/htseq.sh

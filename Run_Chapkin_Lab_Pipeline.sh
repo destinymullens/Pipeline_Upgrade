@@ -79,6 +79,20 @@ until [[ "${verify}" = "1" ]]; do
 		if [[ "${data_type_num}" = "1" ]]; then data_type="biopsy"
 			echo ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
+		verify="0"
+			until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
+				echo ""; echo "You have entered ${data_type} as the type of data you are using. Would you like to use Bowtie2 or STAR for alignment?"; echo "1. Bowtie2"; echo "2. STAR"
+				read -p "> " biopsy_map_option
+				if [[ "${biopsy_map_option}" = "1" ]]; then data_type="biopsy with Bowtie2"
+					echo ""; echo "You have selected ${data_type} for alignment. Is this correct?"; echo "1. Yes"; echo "2. No"
+					read -p "> " verify
+				elif [[ "${biopsy_map_option}" = "2" ]]; then data_type="biopsy with STAR"
+					echo ""; echo "You have selected ${data_type} for alignment. Is this correct?"; echo "1. Yes"; echo "2. No"
+					read -p "> " verify
+				else echo "Your input is not one of the options, please try again."; sleep 3; continue
+				fi
+			done
+
 		elif [[ "${data_type_num}" = "2" ]]; then data_type="exfoliome"
 			echo ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
@@ -88,10 +102,10 @@ until [[ "${verify}" = "1" ]]; do
 				echo ""; echo "You have entered ${data_type} as the type of data you are using. Would you like to use the default or optimized pipeline?"; echo "1. Default"; echo "2. Optimized"
 				read -p "> " exfoliome_map_option
 				if [[ "${exfoliome_map_option}" = "1" ]]; then data_type="exfoliome default"
-					echo ""; echo "You have selected the ${data_type} exfoliome pipeline. Is this correct?"; echo "1. Yes"; echo "2. No"
+					echo ""; echo "You have selected the ${data_type} pipeline. Is this correct?"; echo "1. Yes"; echo "2. No"
 					read -p "> " verify
 				elif [[ "${exfoliome_map_option}" = "2" ]]; then data_type="exfoliome optimized"
-					echo ""; echo "You have selected the ${data_type} exfoliome pipeline. Is this correct?"; echo "1. Yes"; echo "2. No"
+					echo ""; echo "You have selected the ${data_type} pipeline. Is this correct?"; echo "1. Yes"; echo "2. No"
 					read -p "> " verify
 				else echo "Your input is not one of the options, please try again."; sleep 3; continue
 				fi
@@ -171,8 +185,6 @@ until [[ "${verify}" = "1" ]]; do
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
 		fi
 	done
-
-
 
 if [[ "${data_type}" = "biopsy" ]]; then
 
@@ -299,8 +311,8 @@ echo "trim_base_num=${trim_base_num}" >> ${project_config}
 echo "mapping_dir_out=${mapping_dir_out}" >> ${project_config}
 echo "mapping_logs=${mapping_logs}" >> ${project_config}
 
-trim_dir_out=${SAVE_LOC}/${project_name}/trimmed_files/$trim_type
-echo "trim_dir_out=${trim_dir_out}" >> ${project_config}
+#trim_dir_out=${SAVE_LOC}/${project_name}/trimmed_files/$trim_type
+#echo "trim_dir_out=${trim_dir_out}" >> ${project_config}
 
 if [[ "${trim_num}" = "4" ]]; then
 		htseq_dir_in=${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/deduplicated_files

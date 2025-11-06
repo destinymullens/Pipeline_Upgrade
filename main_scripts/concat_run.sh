@@ -33,4 +33,4 @@ for prefix in "${!groups[@]}"; do
     cat ${groups[$prefix]} > "$output_file"
 done
 
-echo "✅ All groups concatenated successfully into '$output_dir'"
+echo "✅ All files concatenated successfully!!"

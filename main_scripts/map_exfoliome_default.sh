@@ -18,9 +18,8 @@ for m in $MAP_FILES; do
 	else
 		printf "%s\n" "Mapping of ${FILE} beginning..."
 		${BOWTIE} -x ${species_location}/bowtie2/${species} --threads ${THREADS} -U ${mapfiles}/${m} --time -S ${mapping_dir_out}/${FILE}.sam 2> ${mapping_logs}/${FILE}-Results.log
-		printf "%s\n" "Mapping of ${FILE} complete."
+		printf "%s\n" "✅ Mapping of ${FILE} complete."
 	fi
-
 done
 bowtie_version=$(${BOWTIE} --version | cut -d " " -f3)
 echo "Mapping performed using Bowtie2 version ${bowtie_version} with default settings." >> ${mapping_information}

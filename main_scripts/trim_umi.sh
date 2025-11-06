@@ -31,7 +31,7 @@ for s in ${SAMPLES}; do
 	fi
 done
 
-echo "Extraction of UMI's and trimming complete!"
+echo "✅ Extraction of UMI's and trimming complete!"
 umi_tools_version=$($UMI_TOOLS --version)
 echo "UMI extraction and deduplication performed with $umi_tools_version." >> $mapping_information
 cutadapt_version=$($CUTADAPT --version)

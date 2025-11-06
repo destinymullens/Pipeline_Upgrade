@@ -19,5 +19,6 @@ samplename="${s%%.*}"
 		echo "${samplename} is already complete."
 	fi
 done
+echo "✅ FastQC completed for all samples!!"
 fastqc_version=$(${FASTQC} --version)
 echo "QC Reports completed with: ${fastqc_version}." >> ${mapping_information}
