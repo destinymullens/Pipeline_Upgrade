@@ -79,7 +79,7 @@ until [[ "${verify}" = "1" ]]; do
 		if [[ "${data_type_num}" = "1" ]]; then data_type="biopsy"
 			echo ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
-		verify="0"
+			verify="0"
 			until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
 				echo ""; echo "You have entered ${data_type} as the type of data you are using. Would you like to use Bowtie2 or STAR for alignment?"; echo "1. Bowtie2"; echo "2. STAR"
 				read -p "> " biopsy_map_option
@@ -93,9 +93,62 @@ until [[ "${verify}" = "1" ]]; do
 				fi
 			done
 
+			verify="0"
+			until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
+				echo "Is your data single end or paired end? "
+				echo "1. Single end"; echo "2. Paired end"
+				read -p "> " strand_num
+				if [[ "${strand_num}" = "1" ]]; then strand_type="single end"
+				elif [[ "${strand_num}" = "2" ]]; then strand_type="paired end"
+					echo "Important note: When using paired end samples, the files must end with R1.fastq.gz and R2.fastq.gz."
+				else echo "Your input is not one of the options, please try again."; sleep 3; continue
+				fi
+				echo " "; echo "You entered ${strand_type}. Is this correct?"; echo "1. Yes"; echo "2. No"
+				read -p "> " verify
+			done
+
+			## Determine type of trimming and trimming options.
+			verify="0"
+			until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
+				echo "Do you need to trim the data?"
+				echo "1. No, the data does not need to be trimmed."; 
+				echo "2. Yes, the data needs to be trimmed using a quality score."
+				echo "3. Yes, the data needs a specific number of bases trimmed."; 
+				echo "4. Yes, the data needs to be trimmed using UMI's."
+				read -p "> " trim_num
+		
+			if [[ "${trim_num}" = "1" ]]; then 
+				trim_type="untrimmed"
+				trim_disp="The data does not need to be trimmed."
+					if [[ "${concat_num}" = "1" ]]; then mapfiles=${SAVE_LOC}/${project_name}/concat
+					else 
+					mapfiles=${file_location}
+					fi
+			elif [[ "${trim_num}" = "2" ]]; then trim_type="quality_trim"
+				read -p "Please enter the quality score you would like to use: " trim_quality_num
+				trim_disp="The data needs to be trimmed using a quality score of ${trim_quality_num}."
+				mapfiles=${SAVE_LOC}/${project_name}/trimmed_files/$trim_type
+        	elif [[ "${trim_num}" = "3" ]]; then trim_type="base_trim"
+            	read -p "Please enter the number of bases you would like to trim: " trim_base_num
+            	trim_disp="The data needs ${trim_base_num} bases trimmed."
+            	mapfiles=${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}
+        	elif [[ "${trim_num}" = "4" ]]; then trim_type="umi_trim"
+				trim_disp="The data needs to be trimmed using UMI's."
+				mapfiles=${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/trimmed
+        	else echo "Your input is not one of the options, please try again."; sleep 3; continue
+
+        	fi
+	  		echo ""; echo "${trim_disp} Is this correct?"; echo "1. Yes"; echo "2. No"
+			read -p "> " verify
+			done
+
 		elif [[ "${data_type_num}" = "2" ]]; then data_type="exfoliome"
 			echo ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify
+			trim_num="4"
+			trim_type="umi_trim"
+			trim_disp="The data needs to be trimmed using UMI's."
+			strand_type="single end"
  			## Determine Exfoliome Default or Optimized Pipeline
  			verify="0"
 			until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
@@ -186,75 +239,7 @@ until [[ "${verify}" = "1" ]]; do
 		fi
 	done
 
-if [[ "${data_type}" = "biopsy" ]]; then
 
-## Determine strands
-	verify="0"
-	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-		echo "Is your data single end or paired end? "
-		echo "1. Single end"; echo "2. Paired end"
-		read -p "> " strand_num
-		if [[ "${strand_num}" = "1" ]]; then strand_type="single end"
-		elif [[ "${strand_num}" = "2" ]]; then strand_type="paired end"
-		echo "Important note: When using paired end samples, the files must end with R1.fastq.gz and R2.fastq.gz."
-		else echo "Your input is not one of the options, please try again."; sleep 3; continue
-		fi
-		echo " "; echo "You entered ${strand_type}. Is this correct?"; echo "1. Yes"; echo "2. No"
-		read -p "> " verify
-	done
-
-
-## Determine type of trimming and trimming options.
-	verify="0"
-	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-		echo "Do you need to trim the data?"
-		echo "1. No, the data does not need to be trimmed."; 
-		echo "2. Yes, the data needs to be trimmed using a quality score."
-		echo "3. Yes, the data needs a specific number of bases trimmed."; 
-		echo "4. Yes, the data needs to be trimmed using UMI's."
-		read -p "> " trim_num
-		
-		if [[ "${trim_num}" = "1" ]]; then 
-			trim_type="untrimmed"
-			trim_disp="The data does not need to be trimmed."
-				if [[ "${concat_num}" = "1" ]]; then mapfiles=${SAVE_LOC}/${project_name}/concat
-			else 
-				mapfiles=${file_location}
-				fi
-		elif [[ "${trim_num}" = "2" ]]; then trim_type="quality_trim"
-			read -p "Please enter the quality score you would like to use: " trim_quality_num
-			trim_disp="The data needs to be trimmed using a quality score of ${trim_quality_num}."
-			mapfiles=${SAVE_LOC}/${project_name}/trimmed_files/$trim_type
-        elif [[ "${trim_num}" = "3" ]]; then trim_type="base_trim"
-            read -p "Please enter the number of bases you would like to trim: " trim_base_num
-            trim_disp="The data needs ${trim_base_num} bases trimmed."
-            mapfiles=${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}
-        elif [[ "${trim_num}" = "4" ]]; then trim_type="umi_trim"
-			trim_disp="The data needs to be trimmed using UMI's."
-			mapfiles=${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/trimmed
-        else echo "Your input is not one of the options, please try again."; sleep 3; continue
-
-        fi
-	  	
-	  	echo ""; echo "${trim_disp} Is this correct?"; echo "1. Yes"; echo "2. No"
-		read -p "> " verify
-	done
-
-	verify="0"
-
-elif [[ "${data_type}" = "exfoliome default" ]]; then
-	trim_num="4"
-	trim_type="umi_trim"
-	trim_disp="The data needs to be trimmed using UMI's."
-	strand_type="single end"
-
-elif [[ "${data_type}" = "exfoliome optimized" ]]; then
-	trim_num="4"
-	trim_type="umi_trim"
-	trim_disp="The data needs to be trimmed using UMI's."
-	strand_type="single end"
-
-fi
 
 ## Final verification of information before beginning pipeline
 	./misc_scripts/top_banner.sh
