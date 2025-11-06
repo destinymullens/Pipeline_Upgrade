@@ -8,17 +8,10 @@ set -e
 
 hostrefdir=${species_location}
 
-if [[ "${trim_type}" = "untrimmed" ]]; then
-  if [[ "${concat_response}" = "1" ]]; then
-    map_dir_in="${SAVE_LOC}/${project_name}/concat"
-  else
-    map_dir_in="${file_location}"
-  fi
-else
- 	map_dir_in="${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}"
-fi
 
+MAP_FILES=$(ls ${mapfiles})
 map_dir_out="${SAVE_LOC}/${project_name}/mapping"
+
 SAMPLES=$(find ${map_dir_in} -type f -printf '%f\n')
 
 for s in ${SAMPLES}; do

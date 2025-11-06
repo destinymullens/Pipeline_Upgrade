@@ -18,5 +18,6 @@ for s in ${SAMPLES}; do
 	fi
 done
 echo "✅ Trimming of samples is complete!!"
+
 cutadapt_version=$(${CUTADAPT} --version)
 echo "Trimming performed using Cutadapt version ${cutadapt_version}." >> ${mapping_information}
