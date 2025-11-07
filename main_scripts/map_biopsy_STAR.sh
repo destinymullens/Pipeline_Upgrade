@@ -6,10 +6,6 @@ source ${SAVE_LOC}/${project_name}/config.sh
 # Exit on error
 set -e
 
-hostrefdir=${species_location}
-
-
-MAP_FILES=$(ls ${mapfiles})
 map_dir_out="${SAVE_LOC}/${project_name}/mapping"
 
 SAMPLES=$(find ${map_dir_in} -type f -printf '%f\n')
@@ -24,9 +20,9 @@ for s in ${SAMPLES}; do
   if [[ ! -d ${outputdir}/${samplename} ]]; then
     if [[ "${strand_num}" = "1" ]]; then
       for i in $(ls ${map_dir_in}); do
-#       pushd ${outputdir}/star/$species
+
         ${STAR} --genomeDir ${species_location}/STAR --readFilesCommand gunzip -c --readFilesIn ${map_dir_in}/${i} --runThreadN $THREADS --sjdbGTFfile ${species_location}/genes.gtf --outSAMtype BAM Unsorted --genomeLoad NoSharedMemory --outFileNamePrefix ${outputdir}/${samplename}
-#       popd
+
         echo -n "Mapping for ${samplename} is complete."
       done
     else

@@ -67,7 +67,7 @@ if [[ "${data_type}" = "biopsy" ]]; then
 		./main_scripts/htseq.sh
 	fi
 
-elif [[ "${data_type}" = "exfoliome default" ]]; then 
+elif [[ "${data_type}" = "exfoliome_default" ]]; then 
 	./main_scripts/map_exfoliome_default.sh
 	echo "Moving on to deduplication..."
 	./main_scripts/umi_after_map.sh	

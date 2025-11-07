@@ -1,5 +1,5 @@
 #!/bin/bash
-## Trinity config
+## Sequencer config
 
 ## These are the variables that are the same across all of the various scripts in the pipeline. 
 ## Change necessary locations for program installations, reference locations & threads available

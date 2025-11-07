@@ -44,7 +44,6 @@ if [[ -f ${SAVE_LOC}/${project_name}/config.sh ]]; then
 	fi
 else
 
-
 until [[ "${verify}" = "1" ]]; do
 	## Get file location
 	verify="0"
@@ -154,16 +153,15 @@ until [[ "${verify}" = "1" ]]; do
 			until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
 				echo ""; echo "You have entered ${data_type} as the type of data you are using. Would you like to use the default or optimized pipeline?"; echo "1. Default"; echo "2. Optimized"
 				read -p "> " exfoliome_map_option
-				if [[ "${exfoliome_map_option}" = "1" ]]; then data_type="exfoliome default"
-					echo ""; echo "You have selected the ${data_type} pipeline. Is this correct?"; echo "1. Yes"; echo "2. No"
+				if [[ "${exfoliome_map_option}" = "1" ]]; then data_type="exfoliome_default"
+					echo ""; echo "You have selected the exfoliome default pipeline. Is this correct?"; echo "1. Yes"; echo "2. No"
 					read -p "> " verify
-				elif [[ "${exfoliome_map_option}" = "2" ]]; then data_type="exfoliome optimized"
-					echo ""; echo "You have selected the ${data_type} pipeline. Is this correct?"; echo "1. Yes"; echo "2. No"
+				elif [[ "${exfoliome_map_option}" = "2" ]]; then data_type="exfoliome_optimized"
+					echo ""; echo "You have selected the exfoliome optimized pipeline. Is this correct?"; echo "1. Yes"; echo "2. No"
 					read -p "> " verify
 				else echo "Your input is not one of the options, please try again."; sleep 3; continue
 				fi
 			done
-
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
 		fi
 	done
