@@ -13,7 +13,7 @@ SUMMARY="${SAVE_LOC}/${project_name}/summary/$project_name-Mapping_summary.csv"
 
 if [[ "${strand_num}" = "1" ]]; then
 
-	for i in $(ls ${map_dir_in}); do
+	for i in $(ls ${mapfiles}); do
 
 		FILE=$(basename $i)
 		if [[ ! -f ${mapping_dir_out}/${FILE}.sam ]]; then
@@ -26,10 +26,10 @@ if [[ "${strand_num}" = "1" ]]; then
 	done
 
 else
-	for i in $(ls ${map_dir_in}/*R1*); do
+	for i in $(ls ${mapfiles}/*R1*); do
         read1=${i}
         readsearch=$(echo ${i} | cut -d_ -f1)
-        read2=$(ls ${map_dir_in}/${readsearch}*R2*)
+        read2=$(ls ${mapfiles}/${readsearch}*R2*)
 		${BOWTIE} -x ${species_location}/bowtie2/${species} --threads ${THREADS} -1 ${mapfiles}/${read1} -2 ${mapfiles}/${read2} --time -S ${mapping_dir_out}/${FILE}.sam 2> ${mapping_logs}/${FILE}-Results.log
 			printf "%s\n" "✅ Mapping of ${FILE} complete."
 	done

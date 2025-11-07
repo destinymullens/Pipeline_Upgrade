@@ -8,7 +8,7 @@ set -e
 
 map_dir_out="${SAVE_LOC}/${project_name}/mapping"
 
-SAMPLES=$(find ${map_dir_in} -type f -printf '%f\n')
+SAMPLES=$(find ${mapfiles} -type f -printf '%f\n')
 
 for s in ${SAMPLES}; do
   samplename="${s%%.*}"
@@ -19,18 +19,18 @@ for s in ${SAMPLES}; do
 
   if [[ ! -d ${outputdir}/${samplename} ]]; then
     if [[ "${strand_num}" = "1" ]]; then
-      for i in $(ls ${map_dir_in}); do
+      for i in $(ls ${mapfiles}); do
 
-        ${STAR} --genomeDir ${species_location}/STAR --readFilesCommand gunzip -c --readFilesIn ${map_dir_in}/${i} --runThreadN $THREADS --sjdbGTFfile ${species_location}/genes.gtf --outSAMtype BAM Unsorted --genomeLoad NoSharedMemory --outFileNamePrefix ${outputdir}/${samplename}
+        ${STAR} --genomeDir ${species_location}/STAR --readFilesCommand gunzip -c --readFilesIn ${mapfiles}/${i} --runThreadN $THREADS --sjdbGTFfile ${species_location}/genes.gtf --outSAMtype BAM Unsorted --genomeLoad NoSharedMemory --outFileNamePrefix ${outputdir}/${samplename}
 
         echo -n "Mapping for ${samplename} is complete."
       done
     else
-      for i in $(ls ${map_dir_in}/*R1*); do
+      for i in $(ls ${mapfiles}/*R1*); do
         readsearch=$(echo ${i} | cut -c 1-10)
         read1=${i}
-        read2=$(ls ${map_dir_in}/${readsearch}*R2*)r/${species}
-        ${STAR} --genomeDir ${species_location}/STAR --readFilesCommand gunzip -c --readFilesIn ${map_dir_in}/${read1} ${map_dir_in}/${read2}  --runThreadN ${THREADS} --sjdbGTFfile ${species_location}/genes.gtf --outSAMtype BAM Unsorted --genomeLoad NoSharedMemory --outFileNamePrefix ${outputdir}/${samplename}
+        read2=$(ls ${mapfiles}/${readsearch}*R2*)r/${species}
+        ${STAR} --genomeDir ${species_location}/STAR --readFilesCommand gunzip -c --readFilesIn ${mapfiles}/${read1} ${map_dir_in}/${read2}  --runThreadN ${THREADS} --sjdbGTFfile ${species_location}/genes.gtf --outSAMtype BAM Unsorted --genomeLoad NoSharedMemory --outFileNamePrefix ${outputdir}/${samplename}
         echo -n "Mapping for ${samplename} is complete."
       done
     fi

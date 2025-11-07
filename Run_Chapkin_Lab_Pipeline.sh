@@ -147,6 +147,7 @@ until [[ "${verify}" = "1" ]]; do
 			trim_num="4"
 			trim_type="umi_trim"
 			trim_disp="The data needs to be trimmed using UMI's."
+			mapfiles=${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/trimmed
 			strand_type="single end"
  			## Determine Exfoliome Default or Optimized Pipeline
  			verify="0"
