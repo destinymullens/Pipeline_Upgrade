@@ -21,7 +21,7 @@ if [[ "${strand_num}" = "1" ]]; then
 		else
 			printf "%s\n" "Mapping of ${FILE} beginning..."
 			${BOWTIE} -x ${species_location}/bowtie2/${species} --threads ${THREADS} -U ${mapfiles}/${m} --time -S ${mapping_dir_out}/${FILE}.sam 2> ${mapping_logs}/${FILE}-Results.log
-			printf "%s\n" "✅ Mapping of ${FILE} complete."
+			printf "%s\n" "Mapping of ${FILE} complete."
 		fi
 	done
 
@@ -31,9 +31,9 @@ else
         readsearch=$(echo ${i} | cut -d_ -f1)
         read2=$(ls ${mapfiles}/${readsearch}*R2*)
 		${BOWTIE} -x ${species_location}/bowtie2/${species} --threads ${THREADS} -1 ${mapfiles}/${read1} -2 ${mapfiles}/${read2} --time -S ${mapping_dir_out}/${FILE}.sam 2> ${mapping_logs}/${FILE}-Results.log
-			printf "%s\n" "✅ Mapping of ${FILE} complete."
+			printf "%s\n" "Mapping of ${FILE} complete."
 	done
 fi
- 
+printf "%s\n" "✅ Mapping of all samples complete."
 bowtie_version=$(${BOWTIE} --version | cut -d " " -f3)
 echo "Mapping performed using Bowtie2 version ${bowtie_version} with default settings." >> ${mapping_information}

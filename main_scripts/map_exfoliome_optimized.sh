@@ -13,7 +13,8 @@ SUMMARY="${SAVE_LOC}/${project_name}/summary/$project_name-Mapping_summary.csv"
 for m in ${MAP_FILES}; do
 	FILE=$(basename $m)
 	${BOWTIE} -x ${species_location}/bowtie2/${species} --threads ${THREADS} -U ${mapfiles}/${m} -N 1 --mp 4,2  --very-sensitive-local --time -S ${mapping_dir_out}/${FILE}-Optimized.sam 2> ${mapping_logs}/${FILE}-Optimized-Results.log
-	printf "%s\n" "✅ Optimized alignment of ${FILE} complete."	
+	printf "%s\n" "Optimized alignment of ${FILE} complete."	
 done
+printf "%s\n" "✅ Mapping of all samples complete."
 bowtie_version=$(${BOWTIE} --version | cut -d " " -f3 | head -1)
 echo "Mapping performed using Bowtie2 version ${bowtie_version} with optimized parameters -N 1, --mp 4,2, and --very-sensitive-local." >> ${mapping_information}
