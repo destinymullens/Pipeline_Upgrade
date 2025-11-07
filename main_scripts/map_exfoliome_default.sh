@@ -6,7 +6,7 @@ source ${SAVE_LOC}/${project_name}/config.sh
 # Exit on error
 set -e
 
-MAP_FILES=$(ls "${mapfiles}")
+MAP_FILES=$(ls ${mapfiles})
 SUMMARY="${SAVE_LOC}/${project_name}/summary/$project_name-Mapping_summary.csv"
 
 ##### RUN BOWTIE2 #########
