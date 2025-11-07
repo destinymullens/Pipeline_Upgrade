@@ -83,11 +83,11 @@ until [[ "${verify}" = "1" ]]; do
 			until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
 				echo ""; echo "You have entered ${data_type} as the type of data you are using. Would you like to use Bowtie2 or STAR for alignment?"; echo "1. Bowtie2"; echo "2. STAR"
 				read -p "> " biopsy_map_option
-				if [[ "${biopsy_map_option}" = "1" ]]; then data_type="biopsy with Bowtie2"
-					echo ""; echo "You have selected ${data_type} for alignment. Is this correct?"; echo "1. Yes"; echo "2. No"
+				if [[ "${biopsy_map_option}" = "1" ]]; then data_type="biopsy_with_Bowtie2"
+					echo ""; echo "You have selected biopsy using Bowtie2 for alignment. Is this correct?"; echo "1. Yes"; echo "2. No"
 					read -p "> " verify
-				elif [[ "${biopsy_map_option}" = "2" ]]; then data_type="biopsy with STAR"
-					echo ""; echo "You have selected ${data_type} for alignment. Is this correct?"; echo "1. Yes"; echo "2. No"
+				elif [[ "${biopsy_map_option}" = "2" ]]; then data_type="biopsy_with_STAR"
+					echo ""; echo "You have selected biopsy using STAR for alignment. Is this correct?"; echo "1. Yes"; echo "2. No"
 					read -p "> " verify
 				else echo "Your input is not one of the options, please try again."; sleep 3; continue
 				fi
