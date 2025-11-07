@@ -12,14 +12,9 @@ SUMMARY="${SAVE_LOC}/${project_name}/summary/$project_name-Mapping_summary.csv"
 ##### RUN BOWTIE2 #########
 for m in $MAP_FILES; do
 	FILE=$(basename $m)
-	if [[ ! -f ${mapping_dir_out}/${FILE}.sam ]]; then
-		echo "Mapping of ${FILE} is already complete!"
-			
-	else
-		printf "%s\n" "Mapping of ${FILE} beginning..."
-		${BOWTIE} -x ${species_location}/bowtie2/${species} --threads ${THREADS} -U ${mapfiles}/${m} --time -S ${mapping_dir_out}/${FILE}.sam 2> ${mapping_logs}/${FILE}-Results.log
-		printf "%s\n" "✅ Mapping of ${FILE} complete."
-	fi
+	printf "%s\n" "Mapping of ${FILE} beginning..."
+	${BOWTIE} -x ${species_location}/bowtie2/${species} --threads ${THREADS} -U ${mapfiles}/${m} --time -S ${mapping_dir_out}/${FILE}.sam 2> ${mapping_logs}/${FILE}-Results.log
+	printf "%s\n" "✅ Mapping of ${FILE} complete."
 done
 bowtie_version=$(${BOWTIE} --version | cut -d " " -f3)
 echo "Mapping performed using Bowtie2 version ${bowtie_version} with default settings." >> ${mapping_information}
