@@ -176,68 +176,39 @@ until [[ "${verify}" = "1" ]]; do
 		echo "Please enter the species type:"
 		echo "1. Human"; echo "2. Mouse"; echo "3. Pig"; echo "4. Horse"; echo "5. Rat"; echo "6. Other"
 		read -p "> " species_type
+		
 		if [[ "${species_type}" = "1" ]]; then 
-			echo "Which reference would you like to use?"; echo "1. GRCh38.p12"; echo "2. GRCh38.p14"
-			read -p "> " ref_version
-			if [[ "${ref_version}" == "1" ]]; then
-				species_location=${REF_LOC}/GRCh38.94-human; 
-				species="human"; htseq_num="1"
-				echo ""; echo "Is ${species} reference GRCh38.p12 correct?"; echo "1. Yes"; echo "2. No"
-				species_ref="GRCh38.p12";
-				read -p "> " verify
-			else
-				species_location="${REF_LOC}/GRCh38p14-human"; 
-				species="human"; htseq_num="1"
-				echo ""; echo "Is ${species} reference GRCh38.p14 correct?"; echo "1. Yes"; echo "2. No"
-				read -p "> " verify
-				species_ref="GRCh38.p14";
-			fi				
+			species="human"; species_location="${REF_LOC}/GRCh38p14-human"; species_ref="GRCh38.p14"
+			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
+			read -p "> " verify			
 		elif [[ "${species_type}" = "2" ]]; then 
-			echo "Which reference would you like to use?"; echo "1. GRCm38.94"; echo "2. GRCm39"
-			read -p "> " ref_version
-			if [[ "${ref_version}" == "1" ]]; then
-				species_location=${REF_LOC}/GRCm38.94-mouse; species="mouse"; htseq_num="1"
-				echo ""; echo "Is ${species} reference GRCm38.94 correct?"; echo "1. Yes"; echo "2. No"
-				read -p "> " verify
-				species_ref="GRCm38.94";
-			else
-				species_location=${REF_LOC}/GRCm39-mouse; species="mouse"; htseq_num="1"
-				echo ""; echo "Is ${species} reference GRCm39 correct?"; echo "1. Yes"; echo "2. No"
-				read -p "> " verify
-				species_ref="GRCm39";
-			fi			
+			species="mouse"; species_location=${REF_LOC}/GRCm39-mouse; species_ref="GRCm39"
+			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
+			read -p "> " verify		
 		elif [[ "${species_type}" = "3" ]]; then 
-			species_location=${REF_LOC}/pig
-			species="pig"; htseq_num="1"
+			species="pig"; species_location=${REF_LOC}/pig; species_ref="Sus crofa 11.1"
 			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
-			read -p "> " verify
-			species_ref="Sus crofa 11.1";
+			read -p "> " verify			
 		elif [[ "${species_type}" = "4" ]]; then 
-			species_location=${REF_LOC}/Equus_caballus
-			species="horse"; htseq_num="1"
+			species="horse"; species_location=${REF_LOC}/Equus_caballus; species_ref="Equus caballus 3.0"
 			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
-			read -p "> " verify
-			species_ref="Equus caballus 3.0";
+			read -p "> " verify		
 		elif [[ "${species_type}" = "5" ]]; then 
-			species_location=${REF_LOC}/GRCr-8-rat
-			species="GRCr8"; htseq_num="1"
+			species="rat"; species_location=${REF_LOC}/GRCr-8-rat; species_ref="GRCr8"; 
 			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
-			read -p "> " verify
-			species_ref="GRCr8";
+			read -p "> " verify		
 		elif [[ "${species_type}" = "6" ]]; then
 				echo ""  
 				read -p "Please enter the species you will be using: " species
 				read -p "Please enter the name of the genome folder located at ${REF_LOC}/ " species_new
-				species_location=${REF_LOC}/${species}_new
-				
+				species_location=${REF_LOC}/${species_new}
 				echo ""
-				echo "The location for ${species} reference is ${species}_location."
+				echo "The location for ${species} reference is ${species_location}."
 				echo "Is this correct?"; echo "1. Yes"; echo "2. No"
 				read -p "> " verify
 		else echo "Your input is not one of the options, please try again."; sleep 3; continue
 		fi
 	done
-
 
 
 ## Final verification of information before beginning pipeline
@@ -295,8 +266,7 @@ echo "trim_base_num=${trim_base_num}" >> ${project_config}
 echo "mapping_dir_out=${mapping_dir_out}" >> ${project_config}
 echo "mapping_logs=${mapping_logs}" >> ${project_config}
 
-#trim_dir_out=${SAVE_LOC}/${project_name}/trimmed_files/$trim_type
-#echo "trim_dir_out=${trim_dir_out}" >> ${project_config}
+
 
 if [[ "${trim_num}" = "4" ]]; then
 		htseq_dir_in=${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/deduplicated_files
@@ -306,6 +276,5 @@ if [[ "${trim_num}" = "4" ]]; then
 		echo "htseq_dir_in=${htseq_dir_in}" >> ${project_config}
 fi
 
-#./main_scripts/Pipeline_Execute.sh
 nohup ./main_scripts/Pipeline_Execute.sh 1> ${SAVE_LOC}/${project_name}/${project_name}-log.out 2> ${SAVE_LOC}/${project_name}/${project_name}-log.err &
 fi
