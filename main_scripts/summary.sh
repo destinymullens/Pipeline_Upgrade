@@ -24,13 +24,13 @@ for i in ${samples}; do
    #     printf "%s\n" "Ensembl.ID" > ${tmp_dir}/GeneID-tmp.txt
    #     awk '{print $1}' $i >> ${tmp_dir}/GeneID-tmp.txt
         printf "%s\n" "Gene.Name" > ${tmp_dir}/GeneName.txt
-        awk '{print $2}' ${i} >> ${tmp_dir}/GeneName.txt
+        awk '{print $1}' ${i} >> ${tmp_dir}/GeneName.txt
         printf "%s\n" "${ID}" > ${tmp_dir}/${ID}-tmp.txt
-        awk '{print $3}' ${i} >> ${tmp_dir}/${ID}-tmp.txt
+        awk '{print $2}' ${i} >> ${tmp_dir}/${ID}-tmp.txt
         paste ${tmp_dir}/GeneID.txt ${tmp_dir}/GeneName-tmp.txt ${tmp_dir}/${ID}-tmp.txt >> ${counts_file}
     else 
         printf "%s\n" "${ID}" > ${tmp_dir}/${ID}-tmp.txt
-        awk '{print $3}' ${i} >> ${tmp_dir}/${ID}-tmp.txt
+        awk '{print $2}' ${i} >> ${tmp_dir}/${ID}-tmp.txt
         paste ${counts_file} ${tmp_dir}/${ID}-tmp.txt >> ${tmp_dir}/${ID}-counts-tmp.txt
         mv ${tmp_dir}/${ID}-counts-tmp.txt ${counts_file}
     fi

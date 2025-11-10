@@ -33,3 +33,4 @@ for s in ${SAMPLES}; do
 			echo "✅ Sample ${samplename} is already complete."
 	fi
 done
+echo "✅ Deduplication of all samples is complete."
