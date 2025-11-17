@@ -190,7 +190,7 @@ until [[ "${verify}" = "1" ]]; do
 			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify			
 		elif [[ "${species_type}" = "4" ]]; then 
-			species="horse"; species_location=${REF_LOC}/Equus_caballus_Aug2024; species_ref="Equus caballus 3.0"
+			species="Equus_caballus-horse"; species_location=${REF_LOC}/Equus_caballus_Aug2024; species_ref="Equus caballus 3.0"
 			echo ""; echo "Is ${species} correct?"; echo "1. Yes"; echo "2. No"
 			read -p "> " verify		
 		elif [[ "${species_type}" = "5" ]]; then 
