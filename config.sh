@@ -18,3 +18,4 @@ REF_LOC="/mnt/matrix/roo/refs"
 
 #The following variable is for the number of threads available on the computer you are using.
 THREADS=8
+
