@@ -13,7 +13,7 @@ SAMPLES=$(find ${trim_dir_in} -type f -printf '%f\n')
 for s in ${SAMPLES}; do
 	samplename="${s%%.*}"
 	if [[ ! -s ${trim_dir_out}/${samplename}.trimm.fastq.gz ]]; then
-		${CUTADAPT} -q ${trim_quality_num} -j 0 -o ${trim_dir_out}/${samplename}.trimm.fastq.gz ${trim_dir_in}/${s}
+		${CUTADAPT} -q ${trim_quality_num} -j ${THREADS} -o ${trim_dir_out}/${samplename}.trimm.fastq.gz ${trim_dir_in}/${s}
 		echo ""
 	fi
 done
