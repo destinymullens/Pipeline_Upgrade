@@ -20,7 +20,6 @@ for s in ${SAMPLES}; do
 	samplename="${s%%.*}"
 	logfile="${samplename}.processed.log"
 	stoutfile="${samplename}.processed.fastq.gz"
-	stoutfile_trimmed="${samplename}.trimmed.processed.fastq.gz"
 	
 	if [[ ! -f ${processed_dir_out}/${stoutfile} ]]; then	
 		echo "Extracting of UMI's from ${s}...."	
