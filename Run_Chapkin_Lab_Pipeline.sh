@@ -133,7 +133,7 @@ until [[ "${verify}" = "1" ]]; do
             	mapfiles=${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}
         	elif [[ "${trim_num}" = "4" ]]; then trim_type="umi_trim"
 				trim_disp="The data needs to be trimmed using UMI's."
-				mapfiles=${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/umi_extracted
+				mapfiles=${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/2_quality_trim
         	else echo "Your input is not one of the options, please try again."; sleep 3; continue
 
         	fi
@@ -269,7 +269,7 @@ echo "mapping_logs=${mapping_logs}" >> ${project_config}
 
 
 if [[ "${trim_num}" = "4" ]]; then
-		htseq_dir_in=${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/deduplicated_files
+		htseq_dir_in=${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/4_deduplicated_files
 		echo "htseq_dir_in=${htseq_dir_in}" >> ${project_config}
 	else
 		htseq_dir_in=${SAVE_LOC}/${project_name}/mapping

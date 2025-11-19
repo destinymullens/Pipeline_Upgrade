@@ -10,7 +10,7 @@ mkdir -p ${SAVE_LOC}/${project_name}/trimmed_files/$trim_type
 mkdir -p ${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/umi_extracted
 
 processed_dir_out="${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/1_umi_extracted"
-processed_dir_out="${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/2_quality_trim"
+trimmed_dir_out="${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/2_quality_trim"
 trim_log="${SAVE_LOC}/${project_name}/logs/$trim_type/umi_extraction"
 mkdir -p ${trim_log}
 
@@ -27,7 +27,7 @@ for s in ${SAMPLES}; do
 		echo "Extracting of UMI's from ${s}...."	
 		${UMI_TOOLS} extract --bc-pattern=NNNNNN -I ${trim_dir_in}/${s} --log ${trim_log}/${logfile} -S ${processed_dir_out}/${stoutfile}
 		echo "Extraction of UMI's from ${s} is now complete."
-		${CUTADAPT} -q 30 -m 30 -j ${THREADS} -o ${trim_dir_out}/${trimoutfile} ${processed_dir_out}/${stoutfile}
+		${CUTADAPT} -q 30 -m 30 -j ${THREADS} -o ${trimmed_dir_out}/${trimoutfile} ${processed_dir_out}/${stoutfile}
 	else
 		echo "Extraction of UMI's from ${s} is already complete."
 	fi

@@ -10,8 +10,8 @@ mkdir -p ${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/deduplicated_fil
 mkdir -p ${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/indexed_files
 mkdir -p ${SAVE_LOC}/${project_name}/logs/${trim_type}/deduplication
 
-index_dir_out="${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/indexed_files"
-dedup_dir_out="${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/deduplicated_files"
+index_dir_out="${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/3_indexed_files"
+dedup_dir_out="${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/4_deduplicated_files"
 
 deduplog="${SAVE_LOC}/${project_name}/logs/${trim_type}/deduplication"
 

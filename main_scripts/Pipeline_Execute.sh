@@ -51,7 +51,7 @@ if [[ "${trim_num}" = "1" ]]; then
 		
 	else
 		echo "Beginning trimming of files!"
-		./main_scripts/trim_umi.sh
+		./main_scripts/umi_extract.sh.sh
 fi
 
 ###echo "Beginning mapping of files."
@@ -60,7 +60,7 @@ if [[ "${data_type}" = "biopsy" ]]; then
 	if [[ "${trim_num}" = "4" ]]; then
 		./main_scripts/map_biopsy.sh
 		echo "Moving on to deduplication..."
-		./main_scripts/umi_after_map.sh
+		./main_scripts/umi_dedup.sh
 		./main_scripts/htseq.sh
 	else
 		./main_scripts/map_biopsy.sh
@@ -70,14 +70,14 @@ if [[ "${data_type}" = "biopsy" ]]; then
 elif [[ "${data_type}" = "exfoliome_default" ]]; then 
 	./main_scripts/map_exfoliome_default.sh
 	echo "Moving on to deduplication..."
-	./main_scripts/umi_after_map.sh	
+	./main_scripts/umi_dedup.sh
 	./main_scripts/htseq.sh
 	
 else 
 	./main_scripts/map_exfoliome_optimized.sh
 	if [[ "${trim_num}" = "4" ]]; then
 		echo "Moving on to deduplication..."
-		./main_scripts/umi_after_map.sh
+		./main_scripts/umi_dedup.sh
 		./main_scripts/htseq.sh
 	else
 		./main_scripts/htseq.sh
