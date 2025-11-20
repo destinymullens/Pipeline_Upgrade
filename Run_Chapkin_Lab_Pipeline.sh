@@ -269,9 +269,9 @@ else
 	read -p "> " verify
 	if [[ "${verify}" = "3" ]]; then
 		exit
-	fi
-
 fi
+
+
 ## Save information to Mapping Info
 mkdir -p "${project_location}/summary_information"
 mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
