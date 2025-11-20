@@ -43,7 +43,6 @@ if [[ -f ${project_location}/config.sh ]]; then
 	fi
 else
 
-
 #### Start New Pipeline Run
 	verify="0"	
 	until [[ "${verify}" = "1" ]]; do
@@ -254,7 +253,6 @@ species_ref="${species_ref}"
 mapping_information="${mapping_information}"
 EOF
 	
-
 nohup ./main_scripts/Pipeline_Execute.sh \
 	> "${project_location}/${project_name}-log.out" \
    	2> "${project_location}/${project_name}-log.err" \
