@@ -61,7 +61,7 @@ else
 
 #### Determine if files need concatentation
 		verify="0"	
-		until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
+		until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh;
 			read -p "Do the files need to concatenated? 1. Yes 👍 2. No 👎 " concat_response
 		
 			if [[ "${concat_response}" == "1" ]]; then
@@ -99,6 +99,7 @@ else
 	
 		## If biopsy then determine if paired or single end reads	
 			./misc_scripts/top_banner.sh
+			echo ""
 			echo "Is your data single end or paired end? "
 			echo "1. Single end"; echo "2. Paired end"
 			echo " Note: When using paired end samples, the files must end with R1.fastq.gz and R2.fastq.gz."
@@ -112,6 +113,7 @@ else
 
 		## If biopsy then determine type of trimming and trimming options.
 			./misc_scripts/top_banner.sh
+			echo ""
 			echo "Do you need to trim the data?"
 			echo "1. No, the data does not need to be trimmed."; 
 			echo "2. Yes, the data needs to be trimmed using a quality score."
@@ -165,8 +167,8 @@ else
 #### Updated pre-programmed genomes (human,mouse,pig,horse,rat) that have been updated and
 #### are now in a folder with a new name should be updated in the corresponding species_location line
 		
-
 		./misc_scripts/top_banner.sh
+		echo ""
 		echo "Please enter the species type:"
 		echo "1. Human 👫"; echo "2. Mouse 🐭"; echo "3. Pig 🐷"; echo "4. Horse 🐴"; echo "5. Rat 🐀";
 		read -p "> " species_type	
@@ -184,15 +186,16 @@ else
 			echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
 		fi
 		
-
 #### Check if FastQC run is wanted
 
 		./misc_scripts/top_banner.sh
+		echo ""
 		read -p "Would you like to run FastQC or skip it? 1. Yes! Run FastQC! 2. No. Please skip for now. " qc_response
 	
 
 #### Final verification of information before beginning pipeline
 		./misc_scripts/top_banner.sh
+		echo ""
 		echo "Thank you for all of your input! Let's verify things one last time before beginning."; echo ""
 		echo "📂 The project ${project_name} will be saved at ${project_location} 📂"
 		echo "📂 THe samples for ${project_name} are located at at ${file_location} 📂"
