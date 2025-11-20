@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Read config.sh
-source ${SAVE_LOC}/${project_name}/config.sh
+source ${project_dir}/config.sh
 
 # Exit on error
 set -e
 
-mkdir -p "${SAVE_LOC}/${project_name}/htseq_counts"
-htseq_dir_out="${SAVE_LOC}/${project_name}/htseq_counts"
+mkdir -p "${project_dir}/htseq_counts"
+htseq_dir_out="${project_dir}/htseq_counts"
 samples=$(ls $htseq_dir_in/*am)
 
-summary_file="${SAVE_LOC}/${project_name}/summary/$project_name-htseq-metrics.csv"
+summary_file="${project_dir}/summary/$project_name-htseq-metrics.csv"
 ## Creates headers for summary
 printf "%s\t" "Sample Name" >> ${summary_file} ## Print sample name to summary  
 printf "%s\t" "Genes > 0 Reads" >> ${summary_file} ## Print sample name to summary

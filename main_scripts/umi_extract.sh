@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Read config.sh
-source ${project_location}/config.sh
+source ${project_dir}/config.sh
 
 # Exit on error
 set -e
 
-processed_dir_out="${project_location}/trimmed_files/umi_trim/1_umi_extracted"
-trimmed_dir_out="${project_location}/trimmed_files/umi_trim/2_quality_trim"
-trim_log="${project_location}/logs/umi_trim/umi_extraction"
+processed_dir_out="${project_dir}/trimmed_files/umi_trim/1_umi_extracted"
+trimmed_dir_out="${project_dir}/trimmed_files/umi_trim/2_quality_trim"
+trim_log="${project_dir}/logs/umi_trim/umi_extraction"
 mkdir -p ${processed_dir_out}
 mkdir -p ${trimmed_dir_out}
 mkdir -p ${trim_log}

@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Read config.sh
-source ${SAVE_LOC}/${project_name}/config.sh
+source ${project_dir}/config.sh
 
 # Exit on error
 set -e
 
 
-SUMMARY="${SAVE_LOC}/${project_name}/summary/$project_name-Mapping_summary.csv"
+SUMMARY="${project_dir}/summary/$project_name-Mapping_summary.csv"
 
 ##### RUN BOWTIE2 #########
 

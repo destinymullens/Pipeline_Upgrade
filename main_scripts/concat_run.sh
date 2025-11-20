@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Read config.sh
-source ${project_location}/config.sh
+source ${project_dir}/config.sh
 
 # Exit on error
 set -e

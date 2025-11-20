@@ -1,17 +1,17 @@
 #!/bin/bash
 
 # Read config.sh
-source ${project_location}/config.sh
+source ${project_dir}/config.sh
 
 # Exit on error
 set -e
 
-index_dir_out="${project_location}/trimmed_files/umi_trim/3_indexed_files"
-dedup_dir_out="${project_location}/trimmed_files/umi_trim/4_deduplicated_files"
+index_dir_out="${project_dir}/trimmed_files/umi_trim/3_indexed_files"
+dedup_dir_out="${project_dir}/trimmed_files/umi_trim/4_deduplicated_files"
 mkdir -p ${index_dir_out}
 mkdir -p ${dedup_dir_out}
 
-deduplog="${project_location}/logs/umi_trim/deduplication"
+deduplog="${project_dir}/logs/umi_trim/deduplication"
 
 SampleList=$(ls ${map_dir_out})
 

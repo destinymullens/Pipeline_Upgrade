@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # Read config.sh
-source ${SAVE_LOC}/${project_name}/config.sh
+source ${project_dir}/config.sh
 
 # Exit on error
 set -e
 
-mkdir -p ${SAVE_LOC}/${project_name}/htseq_counts/temp
+mkdir -p ${project_dir}/htseq_counts/temp
 
-htseq_dir_out="${SAVE_LOC}/${project_name}/htseq_counts"
+htseq_dir_out="${project_dir}/htseq_counts"
 samples=$(ls $htseq_dir_out/counts/*htseq.csv)
-counts_file="${SAVE_LOC}/${project_name}/summary/${project_name}-counts.csv"
-tmp_dir="${SAVE_LOC}/${project_name}/htseq_counts/temp"
+counts_file="${project_dir}/summary/${project_name}-counts.csv"
+tmp_dir="${project_dir}/htseq_counts/temp"
 
-mapping_logs="${SAVE_LOC}/${project_name}/logs/mapping"
-summary_file="${SAVE_LOC}/${project_name}/summary/${project_name}-Overall_mapping_summary.csv"
+mapping_logs="${project_dir}/logs/mapping"
+summary_file="${project_dir}/summary/${project_name}-Overall_mapping_summary.csv"
 
 ### Merge individual htseq count files into counts csv file
 for i in ${samples}; do

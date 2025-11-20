@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Read config.sh
-source ${SAVE_LOC}/${project_name}/config.sh
+source ${project_dir}/config.sh
 
 # Exit on error
 set -e
 
-mkdir -p ${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}
+mkdir -p ${project_dir}/trimmed_files/${trim_type}
 
 SAMPLES=$(find ${trim_dir_in} -type f -printf '%f\n')
 

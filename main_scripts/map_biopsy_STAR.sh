@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Read config.sh
-source ${SAVE_LOC}/${project_name}/config.sh
+source ${project_dir}/config.sh
 
 # Exit on error
 set -e
 
-map_dir_out="${SAVE_LOC}/${project_name}/mapping"
+map_dir_out="${project_dir}/mapping"
 
 SAMPLES=$(find ${mapfiles} -type f -printf '%f\n')
 
