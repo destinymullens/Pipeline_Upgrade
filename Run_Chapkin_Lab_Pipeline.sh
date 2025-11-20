@@ -49,15 +49,28 @@ verify="0"
 until [[ "${verify}" = "1" ]]; do
 
 #### Get file location
-	verify="0"
-	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-		echo "Where are your files located? "
-		read -p "(Note: Please use /home/username instead of ~/ for files located in the home directory.)" file_location
-		echo " "
-		find ${file_location} -type f -printf '%f\n'
-		echo " "; echo "Are these the correct files?"; echo "1. Yes 👍"; echo "2. No 👎 "
-		read -p "> " verify
-	done
+	while true; do
+    ./misc_scripts/top_banner.sh
+
+    echo "Where are your files located?"
+    read -p "(Use full paths, e.g., /home/user/data) > " file_location
+    echo ""
+
+    # Validate directory exists
+    if [[ ! -d "$file_location" ]]; then
+        echo "❌ That directory does not exist. Please try again."
+        sleep 2
+        continue
+    fi
+
+    echo "Files found:"
+    find "$file_location" -type f -printf '%f\n'
+    echo ""
+
+    read -p "Are these the correct files? (1 = Yes 👍, 2 = No 👎) > " verify
+
+    [[ "$verify" == "1" ]] && break
+done
 
 
 #### Determine if files need concatentation
