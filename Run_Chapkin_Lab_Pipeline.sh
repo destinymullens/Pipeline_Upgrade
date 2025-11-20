@@ -211,7 +211,6 @@ else
 			echo ""; echo "Is ${species} 👫 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
 			read -p "> " verify	
 
-
 		elif [[ "${species_type}" = "2" ]]; then 
 			species="mouse"; species_location=${REF_LOC}/GRCm39-mouse; species_ref="GRCm39"; species_icon="🐭";
 			echo ""; echo "Is ${species} 🐭 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
@@ -243,13 +242,13 @@ else
 		
 		if [[ "${qc_response}" == "1" ]]; then
 			qc_text="run FastQC"
-			read -p "You have indicated you would like to run FastQC. " 
+			read -p "You have indicated you would like to run FastQC. "; 
 			echo "Is this correct?"; echo "1. Yes 👍"; echo "2. No  👎 "
 			read -p "> " verify
 			verify="1"
 		else
 			qc_text="skip FastQC"
-			read -p "You have indicated you would like to skip running FastQC. " 
+			read -p "You have indicated you would like to skip running FastQC. "; 
 			echo "Is this correct?"; echo "1. Yes 👍"; echo "2. No  👎 "
 			read -p "> " verify
 			verify="1"
@@ -265,7 +264,7 @@ else
 	echo "🔲 ${data_type}"
 	echo "🔲 The data is ${strand_type}."
 	echo "🔲 The species selected was ${species} ${species_icon}" using reference ${species_ref}; 
-	echo "🔲 ${trim_disp}"; echo ""; echo ""
+	echo "🔲 ${trim_text}"; echo ""; echo ""
 	echo "Would you like to proceed?"; echo "1. Yes 👍"; echo "2. No  👎 "; echo "3. Please exit"
 	read -p "> " verify
 	if [[ "${verify}" = "3" ]]; then
