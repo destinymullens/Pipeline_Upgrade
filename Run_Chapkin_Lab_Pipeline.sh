@@ -292,7 +292,7 @@ project_config="${project_location}/config.sh"
 
 echo "SAVE_LOC=$SAVE_LOC" >> ${project_config}
 echo "project_name=${project_name}" >> ${project_config}
-echo "project_location=${project_location}" >> ${project_location}
+echo "project_location=${project_location}" >> ${project_config}
 echo "file_location=${file_location}" >> ${project_config}
 echo "concat_response=${concat_response}" >> ${project_config}
 echo "concat_length=${concat_length}" >> ${project_config}
