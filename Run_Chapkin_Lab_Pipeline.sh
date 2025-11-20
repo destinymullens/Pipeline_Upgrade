@@ -268,7 +268,7 @@ else
 	echo "🔲 ${concat_text}";
 	echo "🔲 You have indicated you would like to ${qc_text}"
 	echo "🔲 ${data_type}"
-	echo "🔲 The data is ${strand_type}."
+	echo "🔲 The data is ${strand_text}."
 	echo "🔲 The species selected was ${species} ${species_icon}" using reference ${species_ref}; 
 	echo "🔲 ${trim_text}"; echo ""; echo ""
 	echo "Would you like to proceed?"; echo "1. Yes 👍"; echo "2. No  👎 "; echo "3. Please exit"
@@ -287,7 +287,7 @@ The project "${mapping_information}" is mapping data located at "${file_location
 cat > "${mapping_information}" <<EOF
 "${concat_text}"
 "${data_type}"
-The data is "${strand_type}".
+The data is "${strand_text}".
 The species selected was "${species}" using reference "${species_ref}".
 "${trim_text}"
 	
