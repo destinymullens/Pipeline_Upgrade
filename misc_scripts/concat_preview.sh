@@ -5,10 +5,10 @@
 set -Eeuo pipefail
 
 # Load project config
-if [[ -z "${project_location:-}" || -z "${file_location:-}" || -z "${concat_length:-}" ]]; then
-    echo "❌ Please set project_location, file_location, and concat_length in config.sh before running."
-    exit 1
-fi
+#if [[ -z "${project_location:-}" || -z "${file_location:-}" || -z "${concat_length:-}" ]]; then
+ #   echo "❌ Please set project_location, file_location, and concat_length in config.sh before running."
+  #  exit 1
+#fi
 
 SampleList=$(find "${file_location}" -type f -printf '%f\n' | cut -c 1-"${concat_length}" | sort | uniq)
 Output="${project_location}/concat"
