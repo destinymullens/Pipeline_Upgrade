@@ -44,14 +44,25 @@ echo "To begin, we need to name the project to create the folder that will conta
 echo "Please avoid using special characters such as: spaces, /, >, |, :, ?, *  or & in the project name."
 echo "If using special characters, it must be quoted or escaped using the \ symbol."
 echo ""
-## Determine were to save project
-echo "Where should the project be saved?"
-read -p "(Note: Please use /home/username instead of ~/ for files located in the home directory.)" SAVE_LOC
-echo ""
-read -p "What would you like to name your project? " project_name
-echo "";
-project_location="${SAVE_LOC}/${project_name}"
-echo "Thank you! Your final results will be saved at ${project_location}"; sleep 3
+# Project save location & project name
+SAVE_LOC=""
+while true; do
+    ask_input "Where should the project be saved? (full path, avoid ~)" SAVE_LOC
+    [[ -n "$SAVE_LOC" ]] || { echo "Please enter a directory path."; continue; }
+    SAVE_LOC="${SAVE_LOC/#\~/$HOME}"
+    if [[ ! -d "$SAVE_LOC" ]]; then
+        if ask_confirm "Directory '$SAVE_LOC' does not exist. Create it?"; then
+            mkdir -p "$SAVE_LOC" || die "Failed to create $SAVE_LOC"
+            ok "Created $SAVE_LOC"
+            break
+        else
+            continue
+        fi
+    else
+        break
+    fi
+done
+
 
 #### Determine if pipeline was previously ran
 ./misc_scripts/top_banner.sh
