@@ -8,14 +8,8 @@ set -a # Command exports variables automatically for other scripts
 
 ## Gather user input for various variables needed to determine the correct scripts for the pipeline to process
 clear
-echo ""
-echo "⎡‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾⎤"
-echo "⎜                                 🧬 Chapkin Lab Sequencing Pipeline 🧬                            ⎟" 
-echo "⎣__________________________________________________________________________________________________⎦"
-echo ""
-echo "Our pipeline is designed to asked questions about the data before proceeding to align the samples."
-echo ""
-echo "After all questions are answered the pipeline will process the data."
+./misc_scripts/top_banner.sh
+echo "This pipeline is designed to asked questions about the data before proceeding to align the samples."
 echo ""
 echo "To begin, we need to name the project to create the folder that will contain the results."
 echo "Please avoid using special characters such as: spaces, /, >, |, :, ?, *  or & in the project name."
@@ -23,23 +17,24 @@ echo "If using special characters, it must be quoted or escaped using the \ symb
 echo ""
 ## Determine were to save project
 echo "Where should the project be saved?"
-read -p "(Note: Please use /home/username instead of ~/ for files located in the home directory.)" SAVE_LOC
+read -p "(Note: Please use /home/username instead of ~/ for files located in the home directory.)" save_dir
+read -p "> " save_dir
 echo ""
 read -p "What would you like to name your project? " project_name
 echo "";
-project_location="${SAVE_LOC}/${project_name}"
-echo "Thank you! Your final results will be saved at ${project_location}"; sleep 3
+project_dir="${save_dir}/${project_name}"
+echo "Thank you! Your final results will be saved at ${project_dir}"; sleep 3
 
 #### Determine if pipeline was previously ran
 ./misc_scripts/top_banner.sh
-if [[ -f ${project_location}/config.sh ]]; then
+if [[ -f ${project_dir}/config.sh ]]; then
 	echo "There is a configuration file saved at that location? Would you like to continue a previous mapping?"; 
 	echo "1. Yes"; echo "2. No"
 	read -p "> " continuenum
 	if [[ "${continuenum}" == "2" ]]; then
-		nohup ./main_scripts/Pipeline_Execute.sh 1> ${project_location}/${project_name}-log.out 2> ${project_location}/${project_name}-log.err &
+		nohup ./main_scripts/Pipeline_Execute.sh 1> ${project_dir}/${project_name}-log.out 2> ${project_dir}/${project_name}-log.err &
 	else
-	rm ${project_location}/config.sh
+	rm ${project_dir}/config.sh
 	fi
 else
 
@@ -187,8 +182,9 @@ else
 #### Check if FastQC run is wanted
 
 		./misc_scripts/top_banner.sh
-		echo ""
-		read -p "Would you like to run FastQC or skip it? 1. Yes! Run FastQC! 2. No. Please skip for now. " qc_response
+		echo "Would you like to run FastQC or skip it? "
+		echo "1. Yes! Run FastQC!"; echo "2. No. Please skip for now. ";
+		read -p "> " qc_response
 		if [[ "${qc_response}" == "1" ]]; then
 			qc_text="run FastQC"
 		else
@@ -199,7 +195,7 @@ else
 		./misc_scripts/top_banner.sh
 		echo ""
 		echo "Thank you for all of your input! Let's verify things one last time before beginning."; echo ""
-		echo "📂 The project ${project_name} will be saved at ${project_location} 📂"
+		echo "📂 The project ${project_name} will be saved at ${project_dir} 📂"
 		echo "📂 The samples for ${project_name} are located at at ${file_location} 📂"
 		echo "✅ ${concat_text}"
 		echo "✅ You have indicated you would like to ${qc_text}."
@@ -207,7 +203,7 @@ else
 		echo "✅ The data is ${strand_text}."
 		echo "✅ The species selected was ${species} ${species_icon}." 
 		echo "✅ ${trim_text}"; echo ""; echo ""
-		echo "❓ Would you like to proceed?"; echo "1. Yes 👍"; echo "2. No  👎 "; echo "3. Please exit"
+		echo "❓ Would you like to proceed?"; echo "1. Yes 👍"; echo "2. No 👎 "; echo "3. Please exit ❌"
 		read -p "> " verify
 		if [[ "${verify}" = "3" ]]; then
 			exit
@@ -215,8 +211,8 @@ else
 	done
 
 	## Save information to Mapping Info
-mkdir -p "${project_location}/summary_information"
-mapping_information="${project_location}/summary_information/${project_name}-Pipeline_settings.txt"
+mkdir -p "${project_dir}/summary_information"
+mapping_information="${project_dir}/summary_information/${project_name}-Pipeline_settings.txt"
 #touch ${mapping_information}
 start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
 cat << EOF > "${mapping_information}"
@@ -231,14 +227,14 @@ Pipeline began running at "${start_time}".
 EOF
 
 ## Create project specific config file
-mkdir -p "${project_location}"
-cp config.sh ${project_location}/config.sh
-project_config="${project_location}/config.sh"
+mkdir -p "${project_dir}"
+cp config.sh ${project_dir}/config.sh
+project_config="${project_dir}/config.sh"
 
 cat > "${project_config}" <<EOF
-SAVE_LOC="${SAVE_LOC}"
+save_dir="${save_dir}"
 project_name="${project_name}"
-project_location="${project_location}"
+project_dir="${project_dir}"
 file_location="${file_location}"
 concat_response="${concat_response:-2}"
 concat_length="${concat_length:-}"
@@ -251,13 +247,11 @@ data_option="${data_option}"
 strand_num="${strand_num}"
 strand_text="${strand_text}"
 species="${species}"
-species_location="${species_location}"
-species_ref="${species_ref}"
 mapping_information="${mapping_information}"
 EOF
 	
 nohup ./main_scripts/Pipeline_Execute.sh \
-	> "${project_location}/${project_name}-log.out" \
-   	2> "${project_location}/${project_name}-log.err" \
+	> "${project_dir}/${project_name}-log.out" \
+   	2> "${project_dir}/${project_name}-log.err" \
    	</dev/null &
 fi
