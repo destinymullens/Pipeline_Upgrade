@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # concat_preview.sh
 # Preview which files will be concatenated based on filename prefix length
-
+source ./config.sh
 set -Eeuo pipefail
 
 # Load project config
