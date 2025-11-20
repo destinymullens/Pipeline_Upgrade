@@ -14,14 +14,14 @@ echo ""
 echo "To begin, we need to name the project to create the folder that will contain the results."
 echo "Please avoid using special characters such as: spaces, /, >, |, :, ?, *  or & in the project name."
 echo "If using special characters, it must be quoted or escaped using the \ symbol."
+echo "Please use full paths, e.g. /home/user/data instead of ~/ for files located in the home directory."
 echo ""
 ## Determine were to save project
-echo "Where should the project be saved?"
-read -p "(Note: Please use /home/username instead of ~/ for files located in the home directory.)" save_dir
+echo "Where should the project be saved?";
 read -p "> " save_dir
 echo ""
 read -p "What would you like to name your project? " project_name
-echo "";
+echo ""
 project_dir="${save_dir}/${project_name}"
 echo "Thank you! Your final results will be saved at ${project_dir}"; sleep 3
 
