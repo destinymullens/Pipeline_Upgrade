@@ -56,12 +56,13 @@ else
 #### Determine if files need concatentation
 		verify="0"	
 		until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh;
-			read -p "❓Do the files need to concatenated? 1. Yes ✅ 2. No ❌ " concat_response
+			echo "❓Do the files need to concatenated?" echo "1. Yes ✅"; echo "2. No ❌"
+			read -p "> " concat_response
 		
 			if [[ "${concat_response}" == "1" ]]; then
-				read -p "How long is the filename? " concat_length
+				echo " "; read -p "How long is the filename? " concat_length
 				concat_text="You indicated files need to be concatenated and the filename length is ${concat_length} letters."
-				./misc_scripts/concat_preview.sh
+				./misc_scripts/concat_preview.sh  
 				echo "Is this correct?"; echo "1. Yes ✅"; echo "2. No ❌ "
 				read -p "> " verify
 			else
