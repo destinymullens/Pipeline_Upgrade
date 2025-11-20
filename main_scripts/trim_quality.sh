@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Read config.sh
-source ${SAVE_LOC}/${project_name}/config.sh
+source ${project_location}/config.sh
 
 # Exit on error
 set -e
 
-mkdir -p ${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}
+mkdir -p ${project_location}/trimmed_files/${trim_type}
 
-SAMPLES=$(find ${trim_dir_in} -type f -printf '%f\n')
+SampleList=$(find ${trim_dir_in} -type f -printf '%f\n')
 
-for s in ${SAMPLES}; do
+for s in ${SampleList}; do
 	samplename="${s%%.*}"
 	if [[ ! -s ${trim_dir_out}/${samplename}.trimm.fastq.gz ]]; then
 		${CUTADAPT} -q ${trim_quality_num} -j ${THREADS} -o ${trim_dir_out}/${samplename}.trimm.fastq.gz ${trim_dir_in}/${s}

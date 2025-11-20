@@ -1,36 +1,34 @@
 #!/bin/bash
 
 # Read config.sh
-source ${SAVE_LOC}/${project_name}/config.sh
+source ${project_location}/config.sh
 
 # Exit on error
 set -e
 
-mkdir -p ${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/deduplicated_files
-mkdir -p ${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/indexed_files
-mkdir -p ${SAVE_LOC}/${project_name}/logs/${trim_type}/deduplication
+index_dir_out="${project_location}/trimmed_files/umi_trim/3_indexed_files"
+dedup_dir_out="${project_location}/trimmed_files/umi_trim/4_deduplicated_files"
+mkdir -p ${index_dir_out}
+mkdir -p ${dedup_dir_out}
 
-index_dir_out="${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/3_indexed_files"
-dedup_dir_out="${SAVE_LOC}/${project_name}/trimmed_files/${trim_type}/4_deduplicated_files"
+deduplog="${project_location}/logs/umi_trim/deduplication"
 
-deduplog="${SAVE_LOC}/${project_name}/logs/${trim_type}/deduplication"
+SampleList=$(ls ${map_dir_out})
 
-SAMPLES=$(ls ${mapping_dir_out})
-
-for s in ${SAMPLES}; do
-	samplename=$(basename ${s})
-	if [[ ! -f ${dedup_dir_out}/${samplename}-dedup.bam ]]; then
-			echo "Begining sorting of ${s}...."
-			${SAMTOOLS} sort ${mapping_dir_out}/${s} -o $index_dir_out/${samplename}-sort.bam
-			echo "Sorting of ${s} is complete."
-			echo "Begining indexing of ${s}..."
-			${SAMTOOLS} index $index_dir_out/${samplename}-sort.bam
-			echo "Indexing of ${s} is complete."
-			echo "Beginning deduplication of ${s}..."
-			${UMI_TOOLS} dedup -I $index_dir_out/${samplename}-sort.bam --output-stats=${deduplog}/${samplename}-dedup -S ${dedup_dir_out}/${samplename}-dedup.bam -L ${deduplog}/${samplename}-dedup.log
-			echo "Deduplication of ${s} is now complete."
-			else
-			echo "✅ Sample ${samplename} is already complete."
+for Sample in ${SampleList}; do
+	SampleName=$(basename ${Sample})
+	if [[ ! -f ${dedup_dir_out}/${SampleName}-dedup.bam ]]; then
+		echo "Begining sorting of ${Sample}...."
+		${SAMTOOLS} sort ${mapping_dir_out}/${Sample} -o ${index_dir_out}/${SampleName}-sort.bam
+		echo "Sorting of ${Sample} is complete."
+		echo "Begining indexing of ${Sample}..."
+		${SAMTOOLS} index ${index_dir_out}/${SampleName}-sort.bam
+		echo "Indexing of ${Sample} is complete."
+		echo "Beginning deduplication of ${Sample}..."
+		${UMI_TOOLS} dedup -I ${index_dir_out}/${SampleName}-sort.bam --output-stats=${deduplog}/${SampleName}-dedup -S ${dedup_dir_out}/${samplename}-dedup.bam -L ${deduplog}/${samplename}-dedup.log
+		echo "Deduplication of ${Sample} is now complete."
+	else
+		echo "✅ Sample ${SampleName} is already complete."
 	fi
 done
 echo "✅ Deduplication of all samples is complete."

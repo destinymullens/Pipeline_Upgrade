@@ -1,35 +1,34 @@
 #!/bin/bash
 
 # Read config.sh
-source ${SAVE_LOC}/${project_name}/config.sh
+source ${project_location}/config.sh
 
 # Exit on error
 set -e
 
-mkdir -p ${SAVE_LOC}/${project_name}/trimmed_files/$trim_type
-mkdir -p ${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/umi_extracted
-
-processed_dir_out="${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/1_umi_extracted"
-trimmed_dir_out="${SAVE_LOC}/${project_name}/trimmed_files/$trim_type/2_quality_trim"
-trim_log="${SAVE_LOC}/${project_name}/logs/$trim_type/umi_extraction"
+processed_dir_out="${project_location}/trimmed_files/umi_trim/1_umi_extracted"
+trimmed_dir_out="${project_location}/trimmed_files/umi_trim/2_quality_trim"
+trim_log="${project_location}/logs/umi_trim/umi_extraction"
+mkdir -p ${processed_dir_out}
+mkdir -p ${trimmed_dir_out}
 mkdir -p ${trim_log}
 
 #### Extract UMI's ####
-SAMPLES=$(find ${trim_dir_in} -type f -printf '%f\n')
+SampleList=$(find ${trim_dir_in} -type f -printf '%f\n')
 
-for s in ${SAMPLES}; do
-	samplename="${s%%.*}"
-	logfile="${samplename}_processed.log"
-	stoutfile="${samplename}_processed.fastq.gz"
-	trimoutfile="${samplename}_trimmed.processed.fastq.gz"
+for Sample in ${SampleList}; do
+	SampleName="${s%%.*}"
+	logfile="${SampleName}_processed.log"
+	stoutfile="${SampleName}_processed.fastq.gz"
+	trimoutfile="${SampleName}_trimmed.processed.fastq.gz"
 	
 	if [[ ! -f ${processed_dir_out}/${stoutfile} ]]; then	
-		echo "Extracting of UMI's from ${s}...."	
-		${UMI_TOOLS} extract --bc-pattern=NNNNNN -I ${trim_dir_in}/${s} --log ${trim_log}/${logfile} -S ${processed_dir_out}/${stoutfile}
-		echo "Extraction of UMI's from ${s} is now complete."
+		echo "Extracting of UMI's from ${Sample}...."	
+		${UMI_TOOLS} extract --bc-pattern=NNNNNN -I ${trim_dir_in}/${Sample} --log ${trim_log}/${logfile} -S ${processed_dir_out}/${stoutfile}
+		echo "Extraction of UMI's from ${Sample} is now complete."
 		${CUTADAPT} -q 30 -m 30 -j ${THREADS} -o ${trimmed_dir_out}/${trimoutfile} ${processed_dir_out}/${stoutfile}
 	else
-		echo "Extraction of UMI's from ${s} is already complete."
+		echo "Extraction of UMI's from ${Sample} is already complete."
 	fi
 done
 

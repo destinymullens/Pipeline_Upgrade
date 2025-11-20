@@ -1,17 +1,10 @@
 #!/bin/bash
 
 # Read config.sh
-source ${SAVE_LOC}/${project_name}/config.sh
+source ${project_location}/config.sh
 
 # Exit on error
 set -e
-
-input_dir="$file_location"
-prefix_length="$concat_length"
-output_dir="${SAVE_LOC}/${project_name}/concat"
-
-
-mkdir -p "$output_dir"
 
 # Loop through files and group by prefix
 declare -A groups
@@ -28,7 +21,7 @@ done
 
 # Concatenate each group
 for prefix in "${!groups[@]}"; do
-    output_file="$output_dir/${prefix}.fastq.gz"
+    output_file="$concat_dir/${prefix}.fastq.gz"
     echo "Concatenating group '$prefix' -> $output_file"
     cat ${groups[$prefix]} > "$output_file"
 done

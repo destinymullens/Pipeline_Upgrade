@@ -1,92 +1,119 @@
 #!/bin/bash
 
 # Read config.sh
-source ${SAVE_LOC}/${project_name}/config.sh
+source ${project_location}/config.sh
 
 # Exit on error
 set -e
 
 ./misc_scripts/top_banner.sh
-## Runs concat script to concatenate script
 
+## Run concatenation script if needed
 if [[ "${concat_response}" == "1" ]]; then
-	echo "Beginning concatenation of files..."
-	mkdir -p "${SAVE_LOC}/${project_name}/concat"
-	qc_dir_in="${SAVE_LOC}/${project_name}/concat"
-	trim_dir_in="${SAVE_LOC}/${project_name}/concat"
-	echo "qc_dir_in=${qc_dir_in}" >> ${SAVE_LOC}/${project_name}/config.sh
-	echo "trim_dir_in=${trim_dir_in}" >> ${SAVE_LOC}/${project_name}/config.sh
+	concat_dir=${project_location}/concat
+	mkdir -p ${concat_dir}
+	trim_dir_in=${concat_dir}
+	qc_dir_in=${concat_dir}
+
 	./main_scripts/concat_run.sh
-	echo "Concatenation of files is finished! Moving on to QC Reports."
 else
-	echo "File concatentation not needed. Moving on to QC Reports."
+	echo "File concatentation not needed."
+	trim_dir_in=${file_location}
 	qc_dir_in="${file_location}"
-	trim_dir_in="${file_location}"
-	echo "qc_dir_in=${qc_dir_in}" >> ${SAVE_LOC}/${project_name}/config.sh
-	echo "trim_dir_in=${trim_dir_in}" >> ${SAVE_LOC}/${project_name}/config.sh
 fi
 
-echo " "
-## Runs script for QC Reports
-
-echo "Beginning QC Reports..."
-mkdir -p "${SAVE_LOC}/${project_name}/qc_reports/untrimmed"
-qc_dir_out=${SAVE_LOC}/${project_name}/qc_reports/untrimmed
-echo "qc_dir_out=${qc_dir_out}" >> ${SAVE_LOC}/${project_name}/config.sh
-#./main_scripts/qc_run.sh
-echo "QC Reports complete!"
-
-## Run scripts for trimming options 
-echo " "
-if [[ "${trim_num}" = "1" ]]; then
-	echo "No trimming needed!"
-
-	elif [[ "${trim_num}" = "2" ]]; then
-		echo "Beginning trimming of files!"
-		./main_scripts/trim_quality.sh
-		
-	elif [[ "${trim_num}" = "3" ]]; then
-		echo "Beginning trimming of files!"
-		./main_scripts/trim_base.sh
-		
-	else
-		echo "Beginning trimming of files!"
-		./main_scripts/umi_extract.sh.sh
+## Run FastQC script if needed
+if [[ "${qc_response}" == "1" ]]; then
+	qc_dir_out=${project_location}/qc_reports
+	mkdir -p "${qc_dir_out}"
+	./main_scripts/FastQC_run.sh
+else
+	echo "Skipping FastQC!"
 fi
 
-###echo "Beginning mapping of files."
-
-if [[ "${data_type}" = "biopsy" ]]; then
-	if [[ "${trim_num}" = "4" ]]; then
-		./main_scripts/map_biopsy.sh
-		echo "Moving on to deduplication..."
-		./main_scripts/umi_dedup.sh
-		./main_scripts/htseq.sh
-	else
-		./main_scripts/map_biopsy.sh
-		./main_scripts/htseq.sh
-	fi
-
-elif [[ "${data_type}" = "exfoliome_default" ]]; then 
-	./main_scripts/map_exfoliome_default.sh
-	echo "Moving on to deduplication..."
-	./main_scripts/umi_dedup.sh
-	./main_scripts/htseq.sh
+## Run trimming scripts if needed
+if [[ "${trim_num}" = "4" ]]; then ## Trimming with UMI's
+	echo "Beginning trimming of files..."
+	trim_dir_out1=${project_location}/trimmed_files/umi_trim/1_umi_extract
+	trim_dir_out2=${project_location}/trimmed_files/umi_trim/2_quality_trim
+	mkdir -p ${trim_dir_out1}
+	mkdir -p ${trim_dir_out2}
+	map_dir_in=${trim_dir_out2}
+	./main_scripts/umi_extract.sh.sh
 	
-else 
-	./main_scripts/map_exfoliome_optimized.sh
-	if [[ "${trim_num}" = "4" ]]; then
-		echo "Moving on to deduplication..."
-		./main_scripts/umi_dedup.sh
-		./main_scripts/htseq.sh
+
+elif [[ "${trim_num}" = "3" ]]; then ## Trimming by Quality Score
+	trim_dir_out=${project_location}/trimmed_files/base_trim 
+	mkdir -p ${trim_dir_out}
+	map_dir_in=${trim_dir_out}
+	./main_scripts/trim_quality.sh
+		
+elif [[ "${trim_num}" = "2" ]]; then ## Trimming by Number Bases
+	trim_dir_out=${project_location}/trimmed_files/quality_trim
+	mkdir -p ${trim_dir_out}
+	map_dir_in=${trim_dir_out}
+	./main_scripts/trim_base.sh
+		
+else
+	echo "No trimming needed!"
+	if [[ "${concat_response}" == "1" ]]; then
+	map_dir_in=${concat_dir}
+	
+else
+	map_dir_in=${file_location}
+fi
+
+
+
+## Map Samples
+if [[ "${trim_num}" = "4" ]]; then
+	map_dir_out=${project_location}/mapping_results
+	mkdir -p ${map_dir_out}
+	if [[ "${data_option}" = "1A" ]]; then
+		./main_scripts/map_biopsy_Bowtie2.sh
+	elif [[ "${data_option}" = "1B" ]]; then 
+		./main_scripts/map_biopsy_STAR.sh
+	elif [[ "${data_option}" = "2A" ]]; then 
+		./main_scripts/map_exfoliome_optimized.sh
 	else
-		./main_scripts/htseq.sh
+		./main_scripts/map_exfoliome_default.sh
 	fi
+	dedup_dir_in=$map_dir_out
+	index_dir_out=${project_location}/trimmed_files/umi_trim/3_indexed_files
+	dedup_dir_out=${project_location}/trimmed_files/umi_trim/4_deduplicated_files
+	mkdir -p ${index_dir_out}
+	mkdir -p ${dedup_dir_out}
+
+	./main_scripts/umi_dedup.sh
+	htseq_dir_in=${dedup_dir_out}
+	htseq_dir_out=${project_location}/htseq_results
+	mkdir -p ${htseq_dir_out}
+	./main_scripts/htseq.sh
+else
+	map_dir_out=${project_location}/mapping_results
+	mkdir -p ${map_dir_out}
+
+	if [[ "${data_option}" = "1A" ]]; then
+		./main_scripts/map_biopsy_Bowtie2.sh
+		
+	elif [[ "${data_option}" = "1B" ]]; then 
+		./main_scripts/map_biopsy_STAR.sh
+
+	elif [[ "${data_option}" = "2A" ]]; then 
+		./main_scripts/map_exfoliome_optimized.sh
+
+	else
+		./main_scripts/map_exfoliome_default.sh
+	fi
+	htseq_dir_in=${map_dir_out}
+	htseq_dir_out=${project_location}/htseq_results
+	mkdir -p ${htseq_dir_out}
+	./main_scripts/htseq.sh
 fi
 
 ./main_scripts/summary.sh 	
 echo " " >> ${mapping_information}
-echo "All mapping is completed for ${project_name}! Your files are located at ${SAVE_LOC}/${project_name}."
-echo "All mapping is completed for ${project_name} and files are located at ${SAVE_LOC}/${project_name}." >> ${mapping_information}
+echo "All mapping is completed for ${project_name}! Your files are located at ${project_location}."
+echo "All mapping is completed for ${project_name} and files are located at ${project_location}." >> ${mapping_information}
 completed_time=$(timedatectl | head -1 | cut -d " " -f18-20)
 echo "Mapping completed at: ${completed_time}." >> ${mapping_information}

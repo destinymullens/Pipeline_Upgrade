@@ -1,17 +1,17 @@
 #!/bin/bash
 
 # Read config.sh
-. $(dirname $0)/../config.sh
+source ${project_location}/config.sh
 
 verify="0"
 
-SAMPLES=$(find ${file_location} -type f -printf '%f\n' | cut -c 1-${concat_length} | sort | uniq)
+SampleList=$(find ${file_location} -type f -printf '%f\n' | cut -c 1-${concat_length} | sort | uniq)
 
-OUT="${SAVE_LOC}/${project_name}/concat"
+Output="${project_location}/concat"
 
-for s in ${SAMPLES}; do
-	NEW=${OUT}/${s}.fastq.gz
-	if [[ ! -s $NEW ]]; then
+for s in ${SampleList}; do
+	NEW=${Output}/${s}.fastq.gz
+	if [[ ! -s ${NEW} ]]; then
 		FILES=$(find $file_location -iname "${s}"*.gz)
 		echo "For sample $s, concatenating input files:"
 			for f in ${FILES}; do
