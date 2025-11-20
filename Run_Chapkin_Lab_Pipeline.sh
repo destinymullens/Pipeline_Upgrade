@@ -36,7 +36,7 @@ echo "Thank you! Your final results will be saved at ${project_location}"; sleep
 ./misc_scripts/top_banner.sh
 if [[ -f ${project_location}/config.sh ]]; then
 	echo "There is a configuration file saved at that location? Would you like to continue a previous mapping?"; 
-	echo "1. Yes 👍"; echo "2. No 👎 "
+	echo "1. Yes"; echo "2. No"
 	read -p "> " continuenum
 	if [[ "${continuenum}" == "1" ]]; then
 		nohup ./main_scripts/Pipeline_Execute.sh 1> ${project_location}/${project_name}-log.out 2> ${project_location}/${project_name}-log.err &
@@ -268,7 +268,7 @@ until [[ "${verify}" = "1" ]]; do
 	if [[ "${verify}" = "3" ]]; then
 		exit
 	fi
-done
+fi
 
 ## Save information to Mapping Info
 mkdir -p "${project_location}/summary_information"
@@ -282,9 +282,6 @@ echo "${trim_disp}" >> ${mapping_information}
 echo " " >> ${mapping_information}
 start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
 echo "Pipeline began running at ${start_time}." >> ${mapping_information}
-	
-
-
 
 ## Create project specific config file
 cp config.sh ${project_location}/config.sh
