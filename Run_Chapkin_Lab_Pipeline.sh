@@ -269,49 +269,50 @@ else
 	read -p "> " verify
 	if [[ "${verify}" = "3" ]]; then
 		exit
+	elif [[ "${verify}" = "1" ]]; then
+	## Save information to Mapping Info
+	mkdir -p "${project_location}/summary_information"
+	mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
+	echo "The project ${project_name} is mapping data located at ${file_location}." >> ${mapping_information}
+	echo "${concat_text}" >> ${mapping_information}
+	echo "${data_type}"  >> ${mapping_information}
+	echo "The data is ${strand_type}." >> ${mapping_information}
+	echo "The species selected was ${species} using reference ${species_ref}" >> ${mapping_information}
+	echo "${trim_disp}" >> ${mapping_information}
+	echo " " >> ${mapping_information}
+	start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
+	echo "Pipeline began running at ${start_time}." >> ${mapping_information}
+
+	## Create project specific config file
+	cp config.sh ${project_location}/config.sh
+	project_config="${project_location}/config.sh"
+
+	echo "SAVE_LOC=$SAVE_LOC" >> ${project_config}
+	echo "project_name=${project_name}" >> ${project_config}
+	echo "project_location=${project_location}" >> ${project_location}
+	echo "file_location=${file_location}" >> ${project_config}
+	echo "concat_response=${concat_response}" >> ${project_config}
+	echo "concat_length=${concat_length}" >> ${project_config}
+	echo "qc_response=${qc_response}" >> ${project_config}
+	echo "trim_num=${trim_num}" >> ${project_config}
+	echo "data_type=$data_type" >> ${project_config}
+	echo "map_option=$map_option" >> ${project_config}
+	echo "strand_num=${strand_num}" >> ${project_config}
+	#echo "mapfiles=${mapfiles}" >> ${project_config}
+	echo "mapping_information=${mapping_information}" >> ${project_config}
+	echo "trim_type=${trim_type}" >> ${project_config}
+	echo "species=${species}" >> ${project_config}
+	echo "species_location=${species_location}" >> ${project_config}
+	echo "trim_quality_num=${trim_quality_num}" >> ${project_config}
+	echo "trim_base_num=${trim_base_num}" >> ${project_config}
+	#echo "mapping_dir_out=${mapping_dir_out}" >> ${project_config}
+	#echo "mapping_logs=${mapping_logs}" >> ${project_config}
+
+	nohup ./main_scripts/Pipeline_Execute.sh \
+    	> "${project_location}/${project_name}-log.out" \
+    	2> "${project_location}/${project_name}-log.err" \
+    	</dev/null &
+    else
+    fi
 fi
-
-
-## Save information to Mapping Info
-mkdir -p "${project_location}/summary_information"
-mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
-echo "The project ${project_name} is mapping data located at ${file_location}." >> ${mapping_information}
-echo "${concat_text}" >> ${mapping_information}
-echo "${data_type}"  >> ${mapping_information}
-echo "The data is ${strand_type}." >> ${mapping_information}
-echo "The species selected was ${species} using reference ${species_ref}" >> ${mapping_information}
-echo "${trim_disp}" >> ${mapping_information}
-echo " " >> ${mapping_information}
-start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
-echo "Pipeline began running at ${start_time}." >> ${mapping_information}
-
-## Create project specific config file
-cp config.sh ${project_location}/config.sh
-project_config="${project_location}/config.sh"
-
-echo "SAVE_LOC=$SAVE_LOC" >> ${project_config}
-echo "project_name=${project_name}" >> ${project_config}
-echo "project_location=${project_location}" >> ${project_location}
-echo "file_location=${file_location}" >> ${project_config}
-echo "concat_response=${concat_response}" >> ${project_config}
-echo "concat_length=${concat_length}" >> ${project_config}
-echo "qc_response=${qc_response}" >> ${project_config}
-echo "trim_num=${trim_num}" >> ${project_config}
-echo "data_type=$data_type" >> ${project_config}
-echo "map_option=$map_option" >> ${project_config}
-echo "strand_num=${strand_num}" >> ${project_config}
-#echo "mapfiles=${mapfiles}" >> ${project_config}
-echo "mapping_information=${mapping_information}" >> ${project_config}
-echo "trim_type=${trim_type}" >> ${project_config}
-echo "species=${species}" >> ${project_config}
-echo "species_location=${species_location}" >> ${project_config}
-echo "trim_quality_num=${trim_quality_num}" >> ${project_config}
-echo "trim_base_num=${trim_base_num}" >> ${project_config}
-#echo "mapping_dir_out=${mapping_dir_out}" >> ${project_config}
-#echo "mapping_logs=${mapping_logs}" >> ${project_config}
-
-nohup ./main_scripts/Pipeline_Execute.sh \
-    > "${project_location}/${project_name}-log.out" \
-    2> "${project_location}/${project_name}-log.err" \
-    </dev/null &
     
