@@ -265,24 +265,25 @@ until [[ "${verify}" = "1" ]]; do
 	echo "🔲 ${trim_disp}"; echo ""; echo ""
 	echo "Would you like to proceed?"; echo "1. Yes 👍"; echo "2. No 👎 "; echo "3. Please exit"
 	read -p "> " verify
-
-	## Save information to Mapping Info
-	mkdir -p "${project_location}/summary_information"
-	mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
-	echo "The project ${project_name} is mapping data located at ${file_location}." >> ${mapping_information}
-	echo "${concat_text}" >> ${mapping_information}
-	echo "${data_type}"  >> ${mapping_information}
-	echo "The data is ${strand_type}." >> ${mapping_information}
-	echo "The species selected was ${species} using reference ${species_ref}" >> ${mapping_information}
-	echo "${trim_disp}" >> ${mapping_information}
-	echo " " >> ${mapping_information}
-	start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
-	echo "Pipeline began running at ${start_time}." >> ${mapping_information}
-	
 	if [[ "${verify}" = "3" ]]; then
 		exit
 	fi
 done
+
+## Save information to Mapping Info
+mkdir -p "${project_location}/summary_information"
+mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
+echo "The project ${project_name} is mapping data located at ${file_location}." >> ${mapping_information}
+echo "${concat_text}" >> ${mapping_information}
+echo "${data_type}"  >> ${mapping_information}
+echo "The data is ${strand_type}." >> ${mapping_information}
+echo "The species selected was ${species} using reference ${species_ref}" >> ${mapping_information}
+echo "${trim_disp}" >> ${mapping_information}
+echo " " >> ${mapping_information}
+start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
+echo "Pipeline began running at ${start_time}." >> ${mapping_information}
+	
+
 
 
 ## Create project specific config file
