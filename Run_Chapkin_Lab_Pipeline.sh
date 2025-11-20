@@ -238,18 +238,18 @@ else
 #### Check if FastQC run is wanted
 	verify="0"	
 	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-		read -p "Would you like to run FastQC or skip it? 1. Yes! Run FastQC! 2. No. Please skip for now." qc_response
+		read -p "Would you like to run FastQC or skip it? 1. Yes! Run FastQC! 2. No. Please skip for now. " qc_response
 		
 		if [[ "${qc_response}" == "1" ]]; then
 			qc_text="run FastQC"
-			read -p "You have indicated you would like to run FastQC. "; 
-			echo "Is this correct?"; echo "1. Yes 👍"; echo "2. No  👎 "
+			echo "You have indicated you would like to run FastQC. " 
+			echo "Is this correct?"; echo "1. Yes 👍"; echo "2. No  👎"
 			read -p "> " verify
 			verify="1"
 		else
 			qc_text="skip FastQC"
-			read -p "You have indicated you would like to skip running FastQC. "; 
-			echo "Is this correct?"; echo "1. Yes 👍"; echo "2. No  👎 "
+			echo "You have indicated you would like to skip running FastQC."; 
+			echo "Is this correct?"; echo "1. Yes 👍"; echo "2. No  👎 ";
 			read -p "> " verify
 			verify="1"
 		fi
@@ -275,15 +275,18 @@ done
 	## Save information to Mapping Info
 	mkdir -p "${project_location}/summary_information"
 	mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
-	echo "The project ${project_name} is mapping data located at ${file_location}." >> ${mapping_information}
-	echo "${concat_text}" >> ${mapping_information}
-	echo "${data_type}"  >> ${mapping_information}
-	echo "The data is ${strand_type}." >> ${mapping_information}
-	echo "The species selected was ${species} using reference ${species_ref}" >> ${mapping_information}
-	echo "${trim_text}" >> ${mapping_information}
-	echo " " >> ${mapping_information}
+	touch ${mapping_information}
+	cat > "${project_config}" <<EOF
+	The project "${project_name}" is mapping data located at "${file_location}".
+	"${concat_text}"
+	"${data_type}"
+	The data is "${strand_type}".
+	The species selected was "${species}" using reference "${species_ref}".
+	"${trim_text}"
+	
 	start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
-	echo "Pipeline began running at ${start_time}." >> ${mapping_information}
+	Pipeline began running at "${start_time}".
+EOF
 
 	## Create project specific config file
 	cp config.sh ${project_location}/config.sh
