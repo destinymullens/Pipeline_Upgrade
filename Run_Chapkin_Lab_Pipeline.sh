@@ -269,7 +269,10 @@ else
 	read -p "> " verify
 	if [[ "${verify}" = "3" ]]; then
 		exit
-	elif [[ "${verify}" = "1" ]]; then
+	fi
+done
+
+
 	## Save information to Mapping Info
 	mkdir -p "${project_location}/summary_information"
 	mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
@@ -307,12 +310,10 @@ else
 	echo "trim_base_num=${trim_base_num}" >> ${project_config}
 	#echo "mapping_dir_out=${mapping_dir_out}" >> ${project_config}
 	#echo "mapping_logs=${mapping_logs}" >> ${project_config}
-
+	
 	nohup ./main_scripts/Pipeline_Execute.sh \
-    	> "${project_location}/${project_name}-log.out" \
-    	2> "${project_location}/${project_name}-log.err" \
-    	</dev/null &
-    else
-    fi
+   		> "${project_location}/${project_name}-log.out" \
+   		2> "${project_location}/${project_name}-log.err" \
+   		</dev/null &
+  
 fi
-    
