@@ -272,22 +272,6 @@ else
 	fi
 done
 
-	## Save information to Mapping Info
-	mkdir -p "${project_location}/summary_information"
-	mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
-	#touch ${mapping_information}
-	cat > "${project_config}" <<EOF
-	The project "${project_name}" is mapping data located at "${file_location}".
-	"${concat_text}"
-	"${data_type}"
-	The data is "${strand_type}".
-	The species selected was "${species}" using reference "${species_ref}".
-	"${trim_text}"
-	
-	start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
-	Pipeline began running at "${start_time}".
-EOF
-
 	## Create project specific config file
 	cp config.sh ${project_location}/config.sh
 	project_config="${project_location}/config.sh"
@@ -314,7 +298,22 @@ EOF
 	species_ref="${species_ref}"
 	mapping_information="${mapping_information}"
 EOF
-
+	
+	## Save information to Mapping Info
+	mkdir -p "${project_location}/summary_information"
+	mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
+	#touch ${mapping_information}
+	cat > "${project_config}" <<EOF
+	The project "${project_name}" is mapping data located at "${file_location}".
+	"${concat_text}"
+	"${data_type}"
+	The data is "${strand_type}".
+	The species selected was "${species}" using reference "${species_ref}".
+	"${trim_text}"
+	
+	start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
+	Pipeline began running at "${start_time}".
+EOF
 	nohup ./main_scripts/Pipeline_Execute.sh \
    		> "${project_location}/${project_name}-log.out" \
    		2> "${project_location}/${project_name}-log.err" \
