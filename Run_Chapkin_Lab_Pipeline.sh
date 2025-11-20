@@ -17,7 +17,7 @@ echo "If using special characters, it must be quoted or escaped using the \ symb
 echo "Please use full paths, e.g. /home/user/data instead of ~/ for files located in the home directory."
 echo ""
 ## Determine were to save project
-echo "Where should the project be saved?";
+echo "❓Where should the project be saved?";
 read -p "> " save_dir
 echo ""
 read -p "What would you like to name your project? " project_name
@@ -28,7 +28,7 @@ echo "Thank you! Your final results will be saved at ${project_dir}"; sleep 3
 #### Determine if pipeline was previously ran
 ./misc_scripts/top_banner.sh
 if [[ -f ${project_dir}/config.sh ]]; then
-	echo "There is a configuration file saved at that location? Would you like to continue a previous mapping?"; 
+	echo "❓There is a configuration file saved at that location? Would you like to continue a previous mapping?"; 
 	echo "1. Yes"; echo "2. No"
 	read -p "> " continuenum
 	if [[ "${continuenum}" == "2" ]]; then
@@ -44,25 +44,25 @@ else
 
 #### Get file location
 		verify="0"
-		until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-			echo "Where are your files located? "
-			read -p "(Note: Please use /home/username instead of ~/ for files located in the home directory.)" file_location
-			echo " "
+		until [[ "${verify}" = "1" ]]; do 
+			echo "❓Where are the raw fastq files located? "
+			read -p "> " file_location
+			echo ""
 			find ${file_location} -type f -printf '%f\n'
-			echo " "; echo "Are these the correct files?"; echo "1. Yes 👍"; echo "2. No  👎 "
+			echo " "; echo "Are these the correct files?"; echo "1. Yes ✅"; echo "2. No ❌"
 			read -p "> " verify
 		done
 
 #### Determine if files need concatentation
 		verify="0"	
 		until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh;
-			read -p "Do the files need to concatenated? 1. Yes 👍 2. No 👎 " concat_response
+			read -p "❓Do the files need to concatenated? 1. Yes ✅ 2. No ❌ " concat_response
 		
 			if [[ "${concat_response}" == "1" ]]; then
 				read -p "How long is the filename? " concat_length
 				concat_text="You indicated files need to be concatenated and the filename length is ${concat_length} letters."
 				./misc_scripts/concat_preview.sh
-				echo "Is this correct?"; echo "1. Yes 👍"; echo "2. No 👎 "
+				echo "Is this correct?"; echo "1. Yes ✅"; echo "2. No ❌ "
 				read -p "> " verify
 			else
 				concat_text="You indicated the files do not need to be concatenated."; verify="1"
@@ -71,7 +71,7 @@ else
 
 #### Determine input data type: Biopsy or Exfoliome
 		./misc_scripts/top_banner.sh
-		echo "What type of RNA-seq data are you aligning?"; echo "1. Biopsy"; echo "2. Exfoliome"
+		echo "❓What type of RNA-seq data are you aligning?"; echo "1. Biopsy"; echo "2. Exfoliome"
 		read -p "> " response
 		
 	## If biopsy then determine mapping program
@@ -94,7 +94,7 @@ else
 		## If biopsy then determine if paired or single end reads	
 			./misc_scripts/top_banner.sh
 			echo ""
-			echo "Is your data single end or paired end? "
+			echo "❓Is your data single end or paired end? "
 			echo "1. Single end"; echo "2. Paired end"
 			echo " Note: When using paired end samples, the files must end with R1.fastq.gz and R2.fastq.gz."
 			read -p "> " strand_num
@@ -108,7 +108,7 @@ else
 		## If biopsy then determine type of trimming and trimming options.
 			./misc_scripts/top_banner.sh
 			echo ""
-			echo "Do you need to trim the data?"
+			echo "❓Do you need to trim the data?"
 			echo "1. No, the data does not need to be trimmed."; 
 			echo "2. Yes, the data needs to be trimmed using a quality score."
 			echo "3. Yes, the data needs a specific number of bases trimmed."; 
@@ -132,7 +132,6 @@ else
 
 		## If data is exfoliome, set options and select pipeline
 		elif [[ "${response}" = "2" ]]; then 
-			echo ""; echo "You have entered exfoliome as the type of data you are using. Is this correct?"; 
 			trim_option="4"
 			trim_text="The data needs to be trimmed using UMI's."
 			strand_text="single end"
@@ -140,7 +139,7 @@ else
  			
  		## Determine Exfoliome Default or Optimized Pipeline
 			./misc_scripts/top_banner.sh
-			echo "Would you like to use the default or optimized exfoliome pipeline?"; 
+			echo "❓Would you like to use the default or optimized exfoliome pipeline?"; 
 			echo "1. Default"; echo "2. Optimized"
 			read -p "> " response
 
@@ -162,7 +161,7 @@ else
 #### are now in a folder with a new name should be updated in the corresponding species_location line
 		
 		./misc_scripts/top_banner.sh
-		echo "Please enter the species type:"
+		echo "❓Which species are the samples:"
 		echo "1. 👫 Human"; echo "2. Mouse 🐭"; echo "3. Pig 🐷"; echo "4. Horse 🐴"; echo "5. Rat 🐀";
 		read -p "> " species_type	
 		if [[ "${species_type}" = "1" ]]; then 
@@ -182,8 +181,8 @@ else
 #### Check if FastQC run is wanted
 
 		./misc_scripts/top_banner.sh
-		echo "Would you like to run FastQC or skip it? "
-		echo "1. Yes! Run FastQC!"; echo "2. No. Please skip for now. ";
+		echo "❓Would you like to run FastQC or skip it? "
+		echo "1. Yes! Run FastQC! ✅"; echo "2. No. Please skip for now.❌";
 		read -p "> " qc_response
 		if [[ "${qc_response}" == "1" ]]; then
 			qc_text="run FastQC"
@@ -197,13 +196,13 @@ else
 		echo "Thank you for all of your input! Let's verify things one last time before beginning."; echo ""
 		echo "📂 The project ${project_name} will be saved at ${project_dir} 📂"
 		echo "📂 The samples for ${project_name} are located at at ${file_location} 📂"
-		echo "✅ ${concat_text}"
-		echo "✅ You have indicated you would like to ${qc_text}."
-		echo "✅ ${data_type}"
-		echo "✅ The data is ${strand_text}."
-		echo "✅ The species selected was ${species} ${species_icon}." 
-		echo "✅ ${trim_text}"; echo ""; echo ""
-		echo "❓ Would you like to proceed?"; echo "1. Yes 👍"; echo "2. No 👎 "; echo "3. Please exit ❌"
+		echo "${concat_text}"
+		echo "You have indicated you would like to ${qc_text}."
+		echo "${data_type}"
+		echo "The data is ${strand_text}."
+		echo "The species selected was ${species} ${species_icon}." 
+		echo "${trim_text}"; echo ""; echo ""
+		echo "❓Would you like to proceed?"; echo "1. Yes ✅"; echo "2. No ❌"; echo "3. Please exit 🛑"
 		read -p "> " verify
 		if [[ "${verify}" = "3" ]]; then
 			exit
