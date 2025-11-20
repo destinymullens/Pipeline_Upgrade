@@ -282,6 +282,7 @@ done
 mkdir -p "${project_location}/summary_information"
 mapping_information="${project_location}/summary_information/${project_name}-Pipeline_settings.txt"
 #touch ${mapping_information}
+start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
 cat << EOF > "${mapping_information}"
 The project "${mapping_information}" is mapping data located at "${file_location}".
 cat > "${mapping_information}" <<EOF
@@ -290,14 +291,14 @@ cat > "${mapping_information}" <<EOF
 The data is "${strand_text}".
 The species selected was "${species}" using reference "${species_ref}".
 "${trim_text}"
-	
-start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
 Pipeline began running at "${start_time}".
 EOF
-	## Create project specific config file
+
+## Create project specific config file
 mkdir -p "${project_location}"
 cp config.sh ${project_location}/config.sh
 project_config="${project_location}/config.sh"
+
 cat > "${project_config}" <<EOF
 SAVE_LOC="${SAVE_LOC}"
 project_name="${project_name}"
