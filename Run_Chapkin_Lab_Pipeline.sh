@@ -283,8 +283,10 @@ done
 mkdir -p "${project_location}/summary_information"
 mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
 #touch ${mapping_information}
-cat << EOF > "${mapping_information}"
-The project "${mapping_information}" is mapping data located at "${file_location}".
+
+echo "The project "${mapping_information}" is mapping data located at "${file_location}"." > ${mapping_information}
+
+cat > "${mapping_information}" <<EOF
 "${concat_text}"
 "${data_type}"
 The data is "${strand_type}".
