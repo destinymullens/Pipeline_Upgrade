@@ -311,4 +311,8 @@ echo "trim_base_num=${trim_base_num}" >> ${project_config}
 #echo "mapping_dir_out=${mapping_dir_out}" >> ${project_config}
 #echo "mapping_logs=${mapping_logs}" >> ${project_config}
 
-nohup ./main_scripts/Pipeline_Execute.sh 1> ${project_location}/${project_name}-log.out 2> ${project_location}/${project_name}-log.err &
+nohup ./main_scripts/Pipeline_Execute.sh \
+    > "${project_location}/${project_name}-log.out" \
+    2> "${project_location}/${project_name}-log.err" \
+    </dev/null &
+    
