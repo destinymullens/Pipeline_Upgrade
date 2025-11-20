@@ -216,14 +216,13 @@ mapping_information="${project_dir}/summary_information/${project_name}-Pipeline
 #touch ${mapping_information}
 start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
 cat << EOF > "${mapping_information}"
-The project "${mapping_information}" is mapping data located at "${file_location}".
-cat > "${mapping_information}" <<EOF
-"${concat_text}"
-"${data_type}"
-The data is "${strand_text}".
-The species selected was "${species}".
-"${trim_text}"
-Pipeline began running at "${start_time}".
+The project ${project_name} is saved at ${project_dir} and aligning samples found at ${file_location}.
+${concat_text}
+${data_type}
+The data is ${strand_text}.
+The species selected was ${species}.
+${trim_text}
+Pipeline began running at ${start_time}.
 EOF
 
 ## Create project specific config file
