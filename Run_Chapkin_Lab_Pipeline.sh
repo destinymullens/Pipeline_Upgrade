@@ -6,36 +6,15 @@ source ${SAVE_LOC}/${project_name}/config.sh
 set -e # Exit on error
 set -a # Command exports variables automatically for other scripts
 
-
-IFS=$'\n\t'
-
-die() { echo "❌ ERROR: $*" >&2; exit 1; }
-ok()  { echo "✅ $*"; }
-info(){ echo "ℹ️  $*"; }
-
-call_banner() {
-    ./misc_scripts/top_banner.sh 2>/dev/null || true
-}
-
-ask_input() {
-    # ask_input "<prompt>" varname [default]
-    local prompt="$1" varname="$2" default="${3-}"
-    local reply
-    if [[ -n "$default" ]]; then
-        read -r -p "$prompt [$default] > " reply
-        reply="${reply:-$default}"
-    else
-        read -r -p "$prompt > " reply
-    fi
-    printf -v "$varname" '%s' "$reply"
-}
-
 ## Gather user input for various variables needed to determine the correct scripts for the pipeline to process
 verify="0"
 
 clear
-call_banner
-
+echo ""
+echo "⎡‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾⎤"
+echo "⎜                                 🧬 Chapkin Lab Sequencing Pipeline 🧬                            ⎟" 
+echo "⎣__________________________________________________________________________________________________⎦"
+echo ""
 echo "Our pipeline is designed to asked questions about the data before proceeding to align the samples."
 echo ""
 echo "After all questions are answered the pipeline will process the data."
@@ -70,28 +49,15 @@ verify="0"
 until [[ "${verify}" = "1" ]]; do
 
 #### Get file location
-	while true; do
-    ./misc_scripts/top_banner.sh
-
-    echo "Where are your files located?"
-    read -p "(Please use full paths, e.g., /home/user/data) > " file_location
-    echo ""
-
-    # Validate directory exists
-    if [[ ! -d "$file_location" ]]; then
-        echo "❌ That directory does not exist. Please try again."
-        sleep 2
-        continue
-    fi
-
-    echo "Files found:"
-    find "$file_location" -type f -printf '%f\n'
-    echo ""
-
-    read -p "Are these the correct files? (1 = Yes 👍, 2 = No 👎) > " verify
-
-    [[ "$verify" == "1" ]] && break
-done
+	verify="0"
+	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
+		echo "Where are your files located? "
+		read -p "(Note: Please use /home/username instead of ~/ for files located in the home directory.)" file_location
+		echo " "
+		find ${file_location} -type f -printf '%f\n'
+		echo " "; echo "Are these the correct files?"; echo "1. Yes 👍"; echo "2. No 👎 "
+		read -p "> " verify
+	done
 
 
 #### Determine if files need concatentation
@@ -164,46 +130,30 @@ done
 
 		## If biopsy then determine type of trimming and trimming options.
 			verify="0"
+			until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
+				echo "Do you need to trim the data?"
+				echo "1. No, the data does not need to be trimmed."; 
+				echo "2. Yes, the data needs to be trimmed using a quality score."
+				echo "3. Yes, the data needs a specific number of bases trimmed."; 
+				echo "4. Yes, the data needs to be trimmed using UMI's."
+				read -p "> " trim_option
+		
+			if [[ "${trim_option}" = "1" ]]; then 
+				trim_text="The data does not need to be trimmed."				
+			elif [[ "${trim_option}" = "2" ]]; then
+				read -p "Please enter the quality score you would like to use: " trim_quality_score
+				trim_text="The data needs to be trimmed using a quality score of ${trim_quality_score}."				
+        	elif [[ "${trim_option}" = "3" ]]; then
+            	read -p "Please enter the number of bases you would like to trim: " trim_num_base
+            	trim_text="The data needs ${trim_base_num} bases trimmed." 	
+        	elif [[ "${trim_option}" = "4" ]]; then 
+				trim_text="The data needs to be trimmed using UMI's."			
+        	else echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
 
-until [[ "$verify" == "1" ]]; do
-    ./misc_scripts/top_banner.sh
-
-    echo "Do you need to trim the data?"
-    echo "1. No, the data does not need to be trimmed."
-    echo "2. Yes, trim using a quality score."
-    echo "3. Yes, trim a specific number of bases."
-    echo "4. Yes, trim using UMI's."
-    read -p "> " trim_option
-
-    case "$trim_option" in
-        1)
-            trim_text="The data does not need to be trimmed."
-            ;;
-        2)
-            read -p "Enter the quality score to use: " trim_quality_score
-            trim_text="The data needs to be trimmed using quality score ${trim_quality_score}."
-            ;;
-        3)
-            read -p "Enter the number of bases to trim: " trim_num_base
-            trim_text="The data needs ${trim_num_base} bases trimmed."
-            ;;
-        4)
-            trim_text="The data needs to be trimmed using UMI's."
-            ;;
-        *)
-            echo "⁉️ Invalid option. Please try again."
-            sleep 2
-            continue
-            ;;
-    esac
-
-    echo ""
-    echo "${trim_text}"
-    echo "Is this correct?"
-    echo "1. Yes 👍"
-    echo "2. No 👎"
-    read -p "> " verify
-done
+        	fi
+	  		echo ""; echo "${trim_text} Is this correct?"; echo "1. Yes 👍"; echo "2. No 👎 "
+			read -p "> " verify
+			done
 
 		## If data is exfoliome, set options and select pipeline
 		elif [[ "${data_type_num}" = "2" ]]; then data_type="exfoliome"
@@ -342,7 +292,7 @@ project_config="${project_location}/config.sh"
 
 echo "SAVE_LOC=$SAVE_LOC" >> ${project_config}
 echo "project_name=${project_name}" >> ${project_config}
-echo "project_location=${project_location}" >> ${project_config}
+echo "project_location=${project_location}" >> ${project_location}
 echo "file_location=${file_location}" >> ${project_config}
 echo "concat_response=${concat_response}" >> ${project_config}
 echo "concat_length=${concat_length}" >> ${project_config}
@@ -365,3 +315,4 @@ nohup ./main_scripts/Pipeline_Execute.sh \
     > "${project_location}/${project_name}-log.out" \
     2> "${project_location}/${project_name}-log.err" \
     </dev/null &
+    
