@@ -284,7 +284,7 @@ mkdir -p "${project_location}/summary_information"
 mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
 #touch ${mapping_information}
 
-echo "The project "${mapping_information}" is mapping data located at "${file_location}"." > ${mapping_information}
+echo "The project "${mapping_information}" is mapping data located at "${file_location}"." > ${project_location}/summary/${project_name}-Pipeline_settings.txt
 
 cat > "${mapping_information}" <<EOF
 "${concat_text}"
