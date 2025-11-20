@@ -168,18 +168,18 @@ else
 		
 		./misc_scripts/top_banner.sh
 		echo "Please enter the species type:"
-		echo "1. Human 👫"; echo "2. Mouse 🐭"; echo "3. Pig 🐷"; echo "4. Horse 🐴"; echo "5. Rat 🐀";
+		echo "1. 👫 Human"; echo "2. Mouse 🐭"; echo "3. Pig 🐷"; echo "4. Horse 🐴"; echo "5. Rat 🐀";
 		read -p "> " species_type	
 		if [[ "${species_type}" = "1" ]]; then 
-			species="human"; species_ref="GRCh38.p14"; species_icon="👫";
+			species="human"; species_icon="👫";
 		elif [[ "${species_type}" = "2" ]]; then 
-			species="mouse"; species_ref="GRCm39"; species_icon="🐭";
+			species="mouse"; species_icon="🐭";
 		elif [[ "${species_type}" = "3" ]]; then 
-			species="pig"; species_ref="Sus crofa 11.1"; species_icon="🐷";
+			species="pig"; species_icon="🐷";
 		elif [[ "${species_type}" = "4" ]]; then 
-			species="Equus_caballus-horse"; species_ref="Equus caballus 3.0";		
+			species="horse"; species_icon="🐴";
 		elif [[ "${species_type}" = "5" ]]; then 
-			species="rat"; species_ref="GRCr8"; species_icon="🐀";
+			species="rat"; species_icon="🐀";
 		else 
 			echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
 		fi
@@ -200,12 +200,12 @@ else
 		echo ""
 		echo "Thank you for all of your input! Let's verify things one last time before beginning."; echo ""
 		echo "📂 The project ${project_name} will be saved at ${project_location} 📂"
-		echo "📂 THe samples for ${project_name} are located at at ${file_location} 📂"
-		echo "✅ ${concat_text}";
-		echo "✅ You have indicated you would like to ${qc_text}"
+		echo "📂 The samples for ${project_name} are located at at ${file_location} 📂"
+		echo "✅ ${concat_text}"
+		echo "✅ You have indicated you would like to ${qc_text}."
 		echo "✅ ${data_type}"
 		echo "✅ The data is ${strand_text}."
-		echo "✅ The species selected was ${species} ${species_icon}" using reference ${species_ref}; 
+		echo "✅ The species selected was ${species} ${species_icon}." 
 		echo "✅ ${trim_text}"; echo ""; echo ""
 		echo "❓ Would you like to proceed?"; echo "1. Yes 👍"; echo "2. No  👎 "; echo "3. Please exit"
 		read -p "> " verify
@@ -225,7 +225,7 @@ cat > "${mapping_information}" <<EOF
 "${concat_text}"
 "${data_type}"
 The data is "${strand_text}".
-The species selected was "${species}" using reference "${species_ref}".
+The species selected was "${species}".
 "${trim_text}"
 Pipeline began running at "${start_time}".
 EOF
