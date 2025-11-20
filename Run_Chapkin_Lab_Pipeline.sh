@@ -164,6 +164,7 @@ else
 				trim_option="4"
 				trim_text="The data needs to be trimmed using UMI's."
 				strand_text="single end"
+				strand_num="1"
  			
  		## Determine Exfoliome Default or Optimized Pipeline
  				verify="0"
@@ -277,46 +278,44 @@ mkdir -p "${project_location}"
 cp config.sh ${project_location}/config.sh
 project_config="${project_location}/config.sh"
 cat > "${project_config}" <<EOF
-	SAVE_LOC="${SAVE_LOC}"
-	project_name="${project_name}"
-	project_location="${project_location}"
-	file_location="${file_location}"
-	concat_response="${concat_response:-2}"
-	concat_length="${concat_length:-}"
-	qc_response="${qc_response:-2}"
-	trim_option="${trim_option:-}"
-	trim_type="${trim_type:-}"
-	trim_quality_score="${trim_quality_score:-}"
-	trim_num_base="${trim_num_base:-}"
-	data_type="${data_type}"
-	data_option="${data_option}"
-	aligner="${aligner}"
-	strand_num="${strand_num}"
-	strand_text="${strand_text}"
-	species="${species}"
-	species_location="${species_location}"
-	species_ref="${species_ref}"
-	mapping_information="${mapping_information}"
+SAVE_LOC="${SAVE_LOC}"
+project_name="${project_name}"
+project_location="${project_location}"
+file_location="${file_location}"
+concat_response="${concat_response:-2}"
+concat_length="${concat_length:-}"
+qc_response="${qc_response:-2}"
+trim_option="${trim_option:-}"
+trim_quality_score="${trim_quality_score:-}"
+trim_num_base="${trim_num_base:-}"
+data_type="${data_type}"
+data_option="${data_option}"
+aligner="${aligner}"
+strand_num="${strand_num}"
+strand_text="${strand_text}"
+species="${species}"
+species_location="${species_location}"
+species_ref="${species_ref}"
+mapping_information="${mapping_information}"
 EOF
 	
 	## Save information to Mapping Info
-	mkdir -p "${project_location}/summary_information"
-	mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
-	touch ${mapping_information}
-	cat > "${project_config}" <<EOF
-	The project "${mapping_information}" is mapping data located at "${file_location}".
-	"${concat_text}"
-	"${data_type}"
-	The data is "${strand_type}".
-	The species selected was "${species}" using reference "${species_ref}".
-	"${trim_text}"
+mkdir -p "${project_location}/summary_information"
+mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
+touch ${mapping_information}
+cat > "${project_config}" <<EOF
+The project "${mapping_information}" is mapping data located at "${file_location}".
+"${concat_text}"
+"${data_type}"
+The data is "${strand_type}".
+The species selected was "${species}" using reference "${species_ref}".
+"${trim_text}"
 	
-	start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
-	Pipeline began running at "${start_time}".
+start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
+Pipeline began running at "${start_time}".
 EOF
-	nohup ./main_scripts/Pipeline_Execute.sh \
-   		> "${project_location}/${project_name}-log.out" \
-   		2> "${project_location}/${project_name}-log.err" \
-   		</dev/null &
-  
+nohup ./main_scripts/Pipeline_Execute.sh \
+	> "${project_location}/${project_name}-log.out" \
+   	2> "${project_location}/${project_name}-log.err" \
+   	</dev/null &
 fi
