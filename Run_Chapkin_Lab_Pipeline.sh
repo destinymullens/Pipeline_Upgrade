@@ -281,11 +281,10 @@ done
 
 	## Save information to Mapping Info
 mkdir -p "${project_location}/summary_information"
-mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
+mapping_information="${project_location}/summary_information/${project_name}-Pipeline_settings.txt"
 #touch ${mapping_information}
-
-echo "The project "${mapping_information}" is mapping data located at "${file_location}"." > ${project_location}/summary/${project_name}-Pipeline_settings.txt
-
+cat << EOF > "${mapping_information}"
+The project "${mapping_information}" is mapping data located at "${file_location}".
 cat > "${mapping_information}" <<EOF
 "${concat_text}"
 "${data_type}"
