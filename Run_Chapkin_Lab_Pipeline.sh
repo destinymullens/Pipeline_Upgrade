@@ -56,7 +56,7 @@ else
 #### Determine if files need concatentation
 		verify="0"	
 		until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh;
-			echo "❓Do the files need to concatenated?" echo "1. Yes ✅"; echo "2. No ❌"
+			echo "❓Do the files need to concatenated?"; echo "1. Yes ✅"; echo "2. No ❌"
 			read -p "> " concat_response
 		
 			if [[ "${concat_response}" == "1" ]]; then
