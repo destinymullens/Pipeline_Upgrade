@@ -200,41 +200,42 @@ else
 #### Input species and set htseq type (gene_id or gene_name)
 #### Updated pre-programmed genomes (human,mouse,pig,horse,rat) that have been updated and
 #### are now in a folder with a new name should be updated in the corresponding species_location line
-	verify="0"
+		verify="0"
 
-	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-		echo "Please enter the species type:"
-		echo "1. Human 👫"; echo "2. Mouse 🐭"; echo "3. Pig 🐷"; echo "4. Horse 🐴"; echo "5. Rat 🐀";
-		read -p "> " species_type
+		until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
+			echo "Please enter the species type:"
+			echo "1. Human 👫"; echo "2. Mouse 🐭"; echo "3. Pig 🐷"; echo "4. Horse 🐴"; echo "5. Rat 🐀";
+			read -p "> " species_type
 		
-		if [[ "${species_type}" = "1" ]]; then 
-			species="human"; species_location="${REF_LOC}/GRCh38p14-human"; species_ref="GRCh38.p14"; species_icon="👫";
-			echo ""; echo "Is ${species} 👫 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
-			read -p "> " verify	
+			if [[ "${species_type}" = "1" ]]; then 
+				species="human"; species_location="${REF_LOC}/GRCh38p14-human"; species_ref="GRCh38.p14"; species_icon="👫";
+				echo ""; echo "Is ${species} 👫 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
+				read -p "> " verify	
 
-		elif [[ "${species_type}" = "2" ]]; then 
-			species="mouse"; species_location=${REF_LOC}/GRCm39-mouse; species_ref="GRCm39"; species_icon="🐭";
-			echo ""; echo "Is ${species} 🐭 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
-			read -p "> " verify		
+			elif [[ "${species_type}" = "2" ]]; then 
+				species="mouse"; species_location=${REF_LOC}/GRCm39-mouse; species_ref="GRCm39"; species_icon="🐭";
+				echo ""; echo "Is ${species} 🐭 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
+				read -p "> " verify		
 
-		elif [[ "${species_type}" = "3" ]]; then 
-			species="pig"; species_location=${REF_LOC}/pig; species_ref="Sus crofa 11.1"; species_icon="🐷";
-			echo ""; echo "Is ${species} 🐷 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
-			read -p "> " verify			
+			elif [[ "${species_type}" = "3" ]]; then 
+				species="pig"; species_location=${REF_LOC}/pig; species_ref="Sus crofa 11.1"; species_icon="🐷";
+				echo ""; echo "Is ${species} 🐷 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
+				read -p "> " verify			
 
-		elif [[ "${species_type}" = "4" ]]; then 
-			species="Equus_caballus-horse"; species_location=${REF_LOC}/Equus_caballus_Aug2024; species_ref="Equus caballus 3.0"; species_icon="🐴";
-			echo ""; echo "Is ${species} 🐴 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
-			read -p "> " verify		
+			elif [[ "${species_type}" = "4" ]]; then 
+				species="Equus_caballus-horse"; species_location=${REF_LOC}/Equus_caballus_Aug2024; species_ref="Equus caballus 3.0"; species_icon="🐴";
+				echo ""; echo "Is ${species} 🐴 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
+				read -p "> " verify		
 
-		elif [[ "${species_type}" = "5" ]]; then 
-			species="rat"; species_location=${REF_LOC}/GRCr-8-rat; species_ref="GRCr8"; species_icon="🐀";
-			echo ""; echo "Is ${species} 🐀 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
-			read -p "> " verify		
+			elif [[ "${species_type}" = "5" ]]; then 
+				species="rat"; species_location=${REF_LOC}/GRCr-8-rat; species_ref="GRCr8"; species_icon="🐀";
+				echo ""; echo "Is ${species} 🐀 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
+				read -p "> " verify		
 
-		else echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
-		fi
-	done
+			else 
+				echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
+			fi
+		done
 
 #### Check if FastQC run is wanted
 	verify="0"	
@@ -243,16 +244,21 @@ else
 		
 		if [[ "${qc_response}" == "1" ]]; then
 			qc_text="run FastQC"
-			echo "You have indicated you would like to run FastQC. " 
-			echo "Is this correct?"; echo "1. Yes 👍"; echo "2. No  👎"
+			echo "You have indicated you would like to run FastQC. "; 
+			echo "Is this correct?"; 
+			echo "1. Yes 👍"; 
+			echo "2. No 👎"
 			read -p "> " verify
-			verify="1"
+			#verify="1"
 		else
 			qc_text="skip FastQC"
-			echo "You have indicated you would like to skip running FastQC."; 
-			echo "Is this correct?"; echo "1. Yes 👍"; echo "2. No  👎 ";
+			echo "You have indicated you would like to skip running FastQC." 
+
+			echo "Is this correct?"; 
+			echo "1. Yes 👍"; 
+			echo "2. No 👎 ";
 			read -p "> " verify
-			verify="1"
+			#verify="1"
 		fi
 	done
 
@@ -273,6 +279,21 @@ else
 	fi
 done
 
+	## Save information to Mapping Info
+mkdir -p "${project_location}/summary_information"
+mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
+touch ${mapping_information}
+cat > "${project_config}" <<EOF
+The project "${mapping_information}" is mapping data located at "${file_location}".
+"${concat_text}"
+"${data_type}"
+The data is "${strand_type}".
+The species selected was "${species}" using reference "${species_ref}".
+"${trim_text}"
+	
+start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
+Pipeline began running at "${start_time}".
+EOF
 	## Create project specific config file
 mkdir -p "${project_location}"
 cp config.sh ${project_location}/config.sh
@@ -299,21 +320,7 @@ species_ref="${species_ref}"
 mapping_information="${mapping_information}"
 EOF
 	
-	## Save information to Mapping Info
-mkdir -p "${project_location}/summary_information"
-mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
-touch ${mapping_information}
-cat > "${project_config}" <<EOF
-The project "${mapping_information}" is mapping data located at "${file_location}".
-"${concat_text}"
-"${data_type}"
-The data is "${strand_type}".
-The species selected was "${species}" using reference "${species_ref}".
-"${trim_text}"
-	
-start_time=$(timedatectl | head -1 | cut -d " " -f18-20)
-Pipeline began running at "${start_time}".
-EOF
+
 nohup ./main_scripts/Pipeline_Execute.sh \
 	> "${project_location}/${project_name}-log.out" \
    	2> "${project_location}/${project_name}-log.err" \
