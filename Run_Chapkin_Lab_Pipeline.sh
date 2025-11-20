@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Read config.sh
-source ${SAVE_LOC}/${project_name}/config.sh
+source ./config.sh
 
 set -e # Exit on error
 set -a # Command exports variables automatically for other scripts
@@ -82,9 +82,8 @@ else
 		
 			## If biopsy then determine mapping program
 			if [[ "${response}" = "1" ]]; then 
-				data_type="biopsy"
-				echo ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; 
-				echo "1. Yes 👍"; echo "2. No  👎 "
+				echo ""; echo "You have entered biopsy as the type of data you are using. Is this correct?"; 
+				echo "1. Yes 👍"; echo "2. No 👎 "
 				read -p "> " verify
 
 				verify="0"
@@ -96,13 +95,13 @@ else
 
 					if [[ "${response}" = "1" ]]; then 
 						data_type="You have indicated biopsy/tissues sample alignment using Bowtie2."
-						echo ""; echo "${data_type} Is this correct?"; echo "1. Yes 👍"; echo "2. No  👎 "
+						echo ""; echo "${data_type} Is this correct?"; echo "1. Yes 👍"; echo "2. No 👎 "
 						data_option='1A'
 						read -p "> " verify
 
 					elif [[ "${response}" = "2" ]]; then 
 						data_type="You have indicated biopsy/tissues sample alignment using STAR."
-						echo ""; echo "You have selected biopsy using STAR for alignment. Is this correct?"; echo "1. Yes 👍"; echo "2. No  👎 "
+						echo ""; echo "${data_type} Is this correct?"; echo "1. Yes 👍"; echo "2. No 👎 "
 						data_option='1B'
 						read -p "> " verify
 
@@ -152,14 +151,14 @@ else
         			else 
         				echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
       	  			fi
-	  				echo ""; echo "${trim_text} Is this correct?"; echo "1. Yes 👍"; echo "2. No  👎 "
+	  				echo ""; echo "${trim_text} Is this correct?"; echo "1. Yes 👍"; echo "2. No 👎 "
 					read -p "> " verify
 				done
 
 		## If data is exfoliome, set options and select pipeline
-			elif [[ "${response}" = "2" ]]; then data_type="exfoliome"
-				echo ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; 
-				echo "1. Yes 👍"; echo "2. No  👎 "
+			elif [[ "${response}" = "2" ]]; then 
+				echo ""; echo "You have entered exfoliome as the type of data you are using. Is this correct?"; 
+				echo "1. Yes 👍"; echo "2. No 👎 "
 				read -p "> " verify
 				trim_option="4"
 				trim_text="The data needs to be trimmed using UMI's."
@@ -169,21 +168,21 @@ else
  		## Determine Exfoliome Default or Optimized Pipeline
  				verify="0"
 				until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-					echo ""; echo "Would you like to use the default or optimized ${data_type} pipeline?"; 
+					echo ""; echo "Would you like to use the default or optimized exfoliome pipeline?"; 
 					echo "1. Default"; echo "2. Optimized"
 					read -p "> " response
 
 					if [[ "${response}" = "1" ]]; then 
-						data_type="exfoliome_default"
-						echo ""; echo "You indicated the default exfoliome pipeline. Is this correct?"; 
-						echo "1. Yes 👍"; echo "2. No  👎 "
+						data_type="You have selected the default exfoliome pipeline using Bowtie2 for alignment."
+						echo ""; echo "${data_type} Is this correct?"; 
+						echo "1. Yes 👍"; echo "2. No 👎 "
 						data_option='2B'
 						read -p "> " verify
 
 					elif [[ "${response}" = "2" ]]; then 
-						data_type="exfoliome_optimized"
-						echo ""; echo "You indicated the optimized exfoliome pipeline. Is this correct?"; 
-						echo "1. Yes 👍"; echo "2. No  👎 "
+						data_type="You have selected the optimized exfoliome pipeline using Bowtie2 for alignment."
+						echo ""; echo "${data_type} Is this correct?"; 
+						echo "1. Yes 👍"; echo "2. No 👎 "
 						data_option='2A'
 						read -p "> " verify
 
@@ -312,7 +311,6 @@ trim_quality_score="${trim_quality_score:-}"
 trim_num_base="${trim_num_base:-}"
 data_type="${data_type}"
 data_option="${data_option}"
-aligner="${aligner}"
 strand_num="${strand_num}"
 strand_text="${strand_text}"
 species="${species}"
