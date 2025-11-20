@@ -27,7 +27,7 @@ elif [[ "${species_type}" = "3" ]]; then
 	species_location=${ref_dir}/pig; species_ref="Sus crofa 11.1";
 elif [[ "${species_type}" = "4" ]]; then
 	species_location=${ref_dir}/Equus_caballus_Aug2024; species_ref="Equus caballus 3.0";
-else [[ "${species_type}" = "5" ]]; then 
+else 
 	species_location=${ref_dir}/GRCr-8-rat; species_ref="GRCr8";
 fi
 ############################################################
