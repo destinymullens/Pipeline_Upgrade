@@ -32,22 +32,23 @@ echo "";
 project_location="${SAVE_LOC}/${project_name}"
 echo "Thank you! Your final results will be saved at ${project_location}"; sleep 3
 
-## Determine if pipeline was previously ran
+#### Determine if pipeline was previously ran
 ./misc_scripts/top_banner.sh
 if [[ -f ${project_location}/config.sh ]]; then
 	echo "There is a configuration file saved at that location? Would you like to continue a previous mapping?"; 
 	echo "1. Yes 👍"; echo "2. No 👎 "
 	read -p "> " continuenum
 	if [[ "${continuenum}" == "1" ]]; then
-		nohup ./main_scripts/Pipeline_Execute.sh 1> ${SAVE_LOC}/${project_name}/${project_name}-log.out 2> ${SAVE_LOC}/${project_name}/${project_name}-log.err &
+		nohup ./main_scripts/Pipeline_Execute.sh 1> ${project_location}/${project_name}-log.out 2> ${project_location}/${project_name}-log.err &
 	else
-		:
-	rm ${SAVE_LOC}/${project_name}/config.sh
+	rm ${project_location}/config.sh
 	fi
 else
-
-### Get file location
+#### Start New Pipeline Run
+verify="0"	
 until [[ "${verify}" = "1" ]]; do
+
+#### Get file location
 	verify="0"
 	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
 		echo "Where are your files located? "
@@ -59,7 +60,7 @@ until [[ "${verify}" = "1" ]]; do
 	done
 
 
-## Determine if files need concatentation
+#### Determine if files need concatentation
 	verify="0"	
 	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
 		read -p "Do the files need to concatenated? 1. Yes 👍 2. No 👎 " concat_response
@@ -75,7 +76,7 @@ until [[ "${verify}" = "1" ]]; do
 		fi
 	done
 
-## Determine input data type: Biopsy or Exfoliome
+#### Determine input data type: Biopsy or Exfoliome
 	verify="0"
 	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
 		echo "What type of RNA-seq data are you aligning?"; echo "1. Biopsy"; echo "2. Exfoliome"
@@ -192,9 +193,9 @@ until [[ "${verify}" = "1" ]]; do
 	done
 
 
-## Input species and set htseq type (gene_id or gene_name)
-## Updated pre-programmed genomes (human,mouse,pig,horse,rat) that have been updated and
-## are now in a folder with a new name should be updated in the corresponding species_location line
+#### Input species and set htseq type (gene_id or gene_name)
+#### Updated pre-programmed genomes (human,mouse,pig,horse,rat) that have been updated and
+#### are now in a folder with a new name should be updated in the corresponding species_location line
 	verify="0"
 
 	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
@@ -232,7 +233,7 @@ until [[ "${verify}" = "1" ]]; do
 		fi
 	done
 
-## Check if FastQC run is wanted
+#### Check if FastQC run is wanted
 	verify="0"	
 	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
 		read -p "Would you like to run FastQC or skip it? 1. Yes! Run FastQC! 2. No. Please skip for now." qc_response
@@ -252,7 +253,7 @@ until [[ "${verify}" = "1" ]]; do
 		fi
 	done
 
-## Final verification of information before beginning pipeline
+#### Final verification of information before beginning pipeline
 	./misc_scripts/top_banner.sh
 	echo "Thank you for all of your input! Let's verify things one last time before beginning."; echo ""
 	echo "📂 The project ${project_name} will be saved at ${file_location} 📂"
@@ -264,8 +265,6 @@ until [[ "${verify}" = "1" ]]; do
 	echo "🔲 ${trim_disp}"; echo ""; echo ""
 	echo "Would you like to proceed?"; echo "1. Yes 👍"; echo "2. No 👎 "; echo "3. Please exit"
 	read -p "> " verify
-
-
 
 	## Save information to Mapping Info
 	mkdir -p "${project_location}/summary_information"
@@ -312,4 +311,3 @@ echo "trim_base_num=${trim_base_num}" >> ${project_config}
 #echo "mapping_logs=${mapping_logs}" >> ${project_config}
 
 nohup ./main_scripts/Pipeline_Execute.sh 1> ${project_location}/${project_name}-log.out 2> ${project_location}/${project_name}-log.err &
-
