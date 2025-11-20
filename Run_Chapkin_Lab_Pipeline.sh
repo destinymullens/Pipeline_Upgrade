@@ -81,7 +81,8 @@ else
 			read -p "> " response
 		
 			## If biopsy then determine mapping program
-			if [[ "${response}" = "1" ]]; then data_type="biopsy"
+			if [[ "${response}" = "1" ]]; then 
+				data_type="biopsy"
 				echo ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; 
 				echo "1. Yes 👍"; echo "2. No  👎 "
 				read -p "> " verify
@@ -145,7 +146,7 @@ else
 						trim_text="The data needs to be trimmed using a quality score of ${trim_quality_score}."				
     		    	elif [[ "${trim_option}" = "3" ]]; then
         		    	read -p "Please enter the number of bases you would like to trim: " trim_num_base
-            			trim_text="The data needs ${trim_base_num} bases trimmed." 	
+            			trim_text="The data needs ${trim_num_base} bases trimmed." 	
 	 		       	elif [[ "${trim_option}" = "4" ]]; then 
 						trim_text="The data needs to be trimmed using UMI's."			
         			else 
@@ -156,7 +157,7 @@ else
 				done
 
 		## If data is exfoliome, set options and select pipeline
-			elif [[ "${data_type_num}" = "2" ]]; then data_type="exfoliome"
+			elif [[ "${response}" = "2" ]]; then data_type="exfoliome"
 				echo ""; echo "You have entered ${data_type} as the type of data you are using. Is this correct?"; 
 				echo "1. Yes 👍"; echo "2. No  👎 "
 				read -p "> " verify
@@ -297,7 +298,7 @@ done
 	concat_response="${concat_response:-2}"
 	concat_length="${concat_length:-}"
 	qc_response="${qc_response:-2}"
-	trim_option="${trim_option:-${trim_option:-1}}"
+	trim_option="${trim_option:-}"
 	trim_type="${trim_type:-}"
 	trim_quality_score="${trim_quality_score:-}"
 	trim_num_base="${trim_num_base:-}"
