@@ -273,6 +273,7 @@ else
 done
 
 	## Create project specific config file
+mkdir -p "${project_location}"
 cp config.sh ${project_location}/config.sh
 project_config="${project_location}/config.sh"
 cat > "${project_config}" <<EOF
