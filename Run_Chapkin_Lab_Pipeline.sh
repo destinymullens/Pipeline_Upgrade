@@ -145,7 +145,7 @@ else
  			
  		## Determine Exfoliome Default or Optimized Pipeline
 			./misc_scripts/top_banner.sh
-			echo ""; echo "Would you like to use the default or optimized exfoliome pipeline?"; 
+			echo "Would you like to use the default or optimized exfoliome pipeline?"; 
 			echo "1. Default"; echo "2. Optimized"
 			read -p "> " response
 
@@ -167,7 +167,6 @@ else
 #### are now in a folder with a new name should be updated in the corresponding species_location line
 		
 		./misc_scripts/top_banner.sh
-		echo ""
 		echo "Please enter the species type:"
 		echo "1. Human 👫"; echo "2. Mouse 🐭"; echo "3. Pig 🐷"; echo "4. Horse 🐴"; echo "5. Rat 🐀";
 		read -p "> " species_type	
@@ -190,8 +189,12 @@ else
 		./misc_scripts/top_banner.sh
 		echo ""
 		read -p "Would you like to run FastQC or skip it? 1. Yes! Run FastQC! 2. No. Please skip for now. " qc_response
+		if [[ "${qc_response}" == "1" ]]; then
+			qc_text="run FastQC"
+		else
+			qc_text="skip FastQC"
+		fi
 	
-
 #### Final verification of information before beginning pipeline
 		./misc_scripts/top_banner.sh
 		echo ""
