@@ -61,13 +61,13 @@ else
 #### Determine if files need concatentation
 		verify="0"	
 		until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-			read -p "Do the files need to concatenated? 1. Yes 👍 2. No  👎 " concat_response
+			read -p "Do the files need to concatenated? 1. Yes 👍 2. No 👎 " concat_response
 		
 			if [[ "${concat_response}" == "1" ]]; then
 				read -p "How long is the filename? " concat_length
 				concat_text="You indicated files need to be concatenated and the filename length is ${concat_length} letters."
 				./misc_scripts/concat_preview.sh
-				echo "Is this correct?"; echo "1. Yes 👍"; echo "2. No  👎 "
+				echo "Is this correct?"; echo "1. Yes 👍"; echo "2. No 👎 "
 				read -p "> " verify
 			else
 				concat_text="You indicated the files do not need to be concatenated."; verify="1"
@@ -282,8 +282,8 @@ done
 	## Save information to Mapping Info
 mkdir -p "${project_location}/summary_information"
 mapping_information="${project_location}/summary/${project_name}-Pipeline_settings.txt"
-touch ${mapping_information}
-cat > "${project_config}" <<EOF
+#touch ${mapping_information}
+cat > "${mapping_information}" <<EOF
 The project "${mapping_information}" is mapping data located at "${file_location}".
 "${concat_text}"
 "${data_type}"
