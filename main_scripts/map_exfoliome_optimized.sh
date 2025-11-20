@@ -1,17 +1,17 @@
 #!/bin/bash
 
 # Read config.sh
-source ${project_location}/config.sh
+source ${project_dir}/config.sh
 
 # Exit on error
 set -e
 
 ## Create directories to save various files in
 
-map_dir_out="${project_location}/mapping"
+map_dir_out="${project_dir}/mapping"
 mkdir -p ${map_dir_out}
 
-map_logs="${project_location}/logs/mapping"
+map_logs="${project_dir}/logs/mapping"
 mkdir -p ${map_logs}
 
 ## Create list for files that need to be mapped

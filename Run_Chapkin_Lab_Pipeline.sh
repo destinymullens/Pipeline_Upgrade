@@ -163,7 +163,7 @@ else
 		
 		./misc_scripts/top_banner.sh
 		echo "❓Which species are the samples:"
-		echo "  1. 👫 Human"; echo "  2. Mouse 🐭"; echo "  3. Pig 🐷"; echo "  4. Horse 🐴"; echo "  5. Rat 🐀";
+		echo "  1. Human 👫"; echo "  2. Mouse 🐭"; echo "  3. Pig 🐷"; echo "  4. Horse 🐴"; echo "  5. Rat 🐀";
 		read -p "> " species_type	
 		if [[ "${species_type}" = "1" ]]; then 
 			species="human"; species_icon="👫";
@@ -227,8 +227,7 @@ Pipeline began running at "${start_time}".
 EOF
 
 ## Create project specific config file
-mkdir -p "${project_dir}"
-cp config.sh ${project_dir}/config.sh
+cp config.sh ${project_dir}
 project_config="${project_dir}/config.sh"
 
 cat > "${project_config}" <<EOF
