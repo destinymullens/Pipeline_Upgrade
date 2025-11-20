@@ -53,24 +53,6 @@ echo "";
 project_location="${SAVE_LOC}/${project_name}"
 echo "Thank you! Your final results will be saved at ${project_location}"; sleep 3
 
-while true; do
-    ask_input "Where should the project be saved? (full path, avoid ~)" SAVE_LOC
-    [[ -n "$SAVE_LOC" ]] || { echo "Please enter a directory path."; continue; }
-    SAVE_LOC="${SAVE_LOC/#\~/$HOME}"
-    if [[ ! -d "$SAVE_LOC" ]]; then
-        if ask_confirm "Directory '$SAVE_LOC' does not exist. Create it?"; then
-            mkdir -p "$SAVE_LOC" || die "Failed to create $SAVE_LOC"
-            ok "Created $SAVE_LOC"
-            break
-        else
-            continue
-        fi
-    else
-        break
-    fi
-done
-
-
 #### Determine if pipeline was previously ran
 ./misc_scripts/top_banner.sh
 if [[ -f ${project_location}/config.sh ]]; then
