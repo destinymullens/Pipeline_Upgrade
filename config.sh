@@ -19,3 +19,16 @@ REF_LOC="/mnt/matrix/roo/refs"
 #The following variable is for the number of threads available on the computer you are using.
 THREADS=8
 
+if [[ "${species_type}" = "1" ]]; then 
+	species_location="${REF_LOC}/GRCh38p14-human"; 
+elif [[ "${species_type}" = "2" ]]; then 
+	species_location=${REF_LOC}/GRCm39-mouse; 
+elif [[ "${species_type}" = "3" ]]; then
+	species_location=${REF_LOC}/pig; 
+elif [[ "${species_type}" = "4" ]]; then
+	species_location=${REF_LOC}/Equus_caballus_Aug2024;
+elif [[ "${species_type}" = "5" ]]; then 
+	species_location=${REF_LOC}/GRCr-8-rat;
+else
+fi
+############################################################

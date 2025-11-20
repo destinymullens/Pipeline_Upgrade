@@ -75,127 +75,91 @@ else
 		done
 
 #### Determine input data type: Biopsy or Exfoliome
-		verify="0"
-		until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-			echo "What type of RNA-seq data are you aligning?"; echo "1. Biopsy"; echo "2. Exfoliome"
+		./misc_scripts/top_banner.sh
+		echo "What type of RNA-seq data are you aligning?"; echo "1. Biopsy"; echo "2. Exfoliome"
+		read -p "> " response
+		
+	## If biopsy then determine mapping program
+		if [[ "${response}" = "1" ]]; then 
+			./misc_scripts/top_banner.sh
+			echo ""; echo "You have entered ${data_type} as the type of data you are using. Would you like to use Bowtie2 or STAR for alignment?"; 
+			echo "1. Bowtie2"; echo "2. STAR"
 			read -p "> " response
-		
-			## If biopsy then determine mapping program
+
 			if [[ "${response}" = "1" ]]; then 
-				echo ""; echo "You have entered biopsy as the type of data you are using. Is this correct?"; 
-				echo "1. Yes 👍"; echo "2. No 👎 "
-				read -p "> " verify
-
-				verify="0"
-		## If biopsy then determine alignment program
-				until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-					echo ""; echo "You have entered ${data_type} as the type of data you are using. Would you like to use Bowtie2 or STAR for alignment?"; 
-					echo "1. Bowtie2"; echo "2. STAR"
-					read -p "> " response
-
-					if [[ "${response}" = "1" ]]; then 
-						data_type="You have indicated biopsy/tissues sample alignment using Bowtie2."
-						echo ""; echo "${data_type} Is this correct?"; echo "1. Yes 👍"; echo "2. No 👎 "
-						data_option='1A'
-						read -p "> " verify
-
-					elif [[ "${response}" = "2" ]]; then 
-						data_type="You have indicated biopsy/tissues sample alignment using STAR."
-						echo ""; echo "${data_type} Is this correct?"; echo "1. Yes 👍"; echo "2. No 👎 "
-						data_option='1B'
-						read -p "> " verify
-
-					else 
-						echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
-					fi
-				done
-		
-		## If biopsy then determine if paired or single end reads
-				verify="0"
-				until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-					echo "Is your data single end or paired end? "
-					echo "1. Single end"; echo "2. Paired end"
-					read -p "> " strand_num
-					if [[ "${strand_num}" = "1" ]]; then 
-						strand_text="single end"
-					elif [[ "${strand_num}" = "2" ]]; then 
-						strand_text="paired end"
-						echo "Important note: When using paired end samples, the files must end with R1.fastq.gz and R2.fastq.gz."
-					else echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
-					fi
-					echo " "; echo "You entered ${strand_text}. Is this correct?"; echo "1. Yes 👍"; echo "2. No  👎 "
-					read -p "> " verify
-				done
-
-
-		## If biopsy then determine type of trimming and trimming options.
-				verify="0"
-				until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-					echo "Do you need to trim the data?"
-					echo "1. No, the data does not need to be trimmed."; 
-					echo "2. Yes, the data needs to be trimmed using a quality score."
-					echo "3. Yes, the data needs a specific number of bases trimmed."; 
-					echo "4. Yes, the data needs to be trimmed using UMI's."
-					read -p "> " trim_option
-
-					if [[ "${trim_option}" = "1" ]]; then 
-						trim_text="The data does not need to be trimmed."				
-					elif [[ "${trim_option}" = "2" ]]; then
-						read -p "Please enter the quality score you would like to use: " trim_quality_score
-						trim_text="The data needs to be trimmed using a quality score of ${trim_quality_score}."				
-    		    	elif [[ "${trim_option}" = "3" ]]; then
-        		    	read -p "Please enter the number of bases you would like to trim: " trim_num_base
-            			trim_text="The data needs ${trim_num_base} bases trimmed." 	
-	 		       	elif [[ "${trim_option}" = "4" ]]; then 
-						trim_text="The data needs to be trimmed using UMI's."			
-        			else 
-        				echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
-      	  			fi
-	  				echo ""; echo "${trim_text} Is this correct?"; echo "1. Yes 👍"; echo "2. No 👎 "
-					read -p "> " verify
-				done
-
-		## If data is exfoliome, set options and select pipeline
+				data_type="You have indicated biopsy/tissues sample alignment using Bowtie2."
+				data_option='1A'
 			elif [[ "${response}" = "2" ]]; then 
-				echo ""; echo "You have entered exfoliome as the type of data you are using. Is this correct?"; 
-				echo "1. Yes 👍"; echo "2. No 👎 "
-				read -p "> " verify
-				trim_option="4"
-				trim_text="The data needs to be trimmed using UMI's."
-				strand_text="single end"
-				strand_num="1"
- 			
- 		## Determine Exfoliome Default or Optimized Pipeline
- 				verify="0"
-				until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-					echo ""; echo "Would you like to use the default or optimized exfoliome pipeline?"; 
-					echo "1. Default"; echo "2. Optimized"
-					read -p "> " response
-
-					if [[ "${response}" = "1" ]]; then 
-						data_type="You have selected the default exfoliome pipeline using Bowtie2 for alignment."
-						echo ""; echo "${data_type} Is this correct?"; 
-						echo "1. Yes 👍"; echo "2. No 👎 "
-						data_option='2B'
-						read -p "> " verify
-
-					elif [[ "${response}" = "2" ]]; then 
-						data_type="You have selected the optimized exfoliome pipeline using Bowtie2 for alignment."
-						echo ""; echo "${data_type} Is this correct?"; 
-						echo "1. Yes 👍"; echo "2. No 👎 "
-						data_option='2A'
-						read -p "> " verify
-
-					else 
-						echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
-					fi
-				done
+				data_type="You have indicated biopsy/tissues sample alignment using STAR."
+				data_option='1B'
 			else 
 				echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
 			fi
-		done
+	
+		## If biopsy then determine if paired or single end reads	
+			./misc_scripts/top_banner.sh
+			echo "Is your data single end or paired end? "
+			echo "1. Single end"; echo "2. Paired end"
+			echo " Note: When using paired end samples, the files must end with R1.fastq.gz and R2.fastq.gz."
+			read -p "> " strand_num
+			if [[ "${strand_num}" = "1" ]]; then 
+				strand_text="single end"
+			elif [[ "${strand_num}" = "2" ]]; then 
+				strand_text="paired end"				
+			else echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
+			fi
+
+		## If biopsy then determine type of trimming and trimming options.
+			./misc_scripts/top_banner.sh
+			echo "Do you need to trim the data?"
+			echo "1. No, the data does not need to be trimmed."; 
+			echo "2. Yes, the data needs to be trimmed using a quality score."
+			echo "3. Yes, the data needs a specific number of bases trimmed."; 
+			echo "4. Yes, the data needs to be trimmed using UMI's."
+			read -p "> " trim_option
+
+			if [[ "${trim_option}" = "1" ]]; then 
+				trim_text="The data does not need to be trimmed."				
+			elif [[ "${trim_option}" = "2" ]]; then
+				read -p "Please enter the quality score you would like to use: " trim_quality_score
+				trim_text="The data needs to be trimmed using a quality score of ${trim_quality_score}."				
+   	    	elif [[ "${trim_option}" = "3" ]]; then
+   	    		read -p "Please enter the number of bases you would like to trim: " trim_num_base
+   	    		trim_text="The data needs ${trim_num_base} bases trimmed."
+   	    	elif [[ "${trim_option}" = "4" ]]; then
+   	    		trim_text="The data needs to be trimmed using UMI's."
+   	    	else
+   	    		echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
+   	    	fi
 
 
+		## If data is exfoliome, set options and select pipeline
+		elif [[ "${response}" = "2" ]]; then 
+			echo ""; echo "You have entered exfoliome as the type of data you are using. Is this correct?"; 
+			trim_option="4"
+			trim_text="The data needs to be trimmed using UMI's."
+			strand_text="single end"
+			strand_num="1"
+ 			
+ 		## Determine Exfoliome Default or Optimized Pipeline
+			./misc_scripts/top_banner.sh
+			echo ""; echo "Would you like to use the default or optimized exfoliome pipeline?"; 
+			echo "1. Default"; echo "2. Optimized"
+			read -p "> " response
+
+			if [[ "${response}" = "1" ]]; then 
+				data_type="You have selected the default exfoliome pipeline using Bowtie2 for alignment."
+				data_option='2B'
+			elif [[ "${response}" = "2" ]]; then
+				data_type="You have selected the optimized exfoliome pipeline using Bowtie2 for alignment."
+				data_option='2A'
+			else 
+				echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
+			fi
+		else 
+				echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
+			fi
+	
 #### Input species and set htseq type (gene_id or gene_name)
 #### Updated pre-programmed genomes (human,mouse,pig,horse,rat) that have been updated and
 #### are now in a folder with a new name should be updated in the corresponding species_location line
@@ -204,33 +168,17 @@ else
 		until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
 			echo "Please enter the species type:"
 			echo "1. Human 👫"; echo "2. Mouse 🐭"; echo "3. Pig 🐷"; echo "4. Horse 🐴"; echo "5. Rat 🐀";
-			read -p "> " species_type
-		
+			read -p "> " species_type	
 			if [[ "${species_type}" = "1" ]]; then 
-				species="human"; species_location="${REF_LOC}/GRCh38p14-human"; species_ref="GRCh38.p14"; species_icon="👫";
-				echo ""; echo "Is ${species} 👫 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
-				read -p "> " verify	
-
+				species="human"; species_ref="GRCh38.p14"; species_icon="👫";
 			elif [[ "${species_type}" = "2" ]]; then 
-				species="mouse"; species_location=${REF_LOC}/GRCm39-mouse; species_ref="GRCm39"; species_icon="🐭";
-				echo ""; echo "Is ${species} 🐭 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
-				read -p "> " verify		
-
+				species="mouse"; species_ref="GRCm39"; species_icon="🐭";
 			elif [[ "${species_type}" = "3" ]]; then 
-				species="pig"; species_location=${REF_LOC}/pig; species_ref="Sus crofa 11.1"; species_icon="🐷";
-				echo ""; echo "Is ${species} 🐷 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
-				read -p "> " verify			
-
+				species="pig"; species_ref="Sus crofa 11.1"; species_icon="🐷";
 			elif [[ "${species_type}" = "4" ]]; then 
-				species="Equus_caballus-horse"; species_location=${REF_LOC}/Equus_caballus_Aug2024; species_ref="Equus caballus 3.0"; species_icon="🐴";
-				echo ""; echo "Is ${species} 🐴 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
-				read -p "> " verify		
-
+				species="Equus_caballus-horse"; species_ref="Equus caballus 3.0";		
 			elif [[ "${species_type}" = "5" ]]; then 
-				species="rat"; species_location=${REF_LOC}/GRCr-8-rat; species_ref="GRCr8"; species_icon="🐀";
-				echo ""; echo "Is ${species} 🐀 correct? "; echo "1. Yes 👍"; echo "2. No  👎 "
-				read -p "> " verify		
-
+				species="rat"; species_ref="GRCr8"; species_icon="🐀";
 			else 
 				echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
 			fi
@@ -238,40 +186,22 @@ else
 
 #### Check if FastQC run is wanted
 	verify="0"	
-	until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-		read -p "Would you like to run FastQC or skip it? 1. Yes! Run FastQC! 2. No. Please skip for now. " qc_response
-		
-		if [[ "${qc_response}" == "1" ]]; then
-			qc_text="run FastQC"
-			echo "You have indicated you would like to run FastQC. "; 
-			echo "Is this correct?"; 
-			echo "1. Yes 👍"; 
-			echo "2. No 👎"
-			read -p "> " verify
-			#verify="1"
-		else
-			qc_text="skip FastQC"
-			echo "You have indicated you would like to skip running FastQC." 
-
-			echo "Is this correct?"; 
-			echo "1. Yes 👍"; 
-			echo "2. No 👎 ";
-			read -p "> " verify
-			#verify="1"
-		fi
-	done
+	./misc_scripts/top_banner.sh
+	read -p "Would you like to run FastQC or skip it? 1. Yes! Run FastQC! 2. No. Please skip for now. " qc_response
+	
 
 #### Final verification of information before beginning pipeline
 	./misc_scripts/top_banner.sh
 	echo "Thank you for all of your input! Let's verify things one last time before beginning."; echo ""
-	echo "📂 The project ${project_name} will be saved at ${file_location} 📂"
-	echo "🔲 ${concat_text}";
-	echo "🔲 You have indicated you would like to ${qc_text}"
-	echo "🔲 ${data_type}"
-	echo "🔲 The data is ${strand_text}."
-	echo "🔲 The species selected was ${species} ${species_icon}" using reference ${species_ref}; 
-	echo "🔲 ${trim_text}"; echo ""; echo ""
-	echo "Would you like to proceed?"; echo "1. Yes 👍"; echo "2. No  👎 "; echo "3. Please exit"
+	echo "📂 The project ${project_name} will be saved at ${project_location} 📂"
+	echo "📂 THe samples for ${project_name} are located at at ${file_location} 📂"
+	echo "✅ ${concat_text}";
+	echo "✅ You have indicated you would like to ${qc_text}"
+	echo "✅ ${data_type}"
+	echo "✅ The data is ${strand_text}."
+	echo "✅ The species selected was ${species} ${species_icon}" using reference ${species_ref}; 
+	echo "✅ ${trim_text}"; echo ""; echo ""
+	echo "❓ Would you like to proceed?"; echo "1. Yes 👍"; echo "2. No  👎 "; echo "3. Please exit"
 	read -p "> " verify
 	if [[ "${verify}" = "3" ]]; then
 		exit
