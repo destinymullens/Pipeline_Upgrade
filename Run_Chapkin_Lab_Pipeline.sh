@@ -43,6 +43,7 @@ if [[ -f ${project_location}/config.sh ]]; then
 	fi
 else
 
+
 #### Start New Pipeline Run
 	verify="0"	
 	until [[ "${verify}" = "1" ]]; do
@@ -163,50 +164,50 @@ else
 #### Input species and set htseq type (gene_id or gene_name)
 #### Updated pre-programmed genomes (human,mouse,pig,horse,rat) that have been updated and
 #### are now in a folder with a new name should be updated in the corresponding species_location line
-		verify="0"
+		
 
-		until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh
-			echo "Please enter the species type:"
-			echo "1. Human 👫"; echo "2. Mouse 🐭"; echo "3. Pig 🐷"; echo "4. Horse 🐴"; echo "5. Rat 🐀";
-			read -p "> " species_type	
-			if [[ "${species_type}" = "1" ]]; then 
-				species="human"; species_ref="GRCh38.p14"; species_icon="👫";
-			elif [[ "${species_type}" = "2" ]]; then 
-				species="mouse"; species_ref="GRCm39"; species_icon="🐭";
-			elif [[ "${species_type}" = "3" ]]; then 
-				species="pig"; species_ref="Sus crofa 11.1"; species_icon="🐷";
-			elif [[ "${species_type}" = "4" ]]; then 
-				species="Equus_caballus-horse"; species_ref="Equus caballus 3.0";		
-			elif [[ "${species_type}" = "5" ]]; then 
-				species="rat"; species_ref="GRCr8"; species_icon="🐀";
-			else 
-				echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
-			fi
-		done
+		./misc_scripts/top_banner.sh
+		echo "Please enter the species type:"
+		echo "1. Human 👫"; echo "2. Mouse 🐭"; echo "3. Pig 🐷"; echo "4. Horse 🐴"; echo "5. Rat 🐀";
+		read -p "> " species_type	
+		if [[ "${species_type}" = "1" ]]; then 
+			species="human"; species_ref="GRCh38.p14"; species_icon="👫";
+		elif [[ "${species_type}" = "2" ]]; then 
+			species="mouse"; species_ref="GRCm39"; species_icon="🐭";
+		elif [[ "${species_type}" = "3" ]]; then 
+			species="pig"; species_ref="Sus crofa 11.1"; species_icon="🐷";
+		elif [[ "${species_type}" = "4" ]]; then 
+			species="Equus_caballus-horse"; species_ref="Equus caballus 3.0";		
+		elif [[ "${species_type}" = "5" ]]; then 
+			species="rat"; species_ref="GRCr8"; species_icon="🐀";
+		else 
+			echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
+		fi
+		
 
 #### Check if FastQC run is wanted
-	verify="0"	
-	./misc_scripts/top_banner.sh
-	read -p "Would you like to run FastQC or skip it? 1. Yes! Run FastQC! 2. No. Please skip for now. " qc_response
+
+		./misc_scripts/top_banner.sh
+		read -p "Would you like to run FastQC or skip it? 1. Yes! Run FastQC! 2. No. Please skip for now. " qc_response
 	
 
 #### Final verification of information before beginning pipeline
-	./misc_scripts/top_banner.sh
-	echo "Thank you for all of your input! Let's verify things one last time before beginning."; echo ""
-	echo "📂 The project ${project_name} will be saved at ${project_location} 📂"
-	echo "📂 THe samples for ${project_name} are located at at ${file_location} 📂"
-	echo "✅ ${concat_text}";
-	echo "✅ You have indicated you would like to ${qc_text}"
-	echo "✅ ${data_type}"
-	echo "✅ The data is ${strand_text}."
-	echo "✅ The species selected was ${species} ${species_icon}" using reference ${species_ref}; 
-	echo "✅ ${trim_text}"; echo ""; echo ""
-	echo "❓ Would you like to proceed?"; echo "1. Yes 👍"; echo "2. No  👎 "; echo "3. Please exit"
-	read -p "> " verify
-	if [[ "${verify}" = "3" ]]; then
-		exit
-	fi
-done
+		./misc_scripts/top_banner.sh
+		echo "Thank you for all of your input! Let's verify things one last time before beginning."; echo ""
+		echo "📂 The project ${project_name} will be saved at ${project_location} 📂"
+		echo "📂 THe samples for ${project_name} are located at at ${file_location} 📂"
+		echo "✅ ${concat_text}";
+		echo "✅ You have indicated you would like to ${qc_text}"
+		echo "✅ ${data_type}"
+		echo "✅ The data is ${strand_text}."
+		echo "✅ The species selected was ${species} ${species_icon}" using reference ${species_ref}; 
+		echo "✅ ${trim_text}"; echo ""; echo ""
+		echo "❓ Would you like to proceed?"; echo "1. Yes 👍"; echo "2. No  👎 "; echo "3. Please exit"
+		read -p "> " verify
+		if [[ "${verify}" = "3" ]]; then
+			exit
+		fi
+	done
 
 	## Save information to Mapping Info
 mkdir -p "${project_location}/summary_information"
