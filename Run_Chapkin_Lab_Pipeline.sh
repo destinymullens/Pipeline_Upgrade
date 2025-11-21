@@ -226,10 +226,10 @@ Pipeline began running at ${start_time}.
 EOF
 
 ## Create project specific config file
-cp config.sh ${project_dir}/
+cp ./config.sh ${project_dir}/
 project_config="${project_dir}/config.sh"
 
-cat > "${project_config}" <<EOF
+cat >> "${project_config}" <<EOF
 save_dir="${save_dir}"
 project_name="${project_name}"
 project_dir="${project_dir}"
