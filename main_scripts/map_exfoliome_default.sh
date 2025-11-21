@@ -6,16 +6,30 @@ source ${project_dir}/config.sh
 # Exit on error
 set -e
 
-MAP_FILES=$(ls ${mapfiles})
-SUMMARY="${project_dir}/summary/$project_name-Mapping_summary.csv"
+## Create directories to save various files in
 
-##### RUN BOWTIE2 #########
-for m in $MAP_FILES; do
-	FILE=$(basename $m)
-	printf "%s\n" "Mapping of ${FILE} beginning..."
-	${BOWTIE} -x ${species_location}/bowtie2/${species} --threads ${THREADS} -U ${mapfiles}/${m} --time -S ${mapping_dir_out}/${FILE}.sam 2> ${mapping_logs}/${FILE}-Results.log
-	printf "%s\n" "Mapping of ${FILE} complete."
+map_log_dir="${project_dir}/logs/mapping"
+mkdir -p ${map_log_dir}
+
+## Create list for files that need to be mapped
+SampleList=$(ls ${map_dir_in})
+
+for Sample in ${SampleList}; do
+	SampleName="${Sample%%.*}"
+	map_file_out="${map_dir_out}/${SampleName}.sam"
+	map_log_file="${map_log_dir}/${SampleName}.results.log"
+
+	echo "Beginning alignment of $SampleName..."
+	${BOWTIE} -x ${Bowtie2_ref} --threads ${THREADS} -U ${map_dir_in}/${Sample} --time -S ${map_file_out} 2> ${map_log_file}
+	echo "Optimized alignment of $SampleName cmplete."
 done
-printf "%s\n" "✅ Mapping of all samples complete."
-bowtie_version=$(${BOWTIE} --version | cut -d " " -f3)
-echo "Mapping performed using Bowtie2 version ${bowtie_version} with default settings." >> ${mapping_information}
+
+echo "✅ Alignment of all samples is complete!!!"
+
+bowtie_version=$(${BOWTIE} --version | cut -d " " -f3 | head -1)
+
+## Add Reference information to Mapping Info!!!!
+cat >> "${mapping_information}" <<EOF
+Alignment performed with Bowtie2 ${bowtie_version} with default parameters.
+The reference ${species_ref} was used for sample alignment.
+EOF
