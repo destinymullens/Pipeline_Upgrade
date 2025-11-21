@@ -14,6 +14,7 @@ if [[ "${concat_response}" == "1" ]]; then
 	mkdir -p ${concat_dir}
 	trim_dir_in=${concat_dir}
 	qc_dir_in=${concat_dir}
+	echo "${trim_dir_in}"
 	./main_scripts/concat_files.sh
 else
 	echo "File concatentation not needed."
