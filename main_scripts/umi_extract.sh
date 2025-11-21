@@ -35,6 +35,7 @@ umi_tools_version=$($UMI_TOOLS --version)
 cutadapt_version=$($CUTADAPT --version)
 ## Add information to Mapping information document
 cat >> "${mapping_information}" <<EOF
+
 UMI extraction and deduplication performed with $umi_tools_version.
 Quality trimming (Q30) performed and discarding of reads < 30 bp using Cutadapt version $cutadapt_version.
 EOF
