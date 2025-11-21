@@ -45,25 +45,25 @@ else
 #### Get file location
 		verify="0"
 		until [[ "${verify}" = "1" ]]; do 
-			echo "❓Where are the raw FASTQ files located? "
+			echo "❓ Where are the raw FASTQ files located? "
 			read -p "> " file_location
 			echo ""
 			find ${file_location} -type f -printf '%f\n'
-			echo " "; echo "Are these the correct files?"; echo""; echo "✅ 1. Yes"; echo " ❌ 2. No"; echo"";
+			echo " "; echo "Are these the correct files?"; echo""; echo "✅ 1. Yes"; echo "❌ 2. No"; echo"";
 			read -p "> " verify
 		done
 
 #### Determine if files need concatentation
 		verify="0"	
 		until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh;
-			echo "❓Do the files need to concatenated?"; echo""; echo "✅ 1. Yes"; echo " ❌ 2. No"; echo"";
+			echo "❓ Do the files need to concatenated?"; echo""; echo "✅ 1. Yes"; echo "❌ 2. No"; echo"";
 			read -p "> " concat_response
 		
 			if [[ "${concat_response}" == "1" ]]; then
 				echo " "; read -p "How long is the filename? " concat_length
 				concat_text="You indicated files need to be concatenated and the filename length is ${concat_length} letters."
 				./misc_scripts/concat_preview.sh  
-				echo "Is this correct?"; echo""; echo "✅ 1. Yes"; echo " ❌ 2. No"; echo"";
+				echo "Is this correct?"; echo""; echo "✅ 1. Yes"; echo "❌ 2. No"; echo"";
 				read -p "> " verify
 			else
 				concat_text="You indicated the files do not need to be concatenated."; verify="1"
@@ -72,7 +72,7 @@ else
 
 #### Determine input data type: Biopsy or Exfoliome
 		./misc_scripts/top_banner.sh
-		echo "❓What type of RNA-seq data are you aligning?"; echo "  1. Biopsy"; echo "  2. Exfoliome"
+		echo "❓ What type of RNA-seq data are you aligning?"; echo "  1. Biopsy"; echo "  2. Exfoliome"
 		read -p "> " response
 		
 	## If biopsy then determine mapping program
@@ -95,7 +95,7 @@ else
 		## If biopsy then determine if paired or single end reads	
 			./misc_scripts/top_banner.sh
 			echo ""
-			echo "❓Is your data single end or paired end? "
+			echo "❓ Is your data single end or paired end? "
 			echo "  1. Single end"; echo "  2. Paired end"
 			echo " Note: When using paired end samples, the files must end with R1.fastq.gz and R2.fastq.gz."
 			read -p "> " strand_num
@@ -109,11 +109,11 @@ else
 		## If biopsy then determine type of trimming and trimming options.
 			./misc_scripts/top_banner.sh
 			echo ""
-			echo "❓Do you need to trim the data?"
-			echo "  1. No, the data does not need to be trimmed."; 
-			echo "  2. Yes, the data needs to be trimmed using a quality score."
-			echo "  3. Yes, the data needs a specific number of bases trimmed."; 
-			echo "  4. Yes, the data needs to be trimmed using UMI's."
+			echo "❓ Do you need to trim the data?"
+			echo "   1. No, the data does not need to be trimmed."; 
+			echo "   2. Yes, the data needs to be trimmed using a quality score."
+			echo "   3. Yes, the data needs a specific number of bases trimmed."; 
+			echo "   4. Yes, the data needs to be trimmed using UMI's."
 			read -p "> " trim_option
 
 			if [[ "${trim_option}" = "1" ]]; then 
@@ -162,7 +162,7 @@ else
 #### are now in a folder with a new name should be updated in the corresponding species_location line
 		
 		./misc_scripts/top_banner.sh
-		echo "❓Which species are the samples:"
+		echo "❓ Which species are the samples:"
 		echo "  1. Human 👫"; echo "  2. Mouse 🐭"; echo "  3. Pig 🐷"; echo "  4. Horse 🐴"; echo "  5. Rat 🐀";
 		read -p "> " species_type	
 		if [[ "${species_type}" = "1" ]]; then 
