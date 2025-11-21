@@ -4,8 +4,8 @@
 source ${project_dir}/config.sh
 
 # Exit on error
-set -e
-
+set -e # Exit on error
+set -a # Command exports variables automatically for other scripts
 ./misc_scripts/top_banner.sh
 
 ## Run concatenation script if needed
@@ -15,7 +15,7 @@ if [[ "${concat_response}" == "1" ]]; then
 	trim_dir_in=${concat_dir}
 	qc_dir_in=${concat_dir}
 
-	./main_scripts/concat_run.sh
+	./main_scripts/concat_files.sh
 else
 	echo "File concatentation not needed."
 	trim_dir_in=${file_location}
