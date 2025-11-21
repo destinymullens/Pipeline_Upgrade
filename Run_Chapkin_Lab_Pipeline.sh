@@ -31,7 +31,7 @@ if [[ -f ${project_dir}/config.sh ]]; then
 	echo "❓There is a configuration file saved at that location? Would you like to continue a previous mapping?"; 
 	echo "  1. Yes"; echo "  2. No"
 	read -p "> " continuenum
-	if [[ "${continuenum}" == "2" ]]; then
+	if [[ "${continuenum}" == "1" ]]; then
 		nohup ./main_scripts/Pipeline_Execute.sh 1> ${project_dir}/${project_name}-log.out 2> ${project_dir}/${project_name}-log.err &
 	else
 	rm ${project_dir}/config.sh
