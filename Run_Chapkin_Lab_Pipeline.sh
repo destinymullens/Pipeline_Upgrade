@@ -49,21 +49,21 @@ else
 			read -p "> " file_location
 			echo ""
 			find ${file_location} -type f -printf '%f\n'
-			echo " "; echo "Are these the correct files?"; echo""; echo "  1.✅ Yes"; echo "  2.❌ No"; echo"";
+			echo " "; echo "Are these the correct files?"; echo""; echo "✅ 1. Yes"; echo " ❌ 2. No"; echo"";
 			read -p "> " verify
 		done
 
 #### Determine if files need concatentation
 		verify="0"	
 		until [[ "${verify}" = "1" ]]; do ./misc_scripts/top_banner.sh;
-			echo "❓Do the files need to concatenated?"; echo""; echo "  1.✅ Yes"; echo "  2.❌ No"; echo"";
+			echo "❓Do the files need to concatenated?"; echo""; echo "✅ 1. Yes"; echo " ❌ 2. No"; echo"";
 			read -p "> " concat_response
 		
 			if [[ "${concat_response}" == "1" ]]; then
 				echo " "; read -p "How long is the filename? " concat_length
 				concat_text="You indicated files need to be concatenated and the filename length is ${concat_length} letters."
 				./misc_scripts/concat_preview.sh  
-				echo "Is this correct?"; echo""; echo "  1.✅ Yes"; echo "  2.❌ No"; echo"";
+				echo "Is this correct?"; echo""; echo "✅ 1. Yes"; echo " ❌ 2. No"; echo"";
 				read -p "> " verify
 			else
 				concat_text="You indicated the files do not need to be concatenated."; verify="1"
@@ -203,7 +203,7 @@ else
 		echo "The data is ${strand_text}."
 		echo "The species selected was ${species} ${species_icon}." 
 		echo "${trim_text}"; echo ""; echo ""
-		echo "❓Would you like to proceed?"; echo""; echo "  1.✅ Yes"; echo "  2.❌ No"; echo "🛑 3. Please exit" echo"";
+		echo "❓Would you like to proceed?"; echo""; echo "  echo "✅ 1. Yes"; echo " ❌ 2. No"; echo "🛑 3. Please exit" echo"";
 		read -p "> " verify
 		if [[ "${verify}" = "3" ]]; then
 			exit

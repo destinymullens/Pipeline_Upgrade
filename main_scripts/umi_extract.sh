@@ -16,8 +16,8 @@ for Sample in ${SampleList}; do
 	SampleName="${Sample%%.*}"
 
 	logfile="${trim_log}/${SampleName}_processed.log"
-	umi_out_file="${trim_dir_out1}/${SampleName}_processed.fastq.gz"
-	trim_out_file="${trim_dir_out2}/${SampleName}_trimmed.processed.fastq.gz"
+	umi_out_file="${trim_dir_out1}/${SampleName}.processed.fastq.gz"
+	trim_out_file="${trim_dir_out2}/${SampleName}.trimmed.processed.fastq.gz"
 	
 	if [[ ! -f ${trim_dir_out2}/${trim_out_file} ]]; then	
 		echo "Extracting of UMI's from ${SampleName}...."	
