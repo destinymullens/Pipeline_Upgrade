@@ -8,50 +8,39 @@ set -e
 
 mkdir -p "${project_dir}/htseq_counts"
 htseq_dir_out="${project_dir}/htseq_counts"
-samples=$(ls $htseq_dir_in/*am)
 
+SampleList=$(ls $htseq_dir_in/*am)
 summary_file="${project_dir}/summary/$project_name-htseq-metrics.csv"
-## Creates headers for summary
-printf "%s\t" "Sample Name" >> ${summary_file} ## Print sample name to summary  
-printf "%s\t" "Genes > 0 Reads" >> ${summary_file} ## Print sample name to summary
-printf "%s\t" "Genes > 1 Reads" >> ${summary_file} ## Print sample name to summary  
-printf "%s\n" "Genes > 2 Reads" >> ${summary_file} ## Print sample name to summary  
 
+## Creates headers for summary
 mkdir -p "${htseq_dir_out}/sam_files"
 mkdir -p "${htseq_dir_out}/counts"
-mkdir -p "${htseq_dir_out}/summary"
-mkdir -p "${htseq_dir_out}/temp"
+#mkdir -p "${htseq_dir_out}/temp"
+mkdir -p "${htseq_dir_out}/summary_file"
 
-for i in ${samples}; do
-	FILE=$(basename $i)
-	if [[ ! -f ${htseq_dir_out}/counts/${FILE}-htseq.csv ]]; then
-		printf "%s\n" "Counting of ${FILE} beginning..."
+for Sample in ${SampleList}; do
+	SampleName="${Sample%%.*}"
+	counts_file_out="${htseq_dir_out}/counts/${SampleName}-htseq.csv"
+	sam_file_out="${htseq_dir_out}/sam_files/${SampleName}-htseq.sam"
+	summary_file_out="${htseq_dir_out}/summary/${SampleName}-htseq_summary.txt"
+
+	FILE=$(basename $Sample)
+	if [[ ! -f ${htseq_dir_out}/counts/${SampleName}-htseq.csv ]]; then
+		echo "Quanitification of ${SampleName} beginning..."
 			if [[ "${strand_num}" = "1" ]]; then	
-				${HTSEQ_LOC} ${i} ${species_location}/genes.gtf --stranded=no -m intersection-strict -f sam -i gene --additional-attr=GeneID -o ${htseq_dir_out}/sam_files/${FILE}-htseq.sam -c ${htseq_dir_out}/counts/${FILE}-htseq.csv --with-header
+				${HTSEQ_LOC} ${Sample} ${HTSeq_ref} --stranded=no -m intersection-strict -f sam -i gene --additional-attr=GeneID -o ${sam_file_out} -c ${counts_file_out} --with-header
 			else
-				${HTSEQ_LOC} --stranded=yes -m intersection-strict -f sam -i gene --additional-attr=GeneID ${i} ${species_location}/genes.gtf -o ${htseq_dir_out}/sam_files/${FILE}-htseq.sam -c ${htseq_dir_out}/counts/${FILE}-htseq.csv --with-header
+				${HTSEQ_LOC} --stranded=yes -m intersection-strict -f sam -i gene --additional-attr=GeneID ${Sample} ${HTSeq_ref} -o ${sam_file_out} -c ${counts_file_out} --with-header
 			fi
-		printf "%s\n" "Counting of ${FILE} complete."
+		echo "Quanitification of ${SampleName} complete."
 	else
-		echo "Counting of ${FILE} complete."
+		echo "Quanitification of ${SampleName} is already complete."
 	fi
-
-#### This section is saving the htseq counts file & individual metrics for overall summary output
-
-	## Htseq count overall metrics
-	tail -5 ${htseq_dir_out}/counts/${FILE}-htseq.csv > ${htseq_dir_out}/summary/${FILE}-htseq_summary.txt
-	
-	## Outputs number of genes with > X number of genes
-#	awk '{if ($2>0) print }' ${htseq_dir_out}/counts/${FILE}-htseq.csv | wc -l > ${htseq_dir_out}/${FILE}-htseq.0.count
-#	awk '{if ($2>1) print }' ${htseq_dir_out}/counts/${FILE}-htseq.csv | wc -l > ${htseq_dir_out}/${FILE}-htseq.1.count
-#	awk '{if ($2>2) print }' ${htseq_dir_out}/counts/${FILE}-htseq.csv | wc -l > ${htseq_dir_out}/${FILE}-htseq.2.count
-
-#	printf "%s\t" "${FILE}" >> ${summary_file} ## Print sample name to summary   
-#    printf "%s\t" $(cat ${htseq_dir_out}/${FILE}-htseq.0.count) >> ${summary_file} ## Print Total > 0 reads to summary
-#    printf "%s\t" $(cat ${htseq_dir_out}/${FILE}-htseq.1.count) >> ${summary_file} ## Print Total > 1 reads to summary
-#    printf "%s\n" $(cat ${htseq_dir_out}/${FILE}-htseq.2.count) >> ${summary_file} ## Print Total > 2 reads to summary
-#    rm ${htseq_dir_out}/${FILE}-*.count
+	tail -5 ${counts_file_out} > ${summary_file_out} #### Saving summary info to separate file
 done
 
 htseq_version=$(${HTSEQ_LOC} --version)
-echo "Counting performed using htseq-count version ${htseq_version}." >> ${mapping_information}
+
+cat >> "${mapping_information}" <<EOF
+Quanitification performed using htseq-count version ${htseq_version}.
+EOF
