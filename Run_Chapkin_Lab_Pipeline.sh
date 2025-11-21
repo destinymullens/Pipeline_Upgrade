@@ -157,9 +157,8 @@ else
 				echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
 			fi
 	
-#### Input species and set htseq type (gene_id or gene_name)
-#### Updated pre-programmed genomes (human,mouse,pig,horse,rat) that have been updated and
-#### are now in a folder with a new name should be updated in the corresponding species_location line
+#### Updated pre-programmed genomes (human,mouse,pig,horse,rat) available on our pipeline
+#### To add a new genome, the option must be added here and the location information must be added to config.sh
 		
 		./misc_scripts/top_banner.sh
 		echo "❓ Which species are the samples:"
@@ -175,6 +174,8 @@ else
 			species="horse"; species_icon="🐴";
 		elif [[ "${species_type}" = "5" ]]; then 
 			species="rat"; species_icon="🐀";
+		#elif [[ "${species_type}" = "6" ]]; then 
+		#	species="new"; species_icon="❓";
 		else 
 			echo "⁉️ Your input is not one of the options, please try again."; sleep 3; continue
 		fi
