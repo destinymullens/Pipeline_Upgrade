@@ -9,7 +9,7 @@ set -e
 ## Create directories to save various files in
 
 map_log_dir="${project_dir}/logs/mapping"
-mkdir -p ${map_logs}
+mkdir -p ${map_log_dir}
 
 ref="${species_location}/bowtie2/${species}"
 ## Create list for files that need to be mapped
