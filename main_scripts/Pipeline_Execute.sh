@@ -73,8 +73,8 @@ if [[ "${trim_option}" = "4" ]]; then
 		./main_scripts/map_exfoliome_default.sh
 	fi
 	dedup_dir_in=$map_dir_out
-	index_dir_out=${project_dir}/trimmed_files/umi_trim/3_indexed_files
-	dedup_dir_out=${project_dir}/trimmed_files/umi_trim/4_deduplicated_files
+	index_dir_out=${project_dir}/trimmed_files/3_indexed_files
+	dedup_dir_out=${project_dir}/trimmed_files/4_deduplicated_files
 	mkdir -p ${index_dir_out}
 	mkdir -p ${dedup_dir_out}
 	./main_scripts/umi_dedup.sh

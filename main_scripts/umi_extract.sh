@@ -15,15 +15,15 @@ SampleList=$(find ${trim_dir_in} -type f -printf '%f\n')
 for Sample in ${SampleList}; do
 	SampleName="${Sample%%.*}"
 
-	logfile="${SampleName}_processed.log"
-	umi_out_file="${SampleName}_processed.fastq.gz"
-	trim_out_file="${SampleName}_trimmed.processed.fastq.gz"
+	logfile="${trim_log}/${SampleName}_processed.log"
+	umi_out_file="${trim_dir_out1}/${SampleName}_processed.fastq.gz"
+	trim_out_file="${trim_dir_out2}/${SampleName}_trimmed.processed.fastq.gz"
 	
 	if [[ ! -f ${trim_dir_out2}/${trim_out_file} ]]; then	
 		echo "Extracting of UMI's from ${SampleName}...."	
-		${UMI_TOOLS} extract --bc-pattern=NNNNNN -I ${trim_dir_in}/${Sample} --log ${trim_log}/${logfile} -S ${trim_dir_out1}/${umi_out_file}
+		${UMI_TOOLS} extract --bc-pattern=NNNNNN -I ${trim_dir_in}/${Sample} --log ${logfile} -S ${umi_out_file}
 		echo "Extraction of UMI's from ${Sample} is now complete."
-		${CUTADAPT} -q 30 -m 30 -j ${THREADS} -o ${trim_dir_out2}/${trim_out_file} ${trim_dir_out1}/${umi_out_file}
+		${CUTADAPT} -q 30 -m 30 -j ${THREADS} -o ${trim_out_file} ${umi_out_file}
 	else
 		echo "Extraction of UMI's from ${Sample} is already complete."
 	fi
