@@ -14,7 +14,6 @@ if [[ "${concat_response}" == "1" ]]; then
 	mkdir -p ${concat_dir}
 	trim_dir_in=${concat_dir}
 	qc_dir_in=${concat_dir}
-
 	./main_scripts/concat_files.sh
 else
 	echo "File concatentation not needed."
@@ -32,7 +31,7 @@ else
 fi
 
 ## Run trimming scripts if needed
-if [[ "${trim_num}" = "4" ]]; then ## Trimming with UMI's
+if [[ "${trim_option}" = "4" ]]; then ## Trimming with UMI's
 	echo "Beginning trimming of files..."
 	trim_dir_out1=${project_dir}/trimmed_files/umi_trim/1_umi_extract
 	trim_dir_out2=${project_dir}/trimmed_files/umi_trim/2_quality_trim
@@ -40,12 +39,12 @@ if [[ "${trim_num}" = "4" ]]; then ## Trimming with UMI's
 	mkdir -p ${trim_dir_out2}
 	map_dir_in=${trim_dir_out2}
 	./main_scripts/umi_extract.sh.sh
-elif [[ "${trim_num}" = "3" ]]; then ## Trimming by Quality Score
+elif [[ "${trim_option}" = "3" ]]; then ## Trimming by Quality Score
 	trim_dir_out=${project_dir}/trimmed_files/base_trim 
 	mkdir -p ${trim_dir_out}
 	map_dir_in=${trim_dir_out}
 	./main_scripts/trim_quality.sh		
-elif [[ "${trim_num}" = "2" ]]; then ## Trimming by Number Bases
+elif [[ "${trim_option}" = "2" ]]; then ## Trimming by Number Bases
 	trim_dir_out=${project_dir}/trimmed_files/quality_trim
 	mkdir -p ${trim_dir_out}
 	map_dir_in=${trim_dir_out}
@@ -61,7 +60,7 @@ fi
 
 
 ## Map Samples
-if [[ "${trim_num}" = "4" ]]; then
+if [[ "${trim_option}" = "4" ]]; then
 	map_dir_out=${project_dir}/mapping_results
 	mkdir -p ${map_dir_out}
 	if [[ "${data_option}" = "1A" ]]; then
