@@ -203,7 +203,8 @@ else
 		echo "The data is ${strand_text}."
 		echo "The species selected was ${species} ${species_icon}." 
 		echo "${trim_text}"; echo ""; echo ""
-		echo "❓Would you like to proceed?"; echo""; echo "  echo "✅ 1. Yes"; echo " ❌ 2. No"; echo "🛑 3. Please exit" echo"";
+		echo "❓Would you like to proceed?"; echo""; 
+		echo "✅ 1. Yes"; echo "❌ 2. No"; echo "🛑 3. Please exit" echo"";
 		read -p "> " verify
 		if [[ "${verify}" = "3" ]]; then
 			exit
