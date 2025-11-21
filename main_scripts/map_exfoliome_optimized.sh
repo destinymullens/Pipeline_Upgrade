@@ -31,5 +31,6 @@ bowtie_version=$(${BOWTIE} --version | cut -d " " -f3 | head -1)
 
 ## Add Reference information to Mapping Info!!!!
 cat >> "${mapping_information}" <<EOF
-Mapping performed using Bowtie2 version ${bowtie_version} with optimized parameters: -N 1, --mp 4,2, and --very-sensitive-local.
+Alignment performed with Bowtie2 ${bowtie_version} with optimized parameters of -N 1, --mp 4,2, and --very-sensitive-local.
+The reference ${species_ref} was used for sample alignment.
 EOF
