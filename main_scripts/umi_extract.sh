@@ -8,7 +8,7 @@ set -e
 
 processed_dir_out="${project_dir}/trimmed_files/umi_trim/1_umi_extracted"
 trimmed_dir_out="${project_dir}/trimmed_files/umi_trim/2_quality_trim"
-trim_log="${project_dir}/logs/umi_trim/umi_extraction"
+trim_log="${project_dir}/logs/umi_extraction"
 mkdir -p ${processed_dir_out}
 mkdir -p ${trimmed_dir_out}
 mkdir -p ${trim_log}
@@ -17,7 +17,7 @@ mkdir -p ${trim_log}
 SampleList=$(find ${trim_dir_in} -type f -printf '%f\n')
 
 for Sample in ${SampleList}; do
-	SampleName="${s%%.*}"
+	SampleName="${Sample%%.*}"
 	logfile="${SampleName}_processed.log"
 	stoutfile="${SampleName}_processed.fastq.gz"
 	trimoutfile="${SampleName}_trimmed.processed.fastq.gz"
