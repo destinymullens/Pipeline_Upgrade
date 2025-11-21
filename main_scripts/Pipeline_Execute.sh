@@ -53,9 +53,10 @@ elif [[ "${trim_num}" = "2" ]]; then ## Trimming by Number Bases
 else
 	echo "No trimming needed!"
 	if [[ "${concat_response}" == "1" ]]; then
-	map_dir_in=${concat_dir}	
-else
-	map_dir_in=${file_location}
+		map_dir_in=${concat_dir}	
+	else
+		map_dir_in=${file_location}
+	fi
 fi
 
 
@@ -99,6 +100,7 @@ else
 	mkdir -p ${htseq_dir_out}
 	./main_scripts/htseq.sh
 fi
+
 ./main_scripts/summary.sh 	
 echo " " >> ${mapping_information}
 echo "All mapping is completed for ${project_name}! Your files are located at ${project_dir}."
