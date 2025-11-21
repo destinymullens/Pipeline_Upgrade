@@ -11,7 +11,6 @@ set -e
 map_log_dir="${project_dir}/logs/mapping"
 mkdir -p ${map_log_dir}
 
-ref="${species_location}/bowtie2/${species}"
 ## Create list for files that need to be mapped
 SampleList=$(ls ${map_dir_in})
 
@@ -21,7 +20,7 @@ for Sample in ${SampleList}; do
 	map_log_file="${map_log_dir}/${SampleName}.optimized.results.log"
 
 	echo "Beginning optimized alignment of $SampleName..."
-	${BOWTIE} -x ${ref} --threads ${THREADS} -U ${map_dir_in}/${Sample} -N 1 --mp 4,2  --very-sensitive-local --time -S ${map_file_out} 2> ${map_log_file}
+	${BOWTIE} -x ${Bowtie2_ref} --threads ${THREADS} -U ${map_dir_in}/${Sample} -N 1 --mp 4,2  --very-sensitive-local --time -S ${map_file_out} 2> ${map_log_file}
 	echo "Optimized alignment of $SampleName cmplete."
 done
 
