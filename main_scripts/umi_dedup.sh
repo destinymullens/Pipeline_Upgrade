@@ -7,6 +7,7 @@ source ${project_dir}/config.sh
 set -e
 
 dedup_log="${project_dir}/logs/umi_trim/deduplication"
+mkdir -p ${dedup_log}
 SampleList=$(ls ${map_dir_out})
 
 for Sample in ${SampleList}; do
