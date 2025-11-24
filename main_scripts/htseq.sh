@@ -10,7 +10,6 @@ mkdir -p "${project_dir}/htseq_counts"
 htseq_dir_out="${project_dir}/htseq_counts"
 
 SampleList=$(ls $htseq_dir_in)
-summary_file="${project_dir}/summary/$project_name-htseq-metrics.csv"
 
 ## Creates headers for summary
 mkdir -p "${htseq_dir_out}/sam_files"
@@ -22,7 +21,7 @@ for Sample in ${SampleList}; do
 	SampleName="${Sample%%.*}"
 	counts_file_out="${htseq_dir_out}/counts/${SampleName}-htseq.csv"
 	sam_file_out="${htseq_dir_out}/sam_files/${SampleName}-htseq.sam"
-	summary_file_out="${htseq_dir_out}/summary/${SampleName}-htseq_summary.txt"
+	summary_file_out="${htseq_dir_out}/summary_file/${SampleName}-htseq_summary.txt"
 
 	FILE=$(basename $Sample)
 	if [[ ! -f ${htseq_dir_out}/counts/${SampleName}-htseq.csv ]]; then
@@ -36,7 +35,7 @@ for Sample in ${SampleList}; do
 	else
 		echo "Quanitification of ${SampleName} is already complete."
 	fi
-	touch ${summary_file_out}
+	#touch ${summary_file_out}
 	tail -5 ${counts_file_out} > ${summary_file_out} #### Saving summary info to separate file
 done
 
