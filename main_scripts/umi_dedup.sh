@@ -15,7 +15,7 @@ for Sample in ${SampleList}; do
 	SampleName="${Sample%%.*}"
 	logfile="${dedup_log}/${samplename}-dedup.log"
 	statsfile="${dedup_log}/${samplename}-dedup.stats.log"
-	dedup_out_file="${dedup_dir_out}/${samplename}-dedup.bam"
+	dedup_out_file="${dedup_dir_out}/${SampleName}-dedup.bam"
 	sorted_file="${index_dir_out}/${SampleName}-sort.bam"
 	trim_out_file="${trim_dir_out2}/${SampleName}.trimmed.processed.fastq.gz"
 
