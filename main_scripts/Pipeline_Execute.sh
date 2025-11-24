@@ -79,7 +79,7 @@ if [[ "${trim_option}" = "4" ]]; then
 	mkdir -p ${dedup_dir_out}
 	./main_scripts/umi_dedup.sh
 	htseq_dir_in=${dedup_dir_out}
-	htseq_dir_out=${project_dir}/htseq_results
+	htseq_dir_out=${project_dir}/htseq_counts
 	mkdir -p ${htseq_dir_out}
 	./main_scripts/htseq.sh
 else
@@ -95,7 +95,7 @@ else
 		./main_scripts/map_exfoliome_default.sh
 	fi
 	htseq_dir_in=${map_dir_out}
-	htseq_dir_out=${project_dir}/htseq_results
+	htseq_dir_out=${project_dir}/htseq_counts
 	mkdir -p ${htseq_dir_out}
 	./main_scripts/htseq.sh
 fi
