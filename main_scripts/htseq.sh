@@ -9,7 +9,7 @@ set -e
 mkdir -p "${project_dir}/htseq_counts"
 htseq_dir_out="${project_dir}/htseq_counts"
 
-SampleList=$(ls $htseq_dir_in/*am)
+SampleList=$(ls $htseq_dir_in)
 summary_file="${project_dir}/summary/$project_name-htseq-metrics.csv"
 
 ## Creates headers for summary
@@ -28,9 +28,9 @@ for Sample in ${SampleList}; do
 	if [[ ! -f ${htseq_dir_out}/counts/${SampleName}-htseq.csv ]]; then
 		echo "Quanitification of ${SampleName} beginning..."
 			if [[ "${strand_num}" = "1" ]]; then	
-				${HTSEQ_LOC} ${Sample} ${HTSeq_ref} --stranded=no -m intersection-strict -f sam -i gene --additional-attr=GeneID -o ${sam_file_out} -c ${counts_file_out} --with-header
+				${HTSEQ_LOC} ${htseq_dir_in}/${Sample} ${HTSeq_ref} --stranded=no -m intersection-strict -f sam -i gene --additional-attr=GeneID -o ${sam_file_out} -c ${counts_file_out} --with-header
 			else
-				${HTSEQ_LOC} --stranded=yes -m intersection-strict -f sam -i gene --additional-attr=GeneID ${Sample} ${HTSeq_ref} -o ${sam_file_out} -c ${counts_file_out} --with-header
+				${HTSEQ_LOC} --stranded=yes -m intersection-strict -f sam -i gene --additional-attr=GeneID ${htseq_dir_in}/${Sample} ${HTSeq_ref} -o ${sam_file_out} -c ${counts_file_out} --with-header
 			fi
 		echo "Quanitification of ${SampleName} complete."
 	else
