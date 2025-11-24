@@ -32,11 +32,11 @@ for Sample in ${SampleList}; do
 			else
 				${HTSEQ_LOC} --stranded=yes -m intersection-strict -f sam -i gene --additional-attr=GeneID ${htseq_dir_in}/${Sample} ${HTSeq_ref} -o ${sam_file_out} -c ${counts_file_out} --with-header
 			fi
+		tail -5 ${counts_file_out} > ${summary_file_out} #### Saving summary info to separate file
 		echo "Quanitification of ${SampleName} complete."
 	else
 		echo "Quanitification of ${SampleName} is already complete."
 	fi
-	tail -5 ${counts_file_out} > ${summary_file_out} #### Saving summary info to separate file
 done
 
 htseq_version=$(${HTSEQ_LOC} --version)
