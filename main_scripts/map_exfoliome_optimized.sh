@@ -4,7 +4,7 @@
 source ${project_dir}/config.sh
 
 # Exit on error
-set -e
+#set -e
 
 ## Create directories to save various files in
 
