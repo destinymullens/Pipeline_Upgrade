@@ -38,7 +38,7 @@ if [[ "${trim_option}" = "4" ]]; then ## Trimming with UMI's
 	trim_dir_out2=${project_dir}/trimmed_files/2_quality_trim
 	mkdir -p ${trim_dir_out1}
 	mkdir -p ${trim_dir_out2}
-	map_dir_in=${trim_dir_out2}
+	map_dir_in=${trim_dir_out1}
 	./main_scripts/umi_extract.sh
 elif [[ "${trim_option}" = "3" ]]; then ## Trimming by Quality Score
 	trim_dir_out=${project_dir}/trimmed_files/base_trim 

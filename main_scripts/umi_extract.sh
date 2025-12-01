@@ -22,8 +22,8 @@ for Sample in ${SampleList}; do
 	if [[ ! -f ${trim_out_file} ]]; then	
 		echo "Extracting of UMI's from ${SampleName}...."	
 		${UMI_TOOLS} extract --bc-pattern=NNNNNN -I ${trim_dir_in}/${Sample} --log ${logfile} -S ${umi_out_file}
-		echo "Extraction of UMI's from ${Sample} is now complete."
-		${CUTADAPT} -q 30 -m 30 -j ${THREADS} -o ${trim_out_file} ${umi_out_file}
+		#echo "Extraction of UMI's from ${Sample} is now complete."
+		#${CUTADAPT} -q 30 -m 30 -j ${THREADS} -o ${trim_out_file} ${umi_out_file}
 	else
 		echo "Extraction of UMI's from ${Sample} is already complete."
 	fi
