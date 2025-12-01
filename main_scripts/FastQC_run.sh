@@ -12,6 +12,7 @@ for Sample in ${SampleList}; do
 SampleName="${Sample%%.*}"
 	if [[ ! -d ${qc_dir_out}/${SampleName} ]]; then
 		echo "${SampleName} QC Report currently running."
+		mkdir -p ${qc_dir_out}/${SampleName}
 		${FASTQC} ${qc_dir_in}/${Sample} -o ${qc_dir_out}/${SampleName} -t ${THREADS}
 		echo ""
 	else
