@@ -19,7 +19,7 @@ for Sample in ${SampleList}; do
 	umi_out_file="${trim_dir_out1}/${SampleName}.processed.fastq.gz"
 	trim_out_file="${trim_dir_out2}/${SampleName}.trimmed.processed.fastq.gz"
 	
-	if [[ ! -f ${trim_out_file} ]]; then	
+	if [[ ! -f ${trim_out_file1} ]]; then	
 		echo "Extracting of UMI's from ${SampleName}...."	
 		${UMI_TOOLS} extract --bc-pattern=NNNNNN -I ${trim_dir_in}/${Sample} --log ${logfile} -S ${umi_out_file}
 		#echo "Extraction of UMI's from ${Sample} is now complete."
