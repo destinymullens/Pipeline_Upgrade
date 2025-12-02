@@ -247,6 +247,7 @@ data_option="${data_option}"
 strand_num="${strand_num}"
 strand_text="${strand_text}"
 species="${species}"
+species_type="${species_type}"
 mapping_information="${mapping_information}"
 EOF
 	
