@@ -7,7 +7,6 @@ source ${project_dir}/config.sh
 #set -e
 
 ## Create directories to save various files in
-
 map_log_dir="${project_dir}/logs/mapping"
 mkdir -p ${map_log_dir}
 
