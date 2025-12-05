@@ -2,7 +2,7 @@
 
 # Read config.sh
 source ${project_dir}/config.sh
-
+project_config="${project_dir}/config.sh"
 # Exit on error
 set -e # Exit on error
 set -a # Command exports variables automatically for other scripts
@@ -37,6 +37,7 @@ else
 	STAR_ref=${ref_dir}/GRCr8-rat/STAR;
 	HTSeq_ref=${ref_dir}/GRCr8-rat/GCF_036323735.1/genomic.gtf; 
 fi
+
 cat >> "${project_config}" <<EOF
 species_ref="${species_ref}"
 Bowtie2_ref="${Bowtie2_ref}"
