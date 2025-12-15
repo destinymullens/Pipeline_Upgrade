@@ -27,9 +27,9 @@ for Sample in ${SampleList}; do
 	if [[ ! -f ${htseq_dir_out}/counts/${SampleName}-htseq.csv ]]; then
 		echo "Quanitification of ${SampleName} beginning..."
 			if [[ "${strand_num}" = "1" ]]; then	
-				${HTSEQ_LOC} ${htseq_dir_in}/${Sample} ${HTSeq_ref} --stranded=no -m intersection-strict -f sam -i gene_id --additional-attr=gene_name -o ${sam_file_out} -c ${counts_file_out} --with-header
+				${HTSEQ_LOC} ${htseq_dir_in}/${Sample} ${HTSeq_ref} --stranded=no -m intersection-strict -f sam -i gene_id --additional-attr=gene_name -o ${sam_file_out} -c ${counts_file_out}
 			else
-				${HTSEQ_LOC} --stranded=yes -m intersection-strict -f sam -i gene_id --additional-attr=gene_name ${htseq_dir_in}/${Sample} ${HTSeq_ref} -o ${sam_file_out} -c ${counts_file_out} --with-header
+				${HTSEQ_LOC} --stranded=yes -m intersection-strict -f sam -i gene_id --additional-attr=gene_name ${htseq_dir_in}/${Sample} ${HTSeq_ref} -o ${sam_file_out} -c ${counts_file_out}
 			fi
 		echo "Quanitification of ${SampleName} complete."
 	else
