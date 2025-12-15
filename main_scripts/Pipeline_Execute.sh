@@ -16,26 +16,36 @@ if [[ "${species_type}" = "1" ]]; then
 	Bowtie2_ref=${ref_dir}/GRCh38p14-human/bowtie2/GRCh38p14-human;
 	STAR_ref=${ref_dir}/GRCh38p14-human/STAR; 
 	HTSeq_ref=${ref_dir}/GRCh38p14-human/gencode.v49.primary_assembly.annotation.gtf;
+	htseq_id="gene_id";
+	htseq_extra_id="gene_name";
 elif [[ "${species_type}" = "2" ]]; then 
 	species_ref=GRCm39; 
 	Bowtie2_ref=${ref_dir}/GRCm39-mouse/bowtie2/GRCm39.mouse; 
 	STAR_ref=${ref_dir}/GRCm39-mouse/STAR; 
-	HTSeq_ref=${ref_dir}/GRCm39-mouse/bowtie2/GRCm39.mouse/GCF_000001635.27_GRCm39_genomic.gtf; 
+	HTSeq_ref=${ref_dir}/GRCm39-mouse/bowtie2/GRCm39.mouse/GCF_000001635.27_GRCm39_genomic.gtf;
+	htseq_id="db_xref";
+	htseq_extra_id="gene_id";
 elif [[ "${species_type}" = "3" ]]; then
 	species_ref="Sus crofa 11.1";
-	Bowtie2_ref=${ref_dir}/pig/bowtie2/pig; 
+	Bowtie2_ref=${ref_dir}/pig/bowtiedb_xref2/pig; 
 	STAR_ref=${ref_dir}/pig/STAR;
-	HTSeq_ref=${ref_dir}/pig/Sus_scrofa.Sscrofa11.1.107.gtf; 
+	HTSeq_ref=${ref_dir}/pig/Sus_scrofa.Sscrofa11.1.107.gtf;
+	htseq_id="gene_id";
+	htseq_extra_id="gene_name";
 elif [[ "${species_type}" = "4" ]]; then
 	species_ref="Equus caballus 3.0";
 	Bowtie2_ref=${ref_dir}/Equus_caballus_Aug2024/bowtie2/Equus_caballus-horse; 
 	STAR_ref=${ref_dir}/Equus_caballus_Aug2024/STAR;
-	HTSeq_ref=${ref_dir}/Equus_caballus_Aug2024/GCF_041296265.1_TB-T2T_genomic.gtf; 
+	HTSeq_ref=${ref_dir}/Equus_caballus_Aug2024/GCF_041296265.1_TB-T2T_genomic.gtf;
+	htseq_id="db_xref";
+	htseq_extra_id="gene_id";
 else 
 	species_ref="GRCr8";
 	Bowtie2_ref=${ref_dir}/GRCr8-rat/bowtie2/GRCr8; 
 	STAR_ref=${ref_dir}/GRCr8-rat/STAR;
-	HTSeq_ref=${ref_dir}/GRCr8-rat/GCF_036323735.1/genomic.gtf; 
+	HTSeq_ref=${ref_dir}/GRCr8-rat/GCF_036323735.1/genomic.gtf;
+	htseq_id="db_xref";
+	htseq_extra_id="gene_id";
 fi
 
 cat >> "${project_config}" <<EOF
@@ -43,6 +53,8 @@ species_ref="${species_ref}"
 Bowtie2_ref="${Bowtie2_ref}"
 STAR_ref="${STAR_ref}"
 HTSeq_ref="${HTSeq_ref}"
+htseq_id="${htseq_id}";
+htseq_extra_id="${htseq_extra_id}";
 EOF
 ## To add a new reference, change the last "else to" to the following line:
 # elif [[ "${species_type}" = "5" ]]; then
@@ -52,6 +64,8 @@ EOF
 #	Bowtie2_ref=${ref_dir}/new_species/bowtie2/new_species; 
 #	STAR_ref=${ref_dir}/new_species/STAR;
 #	HTSeq_ref=${ref_dir}/new_species/new_species.gtf;
+#	htseq_id=""; # <- Should contain the field with Ensembl ID
+#	htseq_extra_id=""; # <- Should contain the field with Gene Name
 
 #fi
 ##################################################################
