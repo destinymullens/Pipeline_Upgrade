@@ -23,7 +23,7 @@ for Sample in ${SampleList}; do
 			${BOWTIE} -x ${Bowtie2_ref} --threads ${THREADS} -U ${map_dir_in}/${Sample} -N 1 --mp 4,2  --very-sensitive-local --time -S ${map_file_out} 2> ${map_log_file}
 			echo "Optimized alignment of $SampleName cmplete."
 		else
-			echo "✅ Sample ${SampleName} is already complete."
+			echo "✅ Sample alignment for ${SampleName} is already complete."
 		fi
 done
 
