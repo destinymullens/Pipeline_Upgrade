@@ -17,10 +17,14 @@ for Sample in ${SampleList}; do
 	SampleName="${Sample%%.*}"
 	map_file_out="${map_dir_out}/${SampleName}.optimized.sam"
 	map_log_file="${map_log_dir}/${SampleName}.optimized.results.log"
-
-	echo "Beginning optimized alignment of $SampleName..."
-	${BOWTIE} -x ${Bowtie2_ref} --threads ${THREADS} -U ${map_dir_in}/${Sample} -N 1 --mp 4,2  --very-sensitive-local --time -S ${map_file_out} 2> ${map_log_file}
-	echo "Optimized alignment of $SampleName cmplete."
+		
+		if [[ ! -f ${map_file_out} ]]; then
+			echo "Beginning optimized alignment of $SampleName..."
+			${BOWTIE} -x ${Bowtie2_ref} --threads ${THREADS} -U ${map_dir_in}/${Sample} -N 1 --mp 4,2  --very-sensitive-local --time -S ${map_file_out} 2> ${map_log_file}
+			echo "Optimized alignment of $SampleName cmplete."
+		else
+			echo "✅ Sample ${SampleName} is already complete."
+		fi
 done
 
 echo "✅ Alignment of all samples is complete!!!"
