@@ -21,7 +21,7 @@ for Sample in ${SampleList}; do
 		if [[ ! -f ${map_file_out} ]]; then
 			echo "Beginning optimized alignment of $SampleName..."
 			${BOWTIE} -x ${Bowtie2_ref} --threads ${THREADS} -U ${map_dir_in}/${Sample} -N 1 --mp 4,2  --very-sensitive-local --time -S ${map_file_out} 2> ${map_log_file}
-			echo "Optimized alignment of $SampleName cmplete."
+			echo "Optimized alignment of $SampleName complete."
 		else
 			echo "✅ Sample alignment for ${SampleName} is already complete."
 		fi
