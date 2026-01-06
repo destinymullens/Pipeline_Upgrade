@@ -32,7 +32,7 @@ if [[ -f ${project_dir}/config.sh ]]; then
 	echo "  1. Yes"; echo "  2. No"
 	read -p "> " continuenum
 	if [[ "${continuenum}" == "1" ]]; then
-		nohup ./main_scripts/Pipeline_Execute.sh 1> ${project_dir}/${project_name}-log.out 2> ${project_dir}/${project_name}-log.err &
+		nohup ./main_scripts/Pipeline_Execute.sh 1> ${project_dir}/${project_name}-log-restart.out 2> ${project_dir}/${project_name}-log-restart.err &
 	else
 	rm ${project_dir}/config.sh
 	fi
