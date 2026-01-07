@@ -25,15 +25,15 @@ for Sample in ${SampleList}; do
 
 	FILE=$(basename $Sample)
 	if [[ ! -f ${htseq_dir_out}/counts/${SampleName}-htseq.csv ]]; then
-		echo "Quanitification of ${SampleName} beginning..."
+		echo "Quantification of ${SampleName} beginning..."
 			if [[ "${strand_num}" = "1" ]]; then	
 				${HTSEQ_LOC} ${htseq_dir_in}/${Sample} ${HTSeq_ref} --stranded=no -m intersection-strict -f sam -i ${htseq_id} --additional-attr=${htseq_extra_id} -o ${sam_file_out} -c ${counts_file_out}
 			else
 				${HTSEQ_LOC} --stranded=yes -m intersection-strict -f sam -i ${htseq_id} --additional-attr=${htseq_extra_id} ${htseq_dir_in}/${Sample} ${HTSeq_ref} -o ${sam_file_out} -c ${counts_file_out}
 			fi
-		echo "Quanitification of ${SampleName} complete."
+		echo "Quantification of ${SampleName} complete."
 	else
-		echo "Quanitification of ${SampleName} is already complete."
+		echo "Quantification of ${SampleName} is already complete."
 	fi
 	#touch ${summary_file_out}
 	tail -5 ${counts_file_out} > ${summary_file_out} #### Saving summary info to separate file
@@ -42,5 +42,5 @@ done
 htseq_version=$(${HTSEQ_LOC} --version)
 
 cat >> "${mapping_information}" <<EOF
-Quanitification performed using htseq-count version ${htseq_version}.
+Quantification performed using htseq-count version ${htseq_version}.
 EOF
